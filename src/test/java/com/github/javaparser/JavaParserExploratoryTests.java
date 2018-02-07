@@ -20,7 +20,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
  */
 public class JavaParserExploratoryTests {
 
-    private static final String GLOSSARY = "Glossary";
+    private static final String GLOSSARY = "GlossaryTerm";
 
     @Test
     public void parseSimpleClass() {
@@ -44,7 +44,7 @@ public class JavaParserExploratoryTests {
 
     @Test
     public void parseAnnotatedClassesOnly() {
-        final String code = "class C { } @Glossary class D { } class E { }";
+        final String code = "class C { } @GlossaryTerm class D { } class E { }";
         final CompilationUnit compilationUnit = JavaParser.parse(code);
         assertThat(compilationUnit.getAnnotationDeclarationByName(GLOSSARY), is(notNullValue()));
         compilationUnit.getChildNodesByType(ClassOrInterfaceDeclaration.class)
@@ -55,7 +55,7 @@ public class JavaParserExploratoryTests {
 
     @Test
     public void parseJavadocOfAnnotatedClass() {
-        final String code = "/** F is an annotated class */ @Glossary class F { }";
+        final String code = "/** F is an annotated class */ @GlossaryTerm class F { }";
         JavaParser.parse(code)
                 .getChildNodesByType(ClassOrInterfaceDeclaration.class)
                 .stream()

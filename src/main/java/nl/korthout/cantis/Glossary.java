@@ -12,7 +12,12 @@ import java.util.List;
 import io.reactivex.Observable;
 import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
+import lombok.NonNull;
 
+/**
+ * A list of definitions for terms.
+ */
+@GlossaryTerm
 public class Glossary {
 
     private final List<File> sources;
@@ -21,7 +26,12 @@ public class Glossary {
         this.sources = sources;
     }
 
+    public Glossary(@NonNull SourceDirectory sourceDirectory) {
+        this.sources = sourceDirectory.getFiles();
+    }
+
     public Observable<Definition> getDefinitions() {
+        System.out.println("Get definitions");
         return Observable.fromIterable(sources)
                 .observeOn(Schedulers.io())
                 .map(JavaParser::parse)

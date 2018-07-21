@@ -23,8 +23,9 @@ public class Cantis {
 
         System.out.println("Parsing " + sourceDirectory.getNumberOfFiles() + " java source files");
 
-        new Glossary(sourceDirectory).getDefinitions()
-                .blockingSubscribe(System.out::println);
+        new Glossary(sourceDirectory)
+                .getDefinitions()
+                .blockingSubscribe(System.out::println, System.err::println);
 
         System.out.println("Finished in: " + Duration.between(start, Instant.now()).toSeconds() + "s");
     }

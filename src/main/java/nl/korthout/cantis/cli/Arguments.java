@@ -6,7 +6,7 @@ import lombok.Getter;
 
 @Getter
 public class Arguments {
-    private static final String DEFAULT_SOURCE_DIRECTORY = "./src";
+    private static final String DEFAULT_SOURCE_DIRECTORY = "./src"; // maybe ./ is better
 
     @Parameter(names = "-sourceDirectory")
     private String sourceDirectory;

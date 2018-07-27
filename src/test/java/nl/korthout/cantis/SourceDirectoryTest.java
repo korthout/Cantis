@@ -8,8 +8,6 @@ import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
-import lombok.val;
-
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.not;
@@ -97,10 +95,10 @@ public class SourceDirectoryTest {
     public void rootDirectoryWithDeeperNestedJavaFilesResultsInListOfThoseJavaFiles() throws IOException {
         // Arrange
         tempFolder.newFile("Example.java");
-        val nested = new TemporaryFolder(tempFolder.getRoot());
+        var nested = new TemporaryFolder(tempFolder.getRoot());
         nested.create();
         nested.newFile("AnotherExample.java");
-        val rootDirectory = new SourceDirectory(tempFolder.getRoot());
+        var rootDirectory = new SourceDirectory(tempFolder.getRoot());
 
         // Act
         final List<File> javaFiles = rootDirectory.getFiles();

@@ -7,12 +7,12 @@ import java.io.File;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Stream;
 
 import javax.annotation.Nullable;
 
-import io.reactivex.observers.TestObserver;
-import lombok.val;
-
+import static java.util.stream.Collectors.toList;
+import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.junit.Assert.assertThat;
@@ -30,42 +30,38 @@ public class GlossaryTest {
 
     private void addSourceFile(@Nullable URL resourceUrl) {
         assertThat(resourceUrl, is(notNullValue()));
-        val source = new File(resourceUrl.getFile());
+        var source = new File(resourceUrl.getFile());
         sources.add(source);
     }
 
     @Test
     public void testWithoutFiles() {
         // Arrange
-        val glossary = new Glossary(List.of());
+        var glossary = new Glossary(List.of());
         assertThat(glossary, is(notNullValue()));
 
         // Act
-        final TestObserver<Definition> observer = glossary.getDefinitions().test();
+        final Stream<Definition> definitions = glossary.getDefinitions();
 
         // Assert
-        observer.awaitTerminalEvent();
-        observer.assertNoErrors()
-                .assertNoValues()
-                .assertComplete();
+        assertThat(definitions, is(notNullValue()));
+        assertThat(definitions.count(), is(equalTo(0L)));
     }
 
     @Test
     public void testOneClassFile() {
         // Arrange
         addSourceFile(classLoader.getResource("Example.java"));
-        val glossary = new Glossary(sources);
+        var glossary = new Glossary(sources);
         assertThat(glossary, is(notNullValue()));
 
         // Act
-        final TestObserver<Definition> observer = glossary.getDefinitions().test();
+        final List<Definition> definitions = glossary.getDefinitions().collect(toList());
 
         // Assert
-        observer.awaitTerminalEvent();
-        observer.assertNoErrors()
-                .assertValueCount(1)
-                .assertValue(new Definition("Example", "This is a simple but great example class."))
-                .assertComplete();
+        var example = new Definition("Example", "This is a simple but great example class.");
+        assertThat(definitions.size(), is(equalTo(1)));
+        assertThat(definitions.get(0), is(example));
     }
 
     @Test
@@ -73,51 +69,43 @@ public class GlossaryTest {
         // Arrange
         addSourceFile(classLoader.getResource("Example.java"));
         addSourceFile(classLoader.getResource("Example2.java"));
-        val glossary = new Glossary(sources);
+        var glossary = new Glossary(sources);
         assertThat(glossary, is(notNullValue()));
 
         // Act
-        final TestObserver<Definition> observer = glossary.getDefinitions().test();
+        final List<Definition> definitions = glossary.getDefinitions().collect(toList());
 
         // Assert
-        observer.awaitTerminalEvent();
-        observer.assertNoErrors()
-                .assertValueCount(2)
-                .assertValues(
-                        new Definition("Example", "This is a simple but great example class."),
-                        new Definition("Example2", "This is another simple example class.")
-                ).assertComplete();
+        var example = new Definition("Example", "This is a simple but great example class.");
+        var example2 = new Definition("Example2", "This is another simple example class.");
+        assertThat(definitions.size(), is(equalTo(2)));
+        assertThat(definitions.get(0), is(example));
+        assertThat(definitions.get(1), is(example2));
     }
 
     @Test
     public void testClassWithoutAnnotation() {
         addSourceFile(classLoader.getResource("ClassWithoutAnnotation.java"));
-        val glossary = new Glossary(sources);
+        var glossary = new Glossary(sources);
         assertThat(glossary, is(notNullValue()));
 
         // Act
-        final TestObserver<Definition> observer = glossary.getDefinitions().test();
+        final Stream<Definition> definitions = glossary.getDefinitions();
 
         // Assert
-        observer.awaitTerminalEvent();
-        observer.assertNoErrors()
-                .assertNoValues()
-                .assertComplete();
+        assertThat(definitions.count(), is(equalTo(0L)));
     }
 
     @Test
     public void testClassWithoutJavaDoc() {
         addSourceFile(classLoader.getResource("ClassWithoutJavaDoc.java"));
-        val glossary = new Glossary(sources);
+        var glossary = new Glossary(sources);
         assertThat(glossary, is(notNullValue()));
 
         // Act
-        final TestObserver<Definition> observer = glossary.getDefinitions().test();
+        final Stream<Definition> definitions = glossary.getDefinitions();
 
         // Assert
-        observer.awaitTerminalEvent();
-        observer.assertNoErrors()
-                .assertNoValues()
-                .assertComplete();
+        assertThat(definitions.count(), is(equalTo(0L)));
     }
 }

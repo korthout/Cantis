@@ -3,18 +3,16 @@ package nl.korthout.cantis;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
-import org.apache.maven.plugin.logging.Log;
 import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.Parameter;
 
 import java.io.File;
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
 import java.util.List;
-
-import io.reactivex.Observable;
+import java.util.stream.Stream;
 
 import static java.util.stream.Collectors.toList;
 
@@ -34,19 +32,25 @@ public class GlossaryMojo extends AbstractMojo {
 
     @Override
     public void execute() throws MojoExecutionException, MojoFailureException {
-        final List<File> sourceFiles = Observable.fromIterable(this.sources)
-                .flatMap(source -> Observable.fromIterable(
-                        Files.find(Paths.get(source), 999, (p, bfa) -> bfa.isRegularFile()).collect(toList())))
-                .map(Path::toFile)
-                .collectInto(new ArrayList<File>(), ArrayList::add)
-                .blockingGet();
+        var log = getLog();
+        new Glossary(getSourceFiles())
+                .getDefinitions()
+                .forEach(definition -> log.info(definition.toString()));
+    }
 
-        final Log log = getLog();
+    private List<File> getSourceFiles() {
+        return sources.stream()
+                    .flatMap(this::findFilesInDirectory)
+                    .map(Path::toFile)
+                    .collect(toList());
+    }
 
-        final Glossary glossary = new Glossary(sourceFiles);
-        final Observable<Definition> definitions = glossary.getDefinitions();
-        definitions.blockingSubscribe((definition -> log.info(definition.toString())),
-                log::error,
-                () -> log.info("Glossary generated"));
+    private Stream<Path> findFilesInDirectory(String source) {
+        try {
+            return Files.find(Paths.get(source), 999, (p, bfa) -> bfa.isRegularFile());
+        } catch (IOException e) {
+            // TODO: Do something better than return null.
+            return null;
+        }
     }
 }

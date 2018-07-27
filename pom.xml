@@ -26,7 +26,6 @@
         <maven-plugin-api.version>3.1.1</maven-plugin-api.version>
         <maven-plugin-plugin.version>3.5.2</maven-plugin-plugin.version>
         <maven-surefire-plugin.version>2.22.0</maven-surefire-plugin.version>
-        <rxjava.version>2.1.9</rxjava.version>
     </properties>
 
     <dependencies>
@@ -63,11 +62,6 @@
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <version>${lombok.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>io.reactivex.rxjava2</groupId>
-            <artifactId>rxjava</artifactId>
-            <version>${rxjava.version}</version>
         </dependency>
 
         <!--Testing-->

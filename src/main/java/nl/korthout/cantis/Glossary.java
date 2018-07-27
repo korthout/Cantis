@@ -7,11 +7,11 @@ import com.github.javaparser.ast.comments.JavadocComment;
 import com.github.javaparser.ast.nodeTypes.NodeWithJavadoc;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.List;
+import java.util.function.Function;
+import java.util.stream.Stream;
 
-import io.reactivex.Observable;
-import io.reactivex.functions.Function;
-import io.reactivex.schedulers.Schedulers;
 import lombok.NonNull;
 
 /**
@@ -30,28 +30,40 @@ public class Glossary {
         this.sources = sourceDirectory.getFiles();
     }
 
-    public Observable<Definition> getDefinitions() {
+    public Stream<Definition> getDefinitions() {
         System.out.println("Get definitions");
-        return Observable.fromIterable(sources)
-                .observeOn(Schedulers.io())
-                .map(JavaParser::parse)
+        return sources.stream()
+                .map(this::parseFile)
                 .map(getClassesAndInterfaces())
                 .flatMap(toDefinitions());
+    }
+
+    private CompilationUnit parseFile(File file) {
+        try {
+            return JavaParser.parse(file);
+        } catch (FileNotFoundException e) {
+            // TODO: do something better than return null
+            return null;
+        }
     }
 
     private Function<CompilationUnit, List<ClassOrInterfaceDeclaration>> getClassesAndInterfaces() {
         return compiledUnit -> compiledUnit.getChildNodesByType(ClassOrInterfaceDeclaration.class);
     }
 
-    private Function<List<ClassOrInterfaceDeclaration>, Observable<Definition>> toDefinitions() {
-        return declarations -> Observable.fromIterable(declarations)
+    private Function<List<ClassOrInterfaceDeclaration>, Stream<Definition>> toDefinitions() {
+        return classesAndInterfaces -> classesAndInterfaces.stream()
                 .filter(classOrInterface -> classOrInterface.isAnnotationPresent(GlossaryTerm.class))
                 .filter(NodeWithJavadoc::hasJavaDocComment)
                 .map(toDefinition());
     }
 
     private Function<ClassOrInterfaceDeclaration, Definition> toDefinition() {
-        return classOrInterface -> new Definition(classOrInterface.getNameAsString(), getDescription(classOrInterface));
+        return classOrInterface -> {
+            var term = classOrInterface.getNameAsString();
+            var description = getDescription(classOrInterface);
+            return new Definition(term, description);
+        };
     }
 
     private String getDescription(ClassOrInterfaceDeclaration classOrInterface) {

@@ -25,7 +25,7 @@ public class Cantis {
 
         new Glossary(sourceDirectory)
                 .getDefinitions()
-                .blockingSubscribe(System.out::println, System.err::println);
+                .forEach(System.out::println);
 
         System.out.println("Finished in: " + Duration.between(start, Instant.now()).toSeconds() + "s");
     }

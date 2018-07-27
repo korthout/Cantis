@@ -15,11 +15,11 @@ public class CommandLineParser {
      * @return an instance of Arguments from the provided arguments.
      */
     public Arguments parseArguments() {
-        Arguments arguments = new Arguments();
+        var parsedArguments = new Arguments();
         JCommander.newBuilder()
-                .addObject(arguments)
+                .addObject(parsedArguments)
                 .build()
                 .parse(this.arguments);
-        return arguments;
+        return parsedArguments;
     }
 }

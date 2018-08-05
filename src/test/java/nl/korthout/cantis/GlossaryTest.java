@@ -9,13 +9,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Stream;
 
-import javax.annotation.Nullable;
-
 import static java.util.stream.Collectors.toList;
-import static org.hamcrest.CoreMatchers.equalTo;
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.CoreMatchers.notNullValue;
-import static org.junit.Assert.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 
 public class GlossaryTest {
 
@@ -28,84 +23,54 @@ public class GlossaryTest {
         classLoader = getClass().getClassLoader();
     }
 
-    private void addSourceFile(@Nullable URL resourceUrl) {
-        assertThat(resourceUrl, is(notNullValue()));
+    private void addSourceFileFromResources(String filename) {
+        final URL resourceUrl = classLoader.getResource(filename);
+        assertThat(resourceUrl).isNotNull();
         var source = new File(resourceUrl.getFile());
         sources.add(source);
     }
 
     @Test
     public void testWithoutFiles() {
-        // Arrange
         var glossary = new Glossary(List.of());
-        assertThat(glossary, is(notNullValue()));
-
-        // Act
-        final Stream<Definition> definitions = glossary.getDefinitions();
-
-        // Assert
-        assertThat(definitions, is(notNullValue()));
-        assertThat(definitions.count(), is(equalTo(0L)));
+        Stream<Definition> definitions = glossary.getDefinitions();
+        assertThat(definitions).isEmpty();
     }
 
     @Test
     public void testOneClassFile() {
-        // Arrange
-        addSourceFile(classLoader.getResource("Example.java"));
+        addSourceFileFromResources("Example.java");
         var glossary = new Glossary(sources);
-        assertThat(glossary, is(notNullValue()));
-
-        // Act
-        final List<Definition> definitions = glossary.getDefinitions().collect(toList());
-
-        // Assert
+        List<Definition> definitions = glossary.getDefinitions().collect(toList());
         var example = new Definition("Example", "This is a simple but great example class.");
-        assertThat(definitions.size(), is(equalTo(1)));
-        assertThat(definitions.get(0), is(example));
+        assertThat(definitions).containsOnly(example);
     }
 
     @Test
     public void testTwoClassFiles() {
-        // Arrange
-        addSourceFile(classLoader.getResource("Example.java"));
-        addSourceFile(classLoader.getResource("Example2.java"));
+        addSourceFileFromResources("Example.java");
+        addSourceFileFromResources("Example2.java");
         var glossary = new Glossary(sources);
-        assertThat(glossary, is(notNullValue()));
-
-        // Act
-        final List<Definition> definitions = glossary.getDefinitions().collect(toList());
-
-        // Assert
-        var example = new Definition("Example", "This is a simple but great example class.");
-        var example2 = new Definition("Example2", "This is another simple example class.");
-        assertThat(definitions.size(), is(equalTo(2)));
-        assertThat(definitions.get(0), is(example));
-        assertThat(definitions.get(1), is(example2));
+        List<Definition> definitions = glossary.getDefinitions().collect(toList());
+        assertThat(definitions).containsExactlyInAnyOrder(
+                new Definition("Example", "This is a simple but great example class."),
+                new Definition("Example2", "This is another simple example class.")
+        );
     }
 
     @Test
     public void testClassWithoutAnnotation() {
-        addSourceFile(classLoader.getResource("ClassWithoutAnnotation.java"));
+        addSourceFileFromResources("ClassWithoutAnnotation.java");
         var glossary = new Glossary(sources);
-        assertThat(glossary, is(notNullValue()));
-
-        // Act
-        final Stream<Definition> definitions = glossary.getDefinitions();
-
-        // Assert
-        assertThat(definitions.count(), is(equalTo(0L)));
+        Stream<Definition> definitions = glossary.getDefinitions();
+        assertThat(definitions).isEmpty();
     }
 
     @Test
     public void testClassWithoutJavaDoc() {
-        addSourceFile(classLoader.getResource("ClassWithoutJavaDoc.java"));
+        addSourceFileFromResources("ClassWithoutJavaDoc.java");
         var glossary = new Glossary(sources);
-        assertThat(glossary, is(notNullValue()));
-
-        // Act
-        final Stream<Definition> definitions = glossary.getDefinitions();
-
-        // Assert
-        assertThat(definitions.count(), is(equalTo(0L)));
+        Stream<Definition> definitions = glossary.getDefinitions();
+        assertThat(definitions).isEmpty();
     }
 }

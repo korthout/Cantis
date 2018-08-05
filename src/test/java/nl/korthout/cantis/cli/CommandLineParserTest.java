@@ -4,46 +4,33 @@ import com.beust.jcommander.ParameterException;
 
 import org.junit.Test;
 
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.CoreMatchers.not;
-import static org.hamcrest.CoreMatchers.nullValue;
-import static org.hamcrest.MatcherAssert.assertThat;
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 public class CommandLineParserTest {
 
     @Test(expected = NullPointerException.class)
     public void nullArgumentsIsNotAllowed() {
-        new CommandLineParser(null);
+        String[] arguments = null;
+        new CommandLineParser(arguments);
     }
 
     @Test
     public void defaultSourceDirectory() {
-        // Arrange
-        final String[] arguments = { };
-
-        // Act
-        final Arguments parsedArguments = new CommandLineParser(arguments).parseArguments();
-
-        // Assert
-        assertThat(parsedArguments, is(not(nullValue())));
-        assertThat(parsedArguments.getSourceDirectory(), is("./src"));
+        String[] arguments = { };
+        var parsedArguments = new CommandLineParser(arguments).parseArguments();
+        assertThat(parsedArguments.getSourceDirectory()).isEqualTo("./src");
     }
 
     @Test(expected = ParameterException.class)
     public void unknownArgumentsAreNotAllowed() {
-        final String[] arguments = { "-unknownargument", "value" };
+        String[] arguments = { "-unknownargument", "value" };
         new CommandLineParser(arguments).parseArguments();
     }
 
     @Test
     public void sourceDirectoryIsParsedFromArguments() {
-        // Arrange
-        final String[] arguments = { "-sourceDirectory", "./another-target" };
-
-        // Act
-        final Arguments parsedArguments = new CommandLineParser(arguments).parseArguments();
-
-        // Assert
-        assertThat(parsedArguments.getSourceDirectory(), is("./another-target"));
+        String[] arguments = { "-sourceDirectory", "./another-target" };
+        var parsedArguments = new CommandLineParser(arguments).parseArguments();
+        assertThat(parsedArguments.getSourceDirectory()).isEqualTo("./another-target");
     }
 }

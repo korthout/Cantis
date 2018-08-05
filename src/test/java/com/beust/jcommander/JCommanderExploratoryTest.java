@@ -2,9 +2,7 @@ package com.beust.jcommander;
 
 import org.junit.Test;
 
-import static org.hamcrest.CoreMatchers.equalTo;
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.MatcherAssert.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Exploratory tests for the JCommander commandline-interface library.
@@ -25,9 +23,9 @@ public class JCommanderExploratoryTest {
                 .parse(providedArgValues);
 
         // Assert
-        assertThat(args.verbose, is(equalTo(2)));
-        assertThat(args.groups, is("unit"));
-        assertThat(args.debug, is(false));
+        assertThat(args.verbose).isEqualTo(2);
+        assertThat(args.groups).isEqualTo("unit");
+        assertThat(args.debug).isFalse();
     }
 
     /**

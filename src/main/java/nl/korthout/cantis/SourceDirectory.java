@@ -17,6 +17,10 @@ public class SourceDirectory {
 
     private final List<File> files;
 
+    public SourceDirectory(@NonNull String rootDirectory) {
+        this(new File(rootDirectory));
+    }
+
     public SourceDirectory(@NonNull File rootDirectory) {
         checkArgument(rootDirectory.isDirectory());
         final File[] filesArray = rootDirectory.listFiles();

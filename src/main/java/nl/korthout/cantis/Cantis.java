@@ -1,32 +1,18 @@
 package nl.korthout.cantis;
 
-import nl.korthout.cantis.cli.Arguments;
-import nl.korthout.cantis.cli.CommandLineParser;
-
-import java.io.File;
-import java.time.Duration;
-import java.time.Instant;
+import io.airlift.airline.Cli;
+import io.airlift.airline.Help;
 
 public class Cantis {
 
     public static void main(String[] args) {
-
-        final Instant start = Instant.now();
-
-        final Arguments arguments = new CommandLineParser(args).parseArguments();
-        final String sourceDirectoryArgument = arguments.getSourceDirectory();
-        final File rootDirectory = new File(sourceDirectoryArgument);
-
-        System.out.println("Analysing source directory");
-
-        final SourceDirectory sourceDirectory = new SourceDirectory(rootDirectory);
-
-        System.out.println("Parsing " + sourceDirectory.getNumberOfFiles() + " java source files");
-
-        new Glossary(sourceDirectory)
-                .getDefinitions()
-                .forEach(System.out::println);
-
-        System.out.println("Finished in: " + Duration.between(start, Instant.now()).toSeconds() + "s");
+        Cli<Runnable> inputParser = Cli.<Runnable>builder("cantis")
+                .withDescription("the glossary generator")
+                .withCommands(Help.class, GenerateCommand.class)
+                .withDefaultCommand(Help.class)
+                .build();
+        Runnable command = inputParser.parse(args);
+        command.run();
     }
+
 }

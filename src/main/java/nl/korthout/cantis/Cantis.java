@@ -1,18 +1,16 @@
 package nl.korthout.cantis;
 
-import io.airlift.airline.Cli;
-import io.airlift.airline.Help;
+import org.cactoos.list.ListOf;
 
+/**
+ * The glossary generator.
+ */
 public class Cantis {
 
     public static void main(String[] args) {
-        Cli<Runnable> inputParser = Cli.<Runnable>builder("cantis")
-                .withDescription("the glossary generator")
-                .withCommands(Help.class, GenerateCommand.class)
-                .withDefaultCommand(Help.class)
-                .build();
-        Runnable command = inputParser.parse(args);
-        command.run();
+        new Commandline.Configuration(
+                new ListOf<>(GenerateCommand.class)
+        ).command(args).run();
     }
 
 }

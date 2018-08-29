@@ -3,8 +3,8 @@ Cantis is a living glossary documentation generator.
 
 ## Usage
 ```
-cantis [-sourceDirectory <path>]
-  -sourceDirectory <path>: The root directory in which to search for @GlossaryTerm annotated classes
+cantis [-sources <path>]
+  -sources <path>: The root directory in which to search for @GlossaryTerm annotated classes
 ```
 
 ## Installation

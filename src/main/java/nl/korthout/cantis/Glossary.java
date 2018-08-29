@@ -26,8 +26,8 @@ public class Glossary {
         this.sources = sources;
     }
 
-    public Glossary(@NonNull SourceDirectory sourceDirectory) {
-        this.sources = sourceDirectory.getFiles();
+    public Glossary(@NonNull Sources sources) {
+        this.sources = sources.getFiles();
     }
 
     public Stream<Definition> getDefinitions() {

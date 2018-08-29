@@ -12,16 +12,16 @@ import lombok.NonNull;
 import static com.google.common.base.Preconditions.checkArgument;
 
 @Getter
-public class SourceDirectory {
+public class Sources {
     private static final String[] EXTENSIONS = new String[]{ "java" };
 
     private final List<File> files;
 
-    public SourceDirectory(@NonNull String rootDirectory) {
+    public Sources(@NonNull String rootDirectory) {
         this(new File(rootDirectory));
     }
 
-    public SourceDirectory(@NonNull File rootDirectory) {
+    public Sources(@NonNull File rootDirectory) {
         checkArgument(rootDirectory.isDirectory());
         final File[] filesArray = rootDirectory.listFiles();
         if (filesArray == null) {

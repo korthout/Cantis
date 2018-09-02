@@ -6,16 +6,6 @@ import org.apache.maven.plugin.MojoFailureException;
 import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.Parameter;
 
-import java.io.File;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.List;
-import java.util.stream.Stream;
-
-import static java.util.stream.Collectors.toList;
-
 /**
  * Maven Plugin Mojo to execute the Glossary generator on a project.
  *
@@ -25,32 +15,29 @@ import static java.util.stream.Collectors.toList;
 public class GlossaryMojo extends AbstractMojo {
 
     /**
-     * List of source directories to browse
+     * List of source directories to browse.
      */
     @Parameter(defaultValue = "${project.build.sourceDirectory}")
-    private List<String> sources;
+    private String source;
 
     @Override
     public void execute() throws MojoExecutionException, MojoFailureException {
         var log = getLog();
-        new Glossary(getSourceFiles())
-                .getDefinitions()
-                .forEach(definition -> log.info(definition.toString()));
-    }
-
-    private List<File> getSourceFiles() {
-        return sources.stream()
-                    .flatMap(this::findFilesInDirectory)
-                    .map(Path::toFile)
-                    .collect(toList());
-    }
-
-    private Stream<Path> findFilesInDirectory(String source) {
         try {
-            return Files.find(Paths.get(source), 999, (p, bfa) -> bfa.isRegularFile());
-        } catch (IOException e) {
-            // TODO: Do something better than return null.
-            return null;
+            new CodebaseGlossary(
+                new Codebase.CodebaseFromFiles(
+                    new Directory.SourceDirectory(source)
+                )
+            ).definitions().forEach(definition -> log.info(definition.toString()));
+        } catch (IllegalArgumentException e) {
+            log.warn("Directory " + source + " not found." + System.lineSeparator()
+                + "You'll need to configure <source> for this plugin in your pom.xml."
+                + System.lineSeparator()
+                + "Note that this plugin is for single-module maven projects only."
+                + System.lineSeparator()
+                + "If you have a multi-module maven project, please take a look at our cli instead."
+            );
         }
     }
+
 }

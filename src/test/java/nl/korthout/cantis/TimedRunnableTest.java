@@ -1,4 +1,4 @@
-package nl.korthout.cantis.command;
+package nl.korthout.cantis;
 
 import org.assertj.core.api.Assertions;
 import org.junit.Test;
@@ -31,15 +31,15 @@ public class TimedRunnableTest {
     @Test
     public void runtimeIsSomewhatQuick() {
         assertThat(new TimedRunnable(() -> {}).runtime())
-                .isGreaterThan(Duration.ZERO)
-                .isLessThan(Duration.ofMillis(50));
+            .isGreaterThan(Duration.ZERO)
+            .isLessThan(Duration.ofMillis(50));
     }
 
     @Test
     public void runtimeIsDependentOnExecutionTimeOfRunnable() {
         assertThat(new TimedRunnable(new SlowRunnable()).runtime())
-                .isGreaterThan(Duration.ofMillis(100))
-                .isLessThan(Duration.ofMillis(150));
+            .isGreaterThan(Duration.ofMillis(100))
+            .isLessThan(Duration.ofMillis(150));
     }
 
     /**
@@ -63,6 +63,7 @@ public class TimedRunnableTest {
      * Executes its run method with a delay to make it slow.
      */
     private static class SlowRunnable implements Runnable {
+
         @Override
         public void run() {
             try {

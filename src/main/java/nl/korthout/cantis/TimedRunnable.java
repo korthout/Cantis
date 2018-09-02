@@ -1,6 +1,4 @@
-package nl.korthout.cantis.command;
-
-import nl.korthout.cantis.Timed;
+package nl.korthout.cantis;
 
 import java.time.Duration;
 import java.time.Instant;
@@ -10,10 +8,14 @@ import lombok.NonNull;
 /**
  * Decorator to time the execution of a Runnable.
  */
-public class TimedRunnable implements Timed {
+final class TimedRunnable implements Timed {
 
     private final Runnable runnable;
 
+    /**
+     * Constructor.
+     * @param runnable The runnable to time
+     */
     TimedRunnable(@NonNull Runnable runnable) {
         this.runnable = runnable;
     }

@@ -18,55 +18,50 @@ public class CommandlineTest {
 
     @Test(expected = NullPointerException.class)
     public void nullIsNotAllowedAsProvidedArgs() {
-        new Commandline.ForCommands(new ListOf<>())
-                .command(null);
+        new Commandline.ForCommands(
+            new ListOf<>()
+        ).command(null);
     }
 
     @Test
     public void helpIsTheDefaultCommand() {
-        Runnable command = new Commandline.ForCommands(new ListOf<>())
-                .command(new ArrayOf<String>().toArray());
-        assertThat(command).isInstanceOf(Help.class);
+        assertThat(
+            new Commandline.ForCommands(
+                new ListOf<>()
+            ).command(new String[]{})
+        ).isInstanceOf(Help.class);
     }
 
     @Test
     public void helpIsAlsoACommand() {
-        Runnable command = new Commandline.ForCommands(new ListOf<>())
-                .command(new ArrayOf<>("help").toArray());
-        assertThat(command).isInstanceOf(Help.class);
+        assertThat(
+            new Commandline.ForCommands(
+                new ListOf<>()
+            ).command(new String[]{"help"})
+        ).isInstanceOf(Help.class);
     }
 
     @Test(expected = ParseArgumentsUnexpectedException.class)
     public void unknownCommandsWontWork() {
-        new Commandline.ForCommands(new ListOf<>())
-                .command(new ArrayOf<>("unknown").toArray());
+        new Commandline.ForCommands(
+            new ListOf<>()
+        ).command(new String[]{"unknown"});
     }
 
     @Test
     public void customCommandsCanBeSupported() {
-        Runnable command = new Commandline.ForCommands(new ListOf<>(CustomCommand.class))
-                .command(new ArrayOf<>("custom").toArray());
-        assertThat(command).isInstanceOf(CustomCommand.class);
-    }
-
-    private static class ArrayOf<X> {
-
-        private final X[] arguments;
-
-        @SafeVarargs
-        ArrayOf(X... arguments) {
-            this.arguments = arguments;
-        }
-
-        X[] toArray() {
-            return arguments;
-        }
+        assertThat(
+            new Commandline.ForCommands(
+                new ListOf<>(CustomCommand.class)
+            ).command(new String[]{"custom"})
+        ).isInstanceOf(CustomCommand.class);
     }
 
     @Command(name = "custom")
     public static class CustomCommand implements Runnable {
 
         @Override
-        public void run() { }
+        public void run() {
+        }
     }
 }

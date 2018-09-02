@@ -19,7 +19,7 @@ public interface Commandline {
     /**
      * Defines what is supported by the commandline interface.
      */
-    class ForCommands implements Commandline {
+    final class ForCommands implements Commandline {
 
         private final Iterable<Class<? extends Runnable>> commands;
 
@@ -34,11 +34,11 @@ public interface Commandline {
         @Override
         public Runnable command(String[] arguments) {
             var cli = Cli.<Runnable>builder("cantis")
-                    .withDescription("the glossary generator")
-                    .withCommands(commands)
-                    .withCommand(Help.class)
-                    .withDefaultCommand(Help.class)
-                    .build();
+                .withDescription("the glossary generator")
+                .withCommands(commands)
+                .withCommand(Help.class)
+                .withDefaultCommand(Help.class)
+                .build();
             return cli.parse(arguments);
         }
 

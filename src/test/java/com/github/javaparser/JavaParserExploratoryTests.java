@@ -35,13 +35,13 @@ public class JavaParserExploratoryTests {
     public void parseClassWithJavadocComment() {
         var code = "/** B is a simple class */ class B { }";
         Optional<JavadocComment> javadocComment = JavaParser.parse(code)
-                .getClassByName("B")
-                .flatMap(NodeWithJavadoc::getJavadocComment);
+            .getClassByName("B")
+            .flatMap(NodeWithJavadoc::getJavadocComment);
         assertThat(javadocComment)
-                .map(JavadocComment::parse)
-                .map(Javadoc::getDescription)
-                .map(JavadocDescription::toText)
-                .contains("B is a simple class");
+            .map(JavadocComment::parse)
+            .map(Javadoc::getDescription)
+            .map(JavadocDescription::toText)
+            .contains("B is a simple class");
     }
 
     @Test
@@ -56,9 +56,9 @@ public class JavaParserExploratoryTests {
         var code = "class E { } @GlossaryTerm class F { } class G { }";
         List<ClassOrInterfaceDeclaration> classesAndInterfaces = CompilationHelper.compileClassesAndInterfaces(code);
         assertThat(classesAndInterfaces)
-                .filteredOn(classOrInterface -> classOrInterface.isAnnotationPresent(GLOSSARY_TERM))
-                .hasSize(1)
-                .allSatisfy(classOrInterface -> assertThat(classOrInterface.getNameAsString()).isEqualTo("F"));
+            .filteredOn(classOrInterface -> classOrInterface.isAnnotationPresent(GLOSSARY_TERM))
+            .hasSize(1)
+            .allSatisfy(classOrInterface -> assertThat(classOrInterface.getNameAsString()).isEqualTo("F"));
     }
 
     @Test
@@ -66,11 +66,11 @@ public class JavaParserExploratoryTests {
         var code = "/** H is an annotated class */ @GlossaryTerm class H { }";
         List<ClassOrInterfaceDeclaration> classesAndInterfaces = CompilationHelper.compileClassesAndInterfaces(code);
         assertThat(classesAndInterfaces)
-                .allSatisfy(classOrInterface -> assertThat(classOrInterface.getJavadocComment())
-                        .map(JavadocComment::parse)
-                        .map(Javadoc::getDescription)
-                        .map(JavadocDescription::toText)
-                        .contains("H is an annotated class"));
+            .allSatisfy(classOrInterface -> assertThat(classOrInterface.getJavadocComment())
+                .map(JavadocComment::parse)
+                .map(Javadoc::getDescription)
+                .map(JavadocDescription::toText)
+                .contains("H is an annotated class"));
     }
 
     private static class CompilationHelper {

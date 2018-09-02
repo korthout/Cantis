@@ -27,12 +27,10 @@
         <junit.version>4.12</junit.version>
         <lombok.version>1.18.2</lombok.version>
         <maven-assembly-plugin.version>3.1.0</maven-assembly-plugin.version>
-        <maven-compiler-plugin.version>3.7.0</maven-compiler-plugin.version>
         <maven-plugin-annotations.version>3.5.2</maven-plugin-annotations.version>
         <maven-plugin-api.version>3.5.4</maven-plugin-api.version>
         <maven-plugin-plugin.version>3.5.2</maven-plugin-plugin.version>
         <maven-surefire-plugin.version>2.22.0</maven-surefire-plugin.version>
-        <mockito-core.version>2.21.0</mockito-core.version>
     </properties>
 
     <dependencies>
@@ -94,12 +92,6 @@
             <groupId>org.assertj</groupId>
             <artifactId>assertj-core</artifactId>
             <version>${assertj.version}</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.mockito</groupId>
-            <artifactId>mockito-core</artifactId>
-            <version>${mockito-core.version}</version>
             <scope>test</scope>
         </dependency>
     </dependencies>

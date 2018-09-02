@@ -1,4 +1,6 @@
-package nl.korthout.cantis;
+package nl.korthout.cantis.command;
+
+import nl.korthout.cantis.Timed;
 
 import java.time.Duration;
 import java.time.Instant;

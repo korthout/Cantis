@@ -1,5 +1,7 @@
 package nl.korthout.cantis;
 
+import nl.korthout.cantis.command.GenerateCommand;
+
 import org.cactoos.list.ListOf;
 
 /**
@@ -8,7 +10,7 @@ import org.cactoos.list.ListOf;
 public class Cantis {
 
     public static void main(String[] args) {
-        new Commandline.Configuration(
+        new Commandline.ForCommands(
                 new ListOf<>(GenerateCommand.class)
         ).command(args).run();
     }

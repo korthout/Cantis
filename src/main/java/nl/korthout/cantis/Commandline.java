@@ -10,39 +10,36 @@ import lombok.NonNull;
 public interface Commandline {
 
     /**
-     * Build a {@link Runnable} command from the provided args.
-     * @param args The commandline arguments
+     * Build a {@link Runnable} command from the provided arguments.
+     * @param arguments The commandline arguments
      * @return The command
      */
-    Runnable command(String[] args);
+    Runnable command(String[] arguments);
 
     /**
      * Defines what is supported by the commandline interface.
      */
-    class Configuration implements Commandline {
+    class ForCommands implements Commandline {
 
-        private Iterable<Class<? extends Runnable>> supportedCommands;
+        private final Iterable<Class<? extends Runnable>> commands;
 
         /**
          * Constructor.
-         * @param supportedCommands Commands supported by the cli
+         * @param commands Commands supported by the cli
          */
-        Configuration(@NonNull Iterable<Class<? extends Runnable>> supportedCommands) {
-            this.supportedCommands = supportedCommands;
+        ForCommands(@NonNull Iterable<Class<? extends Runnable>> commands) {
+            this.commands = commands;
         }
 
         @Override
-        public Runnable command(String[] args) {
-            return constructCli().parse(args);
-        }
-
-        private Cli<Runnable> constructCli() {
-            return Cli.<Runnable>builder("cantis")
+        public Runnable command(String[] arguments) {
+            var cli = Cli.<Runnable>builder("cantis")
                     .withDescription("the glossary generator")
-                    .withCommands(supportedCommands)
+                    .withCommands(commands)
                     .withCommand(Help.class)
                     .withDefaultCommand(Help.class)
                     .build();
+            return cli.parse(arguments);
         }
 
     }

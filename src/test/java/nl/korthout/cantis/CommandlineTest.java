@@ -13,38 +13,38 @@ public class CommandlineTest {
 
     @Test(expected = NullPointerException.class)
     public void nullIsNotAllowedInConstructor() {
-        new Commandline.Configuration(null);
+        new Commandline.ForCommands(null);
     }
 
     @Test(expected = NullPointerException.class)
     public void nullIsNotAllowedAsProvidedArgs() {
-        new Commandline.Configuration(new ListOf<>())
+        new Commandline.ForCommands(new ListOf<>())
                 .command(null);
     }
 
     @Test
     public void helpIsTheDefaultCommand() {
-        Runnable command = new Commandline.Configuration(new ListOf<>())
+        Runnable command = new Commandline.ForCommands(new ListOf<>())
                 .command(new ArrayOf<String>().toArray());
         assertThat(command).isInstanceOf(Help.class);
     }
 
     @Test
     public void helpIsAlsoACommand() {
-        Runnable command = new Commandline.Configuration(new ListOf<>())
+        Runnable command = new Commandline.ForCommands(new ListOf<>())
                 .command(new ArrayOf<>("help").toArray());
         assertThat(command).isInstanceOf(Help.class);
     }
 
     @Test(expected = ParseArgumentsUnexpectedException.class)
     public void unknownCommandsWontWork() {
-        new Commandline.Configuration(new ListOf<>())
+        new Commandline.ForCommands(new ListOf<>())
                 .command(new ArrayOf<>("unknown").toArray());
     }
 
     @Test
     public void customCommandsCanBeSupported() {
-        Runnable command = new Commandline.Configuration(new ListOf<>(CustomCommand.class))
+        Runnable command = new Commandline.ForCommands(new ListOf<>(CustomCommand.class))
                 .command(new ArrayOf<>("custom").toArray());
         assertThat(command).isInstanceOf(CustomCommand.class);
     }

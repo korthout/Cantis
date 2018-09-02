@@ -31,7 +31,6 @@ public class Glossary {
     }
 
     public Stream<Definition> getDefinitions() {
-        System.out.println("Get definitions");
         return sources.stream()
                 .map(this::parseFile)
                 .map(getClassesAndInterfaces())

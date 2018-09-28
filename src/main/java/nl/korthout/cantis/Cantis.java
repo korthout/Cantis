@@ -1,6 +1,6 @@
 package nl.korthout.cantis;
 
-import org.cactoos.list.ListOf;
+import nl.korthout.cantis.SupportedCommands.SupportedCommandFactory;
 
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
@@ -17,8 +17,7 @@ public final class Cantis {
      */
     public static void main(String[] args) {
         new Commandline.ForCommands(
-            new ListOf<>(GenerateCommand.class)
+            new SupportedCommandFactory()
         ).command(args).run();
     }
-
 }

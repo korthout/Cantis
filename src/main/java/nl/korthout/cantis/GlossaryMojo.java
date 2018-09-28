@@ -24,6 +24,7 @@ public class GlossaryMojo extends AbstractMojo {
     public void execute() throws MojoExecutionException, MojoFailureException {
         var log = getLog();
         try {
+
             new CodebaseGlossary(
                 new Codebase.CodebaseFromFiles(
                     new Directory.SourceDirectory(source)

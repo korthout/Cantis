@@ -40,7 +40,7 @@ public interface Codebase {
          * Constructor.
          * @param directory The root directory containing the source files
          */
-        CodebaseFromFiles(Directory directory) {
+        public CodebaseFromFiles(Directory directory) {
             this(directory.files());
         }
 
@@ -48,7 +48,7 @@ public interface Codebase {
          * Constructor.
          * @param sources The sources that form this codebase
          */
-        CodebaseFromFiles(@NonNull Collection<File> sources) {
+        public CodebaseFromFiles(@NonNull Collection<File> sources) {
             this.sources = sources;
             this.javaParser = new JavaParser();
         }

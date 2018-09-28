@@ -1,5 +1,6 @@
 package nl.korthout.cantis;
 
+import com.github.javaparser.ast.Node;
 import com.github.javaparser.ast.body.ClassOrInterfaceDeclaration;
 import com.github.javaparser.ast.comments.JavadocComment;
 import com.github.javaparser.ast.nodeTypes.NodeWithAnnotations;
@@ -37,7 +38,7 @@ public interface Classifier {
      */
     final class ClassifierFromJavaparser implements Classifier {
 
-        private final NodeWithAnnotations annotated;
+        private final NodeWithAnnotations<? extends Node> annotated;
         private final NodeWithJavadoc<ClassOrInterfaceDeclaration> documented;
         private final NodeWithSimpleName named;
 
@@ -45,7 +46,7 @@ public interface Classifier {
          * Constructor.
          * @param declaration This classifier's declaration
          */
-        ClassifierFromJavaparser(ClassOrInterfaceDeclaration declaration) {
+        public ClassifierFromJavaparser(ClassOrInterfaceDeclaration declaration) {
             this(declaration, declaration, declaration);
         }
 
@@ -55,8 +56,8 @@ public interface Classifier {
          * @param documented The documented part of the classifier
          * @param named The named part of the classifier
          */
-        ClassifierFromJavaparser(
-            @NonNull NodeWithAnnotations annotated,
+        public ClassifierFromJavaparser(
+            @NonNull NodeWithAnnotations<? extends Node> annotated,
             @NonNull NodeWithJavadoc<ClassOrInterfaceDeclaration> documented,
             @NonNull NodeWithSimpleName named
         ) {

@@ -14,24 +14,25 @@
     </prerequisites>
 
     <properties>
+        <jdk.version>10</jdk.version>
         <maven.compiler.source>10</maven.compiler.source>
         <maven.compiler.target>10</maven.compiler.target>
         <maven.compiler.release>10</maven.compiler.release>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <airline.version>0.8</airline.version>
-        <assertj.version>3.11.1</assertj.version>
-        <cactoos.version>0.36</cactoos.version>
-        <commons-io.version>2.6</commons-io.version>
-        <guava.version>26.0-jre</guava.version>
-        <jacoco-maven-plugin.version>0.8.2</jacoco-maven-plugin.version>
-        <javaparser-core.version>3.6.19</javaparser-core.version>
-        <junit.version>4.12</junit.version>
-        <lombok.version>1.18.2</lombok.version>
         <maven-assembly-plugin.version>3.1.0</maven-assembly-plugin.version>
+        <maven-compiler-plugin.version>3.8.0</maven-compiler-plugin.version>
         <maven-plugin-annotations.version>3.5.2</maven-plugin-annotations.version>
         <maven-plugin-api.version>3.5.4</maven-plugin-api.version>
         <maven-plugin-plugin.version>3.5.2</maven-plugin-plugin.version>
         <maven-surefire-plugin.version>2.22.0</maven-surefire-plugin.version>
+        <airline.version>0.8</airline.version>
+        <assertj.version>3.11.1</assertj.version>
+        <cactoos.version>0.36</cactoos.version>
+        <commons-io.version>2.6</commons-io.version>
+        <jacoco-maven-plugin.version>0.8.2</jacoco-maven-plugin.version>
+        <javaparser-core.version>3.6.19</javaparser-core.version>
+        <junit.version>4.12</junit.version>
+        <lombok.version>1.18.2</lombok.version>
     </properties>
 
     <dependencies>
@@ -47,24 +48,26 @@
             <version>${maven-plugin-annotations.version}</version>
             <scope>provided</scope>
         </dependency>
+
+        <!--Libraries-->
         <dependency>
+            <!--java-parser-->
             <groupId>com.github.javaparser</groupId>
             <artifactId>javaparser-core</artifactId>
             <version>${javaparser-core.version}</version>
         </dependency>
         <dependency>
-            <!--command-parser-->
+            <!--commandline-parser-->
             <groupId>io.airlift</groupId>
             <artifactId>airline</artifactId>
             <version>${airline.version}</version>
         </dependency>
         <dependency>
+            <!--file-io-->
             <groupId>commons-io</groupId>
             <artifactId>commons-io</artifactId>
             <version>${commons-io.version}</version>
         </dependency>
-
-        <!--Dev-->
         <dependency>
             <!--eo-alternative-to-guava-->
             <groupId>org.cactoos</groupId>
@@ -72,14 +75,11 @@
             <version>${cactoos.version}</version>
         </dependency>
         <dependency>
-            <groupId>com.google.guava</groupId>
-            <artifactId>guava</artifactId>
-            <version>${guava.version}</version>
-        </dependency>
-        <dependency>
+            <!--boilerplate-reducer-->
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <version>${lombok.version}</version>
+            <scope>provided</scope>
         </dependency>
 
         <!--Testing-->
@@ -99,6 +99,15 @@
 
     <build>
         <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>${maven-compiler-plugin.version}</version>
+                <configuration>
+                    <release>${jdk.version}</release>
+                </configuration>
+            </plugin>
+
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-plugin-plugin</artifactId>

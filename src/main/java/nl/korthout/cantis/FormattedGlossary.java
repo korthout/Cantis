@@ -6,10 +6,17 @@ import org.cactoos.text.TextOf;
 
 import lombok.NonNull;
 
-final class FormattedGlossary implements Formatted {
+/**
+ * Glossary with a simple line separated formatting.
+ */
+public final class FormattedGlossary implements Formatted {
 
     private final Glossary glossary;
 
+    /**
+     * Constructor.
+     * @param glossary The glossary to format
+     */
     FormattedGlossary(@NonNull Glossary glossary) {
         this.glossary = glossary;
     }

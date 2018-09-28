@@ -8,7 +8,7 @@ import lombok.NonNull;
  * A list of definitions in a codebase.
  */
 @GlossaryTerm
-final class CodebaseGlossary implements Glossary {
+public final class CodebaseGlossary implements Glossary {
 
     private final Stream<Classifier> classifiers;
 

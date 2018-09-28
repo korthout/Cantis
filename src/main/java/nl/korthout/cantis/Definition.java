@@ -11,7 +11,7 @@ import lombok.NonNull;
  */
 @GlossaryTerm
 @EqualsAndHashCode
-final class Definition implements Comparable<Definition> {
+public final class Definition implements Comparable<Definition> {
 
     private final String term;
     private final String description;
@@ -21,7 +21,7 @@ final class Definition implements Comparable<Definition> {
      * @param term The term that is defined
      * @param description The term's description
      */
-    Definition(@NonNull String term, @NonNull String description) {
+    public Definition(@NonNull String term, @NonNull String description) {
         this.term = term;
         this.description = description;
     }
@@ -35,7 +35,7 @@ final class Definition implements Comparable<Definition> {
      * Builds a textual representation of this definition.
      * @return The definition as {@link Text}
      */
-    Text text() {
+    public Text text() {
         return new TextOf(term + ": " + description);
     }
 

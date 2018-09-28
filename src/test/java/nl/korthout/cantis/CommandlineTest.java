@@ -3,6 +3,8 @@ package nl.korthout.cantis;
 import org.cactoos.list.ListOf;
 import org.junit.Test;
 
+import java.util.Collection;
+
 import io.airlift.airline.Command;
 import io.airlift.airline.Help;
 import io.airlift.airline.ParseArgumentsUnexpectedException;
@@ -19,7 +21,7 @@ public class CommandlineTest {
     @Test(expected = NullPointerException.class)
     public void nullIsNotAllowedAsProvidedArgs() {
         new Commandline.ForCommands(
-            new ListOf<>()
+            new CustomCommmands()
         ).command(null);
     }
 
@@ -27,7 +29,7 @@ public class CommandlineTest {
     public void helpIsTheDefaultCommand() {
         assertThat(
             new Commandline.ForCommands(
-                new ListOf<>()
+                new CustomCommmands()
             ).command(new String[]{})
         ).isInstanceOf(Help.class);
     }
@@ -36,7 +38,7 @@ public class CommandlineTest {
     public void helpIsAlsoACommand() {
         assertThat(
             new Commandline.ForCommands(
-                new ListOf<>()
+                new CustomCommmands()
             ).command(new String[]{"help"})
         ).isInstanceOf(Help.class);
     }
@@ -44,7 +46,7 @@ public class CommandlineTest {
     @Test(expected = ParseArgumentsUnexpectedException.class)
     public void unknownCommandsWontWork() {
         new Commandline.ForCommands(
-            new ListOf<>()
+            new CustomCommmands()
         ).command(new String[]{"unknown"});
     }
 
@@ -52,13 +54,34 @@ public class CommandlineTest {
     public void customCommandsCanBeSupported() {
         assertThat(
             new Commandline.ForCommands(
-                new ListOf<>(CustomCommand.class)
+                new CustomCommmands()
             ).command(new String[]{"custom"})
         ).isInstanceOf(CustomCommand.class);
     }
 
+    private static final class CustomCommmands implements SupportedCommands {
+
+        @Override
+        public Collection<Class<? extends Runnable>> supported() {
+            return new ListOf<>(CustomCommand.class, Help.class);
+        }
+
+        @Override
+        public Class<? extends Runnable> help() {
+            return Help.class;
+        }
+
+        @Override
+        public Runnable createInstance(Class<?> type) {
+            if (type == CustomCommand.class) {
+                return new CustomCommand();
+            }
+            return new Help();
+        }
+    }
+
     @Command(name = "custom")
-    public static class CustomCommand implements Runnable {
+    private static final class CustomCommand implements Runnable {
 
         @Override
         public void run() {

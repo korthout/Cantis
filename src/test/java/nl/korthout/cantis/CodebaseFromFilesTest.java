@@ -128,8 +128,6 @@ public class CodebaseFromFilesTest {
         ).hasSize(3);
     }
 
-    // todo: write more codebase tests
-
     private final class FakeFile {
 
         private final File file;

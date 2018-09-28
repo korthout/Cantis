@@ -8,7 +8,7 @@ import lombok.NonNull;
 /**
  * Decorator to time the execution of a Runnable.
  */
-final class TimedRunnable implements Timed {
+public final class TimedRunnable implements Timed {
 
     private final Runnable runnable;
 

@@ -18,6 +18,7 @@ public class SourceDirectoryTest {
     public TemporaryFolder tempFolder = new TemporaryFolder();
 
     @Test(expected = NullPointerException.class)
+    @SuppressWarnings("ConstantConditions")
     public void constructorDoesNotAllowNull() {
         new SourceDirectory((File) null);
     }

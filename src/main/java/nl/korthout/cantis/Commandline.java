@@ -1,7 +1,6 @@
 package nl.korthout.cantis;
 
 import io.airlift.airline.Cli;
-import io.airlift.airline.Help;
 import lombok.NonNull;
 
 /**
@@ -17,17 +16,17 @@ public interface Commandline {
     Runnable command(String[] arguments);
 
     /**
-     * Defines what is supported by the commandline interface.
+     * Configures the argument parser for the commandline interface.
      */
     final class ForCommands implements Commandline {
 
-        private final Iterable<Class<? extends Runnable>> commands;
+        private final SupportedCommands commands;
 
         /**
          * Constructor.
-         * @param commands Commands supported by the cli
+         * @param commands Builds the commands supported by the cli
          */
-        ForCommands(@NonNull Iterable<Class<? extends Runnable>> commands) {
+        ForCommands(@NonNull SupportedCommands commands) {
             this.commands = commands;
         }
 
@@ -35,13 +34,10 @@ public interface Commandline {
         public Runnable command(String[] arguments) {
             var cli = Cli.<Runnable>builder("cantis")
                 .withDescription("the glossary generator")
-                .withCommands(commands)
-                .withCommand(Help.class)
-                .withDefaultCommand(Help.class)
+                .withCommands(commands.supported())
+                .withDefaultCommand(commands.help())
                 .build();
-            return cli.parse(arguments);
+            return cli.parse(commands, arguments);
         }
-
     }
-
 }

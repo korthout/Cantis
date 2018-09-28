@@ -110,7 +110,7 @@ public class ClassifierFromJavaparserTest {
     /**
      * Node is annotated with @GlossaryTerm.
      */
-    private class FakeNodeWithAnnotations implements NodeWithAnnotations {
+    private class FakeNodeWithAnnotations implements NodeWithAnnotations<Node> {
         @Override
         public NodeList<AnnotationExpr> getAnnotations() {
             return new NodeList<>(
@@ -132,7 +132,7 @@ public class ClassifierFromJavaparserTest {
     /**
      * Node is not annotated.
      */
-    private class FakeNodeWithoutAnnotations implements NodeWithAnnotations {
+    private class FakeNodeWithoutAnnotations implements NodeWithAnnotations<Node> {
         @Override
         public NodeList<AnnotationExpr> getAnnotations() {
             return new NodeList<>();

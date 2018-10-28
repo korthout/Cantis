@@ -14,16 +14,14 @@ public class FormattedGlossaryTest {
         new FormattedGlossary(null);
     }
 
-    // todo: remove toString() after Cactoos fixes equality of Text
-    // see: https://github.com/yegor256/cactoos/issues/942
     @Test
     public void emptyGlossaryCanBeFormatted() {
         assertThat(
             new FormattedGlossary(
                 new EmptyGlossary()
-            ).formatted().toString()
+            ).formatted()
         ).isEqualTo(
-            new TextOf("No definitions found.").toString()
+            new TextOf("No definitions found.")
         );
     }
 
@@ -32,12 +30,12 @@ public class FormattedGlossaryTest {
         assertThat(
             new FormattedGlossary(
                 new SimpleCodingGlossary()
-            ).formatted().toString()
+            ).formatted()
         ).isEqualTo(
             new TextOf(
                 "Author: The originator or creator of a work.\n" +
                 "Code: Instructions for a computer."
-            ).toString()
+            )
         );
     }
 

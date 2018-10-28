@@ -27,7 +27,7 @@
         <maven-surefire-plugin.version>2.22.0</maven-surefire-plugin.version>
         <airline.version>0.8</airline.version>
         <assertj.version>3.11.1</assertj.version>
-        <cactoos.version>0.36</cactoos.version>
+        <cactoos.version>0.38</cactoos.version>
         <commons-io.version>2.6</commons-io.version>
         <jacoco-maven-plugin.version>0.8.2</jacoco-maven-plugin.version>
         <javaparser-core.version>3.6.19</javaparser-core.version>

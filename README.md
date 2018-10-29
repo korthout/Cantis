@@ -1,19 +1,48 @@
 # Cantis
-Cantis is a living glossary documentation generator.
+Cantis is a living documentation glossary generator for Java projects.
 
 ## Usage
-```
-cantis [-sources <path>]
-  -sources <path>: The root directory in which to search for @GlossaryTerm annotated classes
+Cantis can be used via its commandline interface (cli) and as a maven plugin.
+
+### Source code term definitions
+Applying Cantis to your own project is easy. Simply:
+* add a JavaDoc description to your domain classes.
+* annotate those classes with `@GlossaryTerm`.
+* generate the glossary using the cli or the maven plugin.
+
+### Commandline interface
+Main usage via our cli is:
+```sh
+cantis generate [--] [<source>]
+    <source>: The root directory of your source code. Defaults to .
 ```
 
-## Installation
-Cantis can be installed as a maven plugin and as a cli application.
+Download the latest executable jar. 
+See `releases` for the latest version.
+You can simply execute it as any regular jar.
+```sh
+java -jar cantis-<verson>-jar-with-dependencies.jar <command> [--] [<arguments>]
+```
+
+#### Binary
+You can also use the binary provided in the bin folder of this repo.  
+Remember to provide execution permissions for this binary, after downloading it.
+```sh
+chmod +x ./bin/cantis
+```
+
+For easy access, place the binary on your PATH environment variable.
+```sh
+export PATH=$PATH:~/downloads/cantis/bin
+```
 
 ### Maven plugin
-For maven projects a maven plugin is provided.
+For maven projects a maven plugin is provided. 
 
-> Note: Due to limitations in maven, this plugin creates a separate glossary file for each maven module. For multi-module maven projects that wish to aggregate the definitions from all of the submodules into one glossary file, we recommend to use the cli approach described in [CLI application](#cli-installation).
+> Currently, Cantis is not yet available from maven-central, 
+so for now you need to install Cantis to your local repository 
+before adding the plugin to your project. 
+This can be done by cloning the project and running `mvn install`.
 
 The plugin can be used by adding the following to the `plugins` section of your `pom.xml`.
 
@@ -21,7 +50,7 @@ The plugin can be used by adding the following to the `plugins` section of your 
 <plugin>
     <groupId>nl.korthout</groupId>
     <artifactId>cantis</artifactId>
-    <version>0.0.2</version>
+    <version>latest</version>
     <executions>
         <execution>
             <id>cantis</id>
@@ -34,18 +63,7 @@ The plugin can be used by adding the following to the `plugins` section of your 
 </plugin>
 ```
 
-### CLI applicaton <a name="cli-installation"></a>
-Download the latest executable jar. You can simply execute it as any regular jar.
-```sh
-java -jar cantis-<verson>-jar-with-dependencies.jar
-```
-
-You can also use the binary provided in the bin folder of this repo. Remember to provide execution permissions for this binary, after downloading it.
-```sh
-chmod +x cantis
-```
-
-For easy access, place the binary on your PATH environment variable.
-```sh
-export PATH=$PATH:~/downloads/cantis/bin
-```
+> Note: Due to limitations in maven, 
+this plugin creates a separate glossary file for each maven module. 
+For multi-module maven projects that wish to aggregate the definitions from all of the submodules 
+into one glossary file, we recommend that you use the cli instead.

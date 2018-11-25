@@ -7,7 +7,6 @@ import lombok.NonNull;
 /**
  * A list of definitions in a codebase.
  */
-@GlossaryTerm
 public final class CodebaseGlossary implements Glossary {
 
     private final Stream<Classifier> classifiers;

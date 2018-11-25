@@ -5,6 +5,7 @@ import java.util.stream.Stream;
 /**
  * A list of definitions.
  */
+@GlossaryTerm
 public interface Glossary {
 
     /**

@@ -38,19 +38,19 @@ public interface Codebase {
 
         /**
          * Constructor.
-         * @param directory The root directory containing the source files
-         */
-        public CodebaseFromFiles(Directory directory) {
-            this(directory.files());
-        }
-
-        /**
-         * Constructor.
          * @param sources The sources that form this codebase
          */
         public CodebaseFromFiles(@NonNull Collection<File> sources) {
             this.sources = sources;
             this.javaParser = new JavaParser();
+        }
+
+        /**
+         * Constructor.
+         * @param directory The root directory containing the source files
+         */
+        public CodebaseFromFiles(Directory directory) {
+            this(directory.files());
         }
 
         @Override

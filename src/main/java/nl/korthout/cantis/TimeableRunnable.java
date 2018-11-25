@@ -6,9 +6,9 @@ import java.time.Instant;
 import lombok.NonNull;
 
 /**
- * Decorator to time the execution of a Runnable.
+ * Times the execution runtime of a Runnable.
  */
-public final class TimedRunnable implements Timed {
+public final class TimeableRunnable implements Timeable {
 
     private final Runnable runnable;
 
@@ -16,7 +16,7 @@ public final class TimedRunnable implements Timed {
      * Constructor.
      * @param runnable The runnable to time
      */
-    TimedRunnable(@NonNull Runnable runnable) {
+    TimeableRunnable(@NonNull Runnable runnable) {
         this.runnable = runnable;
     }
 

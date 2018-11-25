@@ -1,13 +1,10 @@
 package nl.korthout.cantis;
 
-import org.cactoos.Text;
 import org.cactoos.text.FormattedText;
 
-import java.io.PrintStream;
 import java.time.Duration;
 
 import lombok.NonNull;
-import lombok.SneakyThrows;
 
 /**
  * Generate a glossary from your sourcecode.
@@ -18,37 +15,51 @@ import lombok.SneakyThrows;
 public final class PrintableGlossary implements Printable {
 
     private final Directory directory;
-    private final PrintStream out;
+    private final Destination info;
+    private final Destination target;
 
     /**
      * Constructor.
      * @param directory Root directory of the source code
-     * @param out Output will be printed to this stream
+     * @param info Information will be outputted to this destination
+     * @param target Formatted glossary will be outputted to this destination
      */
-    PrintableGlossary(@NonNull Directory directory, @NonNull PrintStream out) {
+    PrintableGlossary(
+        @NonNull Directory directory,
+        @NonNull Destination info,
+        @NonNull Destination target
+    ) {
         this.directory = directory;
-        this.out = out;
+        this.info = info;
+        this.target = target;
+    }
+
+    /**
+     * Shorthand constructor to direct all output to the same destination.
+     * @param directory Root directory of the source code
+     * @param output The formatted glossary and information will be outputted to this destination
+     */
+    PrintableGlossary(Directory directory, Destination output) {
+        this(directory, output, output);
     }
 
     @Override
     public void print() {
-        Duration runtime = new TimedRunnable(() -> {
-            println(new FormattedText(
-                "Scanning %d java source files for @GlossaryTerm annotation",
-                directory.files().size()
-            ));
-            println(new FormattedGlossary(
-                new CodebaseGlossary(
-                    new Codebase.CodebaseFromFiles(directory)
-                )
-            ).formatted());
+        Duration runtime = new TimeableRunnable(() -> {
+            info.write(
+                new FormattedText(
+                    "Scanning %d java source files for @GlossaryTerm annotation",
+                    directory.files().size()
+                ));
+            target.write(
+                new FormattedGlossary(
+                    new CodebaseGlossary(
+                        new Codebase.CodebaseFromFiles(directory)
+                    )
+                ).formatted()
+            );
         }).runtime();
-        println(new FormattedText("Finished in: %ss", runtime.toSeconds()));
-    }
-
-    @SneakyThrows
-    private void println(Text text) {
-        out.println(text.asString());
+        info.write(new FormattedText("Finished in: %ss", runtime.toSeconds()));
     }
 
 }

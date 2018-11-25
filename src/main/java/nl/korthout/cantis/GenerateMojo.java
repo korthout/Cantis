@@ -7,29 +7,36 @@ import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.Parameter;
 
 /**
- * Maven Plugin Mojo to execute the Glossary generator on a project.
- *
- * Based on the work in https://github.com/LivingDocumentation/livingdoc-maven-plugin
+ * Maven Plugin Mojo to generate a glossary for a Java project.
+ * @goal Generate a glossary from sourcecode
+ * @phase generate-resources
  */
-@Mojo(name = "glossary")
-public class GlossaryMojo extends AbstractMojo {
+@Mojo(name = "generate")
+public class GenerateMojo extends AbstractMojo {
 
     /**
-     * List of source directories to browse.
+     * The root directory of the source code.
      */
     @Parameter(defaultValue = "${project.build.sourceDirectory}")
     private String source;
+
+    /**
+     * Path to output file.
+     */
+    @Parameter(name = "target")
+    private String target = "";
 
     @Override
     public void execute() throws MojoExecutionException, MojoFailureException {
         var log = getLog();
         try {
-
-            new CodebaseGlossary(
-                new Codebase.CodebaseFromFiles(
-                    new Directory.SourceDirectory(source)
-                )
-            ).definitions().forEach(definition -> log.info(definition.toString()));
+            new PrintableGlossary(
+                new Directory.FromSource(source),
+                new ToLog(log),
+                target.isBlank()
+                    ? new ToLog(log)
+                    : new ToFile(target)
+            ).print();
         } catch (IllegalArgumentException e) {
             log.warn("Directory " + source + " not found." + System.lineSeparator()
                 + "You'll need to configure <source> for this plugin in your pom.xml."

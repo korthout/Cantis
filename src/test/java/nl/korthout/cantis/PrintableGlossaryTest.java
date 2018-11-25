@@ -1,12 +1,14 @@
 package nl.korthout.cantis;
 
-import nl.korthout.cantis.fakes.FakeOutputStream;
-
+import org.cactoos.Text;
 import org.cactoos.list.ListOf;
 import org.junit.Test;
 
 import java.io.File;
-import java.io.PrintStream;
+import java.util.ArrayList;
+import java.util.List;
+
+import lombok.SneakyThrows;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -14,37 +16,49 @@ public class PrintableGlossaryTest {
 
     @Test(expected = NullPointerException.class)
     public void nullIsNotAllowedAsDirectory() {
-        new PrintableGlossary(null, new PrintStream(new FakeOutputStream()));
+        new PrintableGlossary(null, new FakeDestination());
     }
 
     @Test(expected = NullPointerException.class)
-    public void nullIsNotAllowedAsOut() {
+    public void nullIsNotAllowedAsOutput() {
         new PrintableGlossary(ListOf<File>::new, null);
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void nullIsNotAllowedAsInfo() {
+        new PrintableGlossary(ListOf<File>::new, null, new FakeDestination());
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void nullIsNotAllowedAsTarget() {
+        new PrintableGlossary(ListOf<File>::new, new FakeDestination(), null);
     }
 
     @Test
     public void printsNumberOfFiles() {
-        final FakeOutputStream out = new FakeOutputStream();
+        var info = new FakeDestination();
         new PrintableGlossary(
             ListOf<File>::new,
-            new PrintStream(out)
+            info,
+            new FakeDestination()
         ).print();
         assertThat(
-            out.lines()
+            info.lines()
         ).contains(
             "Scanning 0 java source files for @GlossaryTerm annotation" + System.lineSeparator()
         );
     }
 
     @Test
-    public void printsGlossary() {
-        final FakeOutputStream out = new FakeOutputStream();
+    public void printsGlossaryToDestination() {
+        var destination = new FakeDestination();
         new PrintableGlossary(
             ListOf<File>::new,
-            new PrintStream(out)
+            new FakeDestination(),
+            destination
         ).print();
         assertThat(
-            out.lines()
+            destination.lines()
         ).contains(
             "No definitions found." + System.lineSeparator()
         );
@@ -52,16 +66,32 @@ public class PrintableGlossaryTest {
 
     @Test
     public void printsFinished() {
-        final FakeOutputStream out = new FakeOutputStream();
+        var info = new FakeDestination();
         new PrintableGlossary(
             ListOf<File>::new,
-            new PrintStream(out)
+            info,
+            new FakeDestination()
         ).print();
         assertThat(
-            out.lines()
+            info.lines()
         ).contains(
             "Finished in: 0s" + System.lineSeparator()
         );
+    }
+
+    class FakeDestination implements Destination {
+
+        private List<String> lines = new ArrayList<>();
+
+        @Override
+        @SneakyThrows
+        public void write(Text output) {
+            lines.add(output.asString() + System.lineSeparator());
+        }
+
+        List<String> lines() {
+            return lines;
+        }
     }
 
 }

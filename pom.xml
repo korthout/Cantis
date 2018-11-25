@@ -6,7 +6,7 @@
 
     <groupId>nl.korthout</groupId>
     <artifactId>cantis</artifactId>
-    <version>0.0.2-SNAPSHOT</version>
+    <version>0.0.4-SNAPSHOT</version>
     <packaging>maven-plugin</packaging>
 
     <prerequisites>

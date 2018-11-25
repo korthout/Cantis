@@ -1,12 +1,11 @@
 package nl.korthout.cantis;
 
-import nl.korthout.cantis.fakes.FakeOutputStream;
+import nl.korthout.cantis.fakes.FakePrintStream;
 
 import org.junit.Before;
 import org.junit.Test;
 
 import java.io.File;
-import java.io.PrintStream;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -19,13 +18,13 @@ public class GenerateGlossaryIT {
 
     private List<File> sources;
     private ClassLoader classLoader;
-    private FakeOutputStream out;
+    private FakePrintStream out;
 
     @Before
     public void initExampleSourceFiles() {
         sources = new ArrayList<>();
         classLoader = getClass().getClassLoader();
-        out = new FakeOutputStream();
+        out = new FakePrintStream();
     }
 
     private void addSourceFileFromResources(@NonNull String filename) {
@@ -40,8 +39,7 @@ public class GenerateGlossaryIT {
         addSourceFileFromResources("Example.java");
         new PrintableGlossary(
             () -> sources,
-            new PrintStream(out)
-        ).print();
+            new ToPrintStream(out)).print();
         assertThat(
             out.lines()
         ).contains(
@@ -58,8 +56,7 @@ public class GenerateGlossaryIT {
         addSourceFileFromResources("Example2.java");
         new PrintableGlossary(
             () -> sources,
-            new PrintStream(out)
-        ).print();
+            new ToPrintStream(out)).print();
         assertThat(
             out.lines()
         ).contains(

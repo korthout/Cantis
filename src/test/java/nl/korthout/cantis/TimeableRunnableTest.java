@@ -7,37 +7,37 @@ import java.time.Duration;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class TimedRunnableTest {
+public class TimeableRunnableTest {
 
     @Test(expected = NullPointerException.class)
     public void nullIsNotNotAllowedInConstructor() {
-        new TimedRunnable(null);
+        new TimeableRunnable(null);
     }
 
     @Test
     public void constructorDoesNotRunTheRunnable() {
         var runnable = new AssertableRunnable();
-        new TimedRunnable(runnable);
+        new TimeableRunnable(runnable);
         assertThat(runnable.ran()).isFalse();
     }
 
     @Test
     public void runtimeActuallyRunsTheRunnable() {
         var runnable = new AssertableRunnable();
-        new TimedRunnable(runnable).runtime();
+        new TimeableRunnable(runnable).runtime();
         assertThat(runnable.ran()).isTrue();
     }
 
     @Test
     public void runtimeIsSomewhatQuick() {
-        assertThat(new TimedRunnable(() -> {}).runtime())
+        assertThat(new TimeableRunnable(() -> {}).runtime())
             .isGreaterThan(Duration.ZERO)
             .isLessThan(Duration.ofMillis(50));
     }
 
     @Test
     public void runtimeIsDependentOnExecutionTimeOfRunnable() {
-        assertThat(new TimedRunnable(new SlowRunnable()).runtime())
+        assertThat(new TimeableRunnable(new SlowRunnable()).runtime())
             .isGreaterThan(Duration.ofMillis(100))
             .isLessThan(Duration.ofMillis(150));
     }

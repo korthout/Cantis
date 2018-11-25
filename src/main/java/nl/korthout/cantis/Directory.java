@@ -21,7 +21,7 @@ public interface Directory {
     /**
      * A directory of source files.
      */
-    final class SourceDirectory implements Directory {
+    final class FromSource implements Directory {
 
         private static final String[] EXTENSIONS = new String[]{"java"};
 
@@ -31,7 +31,7 @@ public interface Directory {
          * Constructor.
          * @param path Path to the directory containing the source files
          */
-        SourceDirectory(String path) {
+        FromSource(String path) {
             this(new File(path));
         }
 
@@ -39,7 +39,7 @@ public interface Directory {
          * Constructor.
          * @param directory Directory containing the source files
          */
-        SourceDirectory(@NonNull File directory) {
+        FromSource(@NonNull File directory) {
             if (!directory.isDirectory()) {
                 throw new IllegalArgumentException("not a directory");
             }

@@ -1,6 +1,6 @@
 package nl.korthout.cantis;
 
-import nl.korthout.cantis.Directory.SourceDirectory;
+import nl.korthout.cantis.Directory.FromSource;
 
 import org.junit.Rule;
 import org.junit.Test;
@@ -12,7 +12,7 @@ import java.io.IOException;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException;
 
-public class SourceDirectoryTest {
+public class FromSourceTest {
 
     @Rule
     public TemporaryFolder tempFolder = new TemporaryFolder();
@@ -20,13 +20,13 @@ public class SourceDirectoryTest {
     @Test(expected = NullPointerException.class)
     @SuppressWarnings("ConstantConditions")
     public void constructorDoesNotAllowNull() {
-        new SourceDirectory((File) null);
+        new FromSource((File) null);
     }
 
     @Test
     public void nonexistingDirectoryResultsInException() {
         assertThatIllegalArgumentException().isThrownBy(
-            () -> new SourceDirectory(
+            () -> new FromSource(
                 new File("nonexisting")
             )
         );
@@ -35,7 +35,7 @@ public class SourceDirectoryTest {
     @Test
     public void nonDirectoryResultsInException() {
         assertThatIllegalArgumentException().isThrownBy(
-            () -> new SourceDirectory(
+            () -> new FromSource(
                 tempFolder.newFile()
             )
         );
@@ -44,7 +44,7 @@ public class SourceDirectoryTest {
     @Test
     public void emptyDirectoryResultsInEmptyCollectionOfFiles() {
         assertThat(
-            new SourceDirectory(
+            new FromSource(
                 tempFolder.getRoot()
             ).files()
         ).isEmpty();
@@ -53,7 +53,7 @@ public class SourceDirectoryTest {
     @Test
     public void pathToEmptyDirectoryResultsInEmptyCollection() {
         assertThat(
-            new SourceDirectory(
+            new FromSource(
                 tempFolder.getRoot().getPath()
             ).files()
         ).isEmpty();
@@ -63,7 +63,7 @@ public class SourceDirectoryTest {
     public void directoryWithoutJavaFilesResultsInEmptyCollection() throws IOException {
         tempFolder.newFile("Example.txt");
         assertThat(
-            new SourceDirectory(
+            new FromSource(
                 tempFolder.getRoot()
             ).files()
         ).isEmpty();
@@ -73,7 +73,7 @@ public class SourceDirectoryTest {
     public void directoryWithJavaFilesResultsInCollectionOfThatOneJavaFile() throws IOException {
         File javaFile = tempFolder.newFile("Example.java");
         assertThat(
-            new SourceDirectory(
+            new FromSource(
                 tempFolder.getRoot()
             ).files()
         ).containsExactly(javaFile);
@@ -86,7 +86,7 @@ public class SourceDirectoryTest {
         nestedFolder.create();
         File nestedFile = nestedFolder.newFile("AnotherExample.java");
         assertThat(
-            new SourceDirectory(
+            new FromSource(
                 tempFolder.getRoot()
             ).files()
         ).containsExactlyInAnyOrder(javaFile, nestedFile);

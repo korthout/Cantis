@@ -68,7 +68,7 @@ public interface Classifier {
 
         @Override
         public boolean hasGlossaryTermAnnotation() {
-            return annotated.isAnnotationPresent(GlossaryTerm.class);
+            return annotated.isAnnotationPresent(GlossaryTerm.class.getSimpleName());
         }
 
         @Override

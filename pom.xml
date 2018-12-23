@@ -33,7 +33,7 @@
         <commons-io.version>2.6</commons-io.version>
         <javaparser-core.version>3.8.3</javaparser-core.version>
         <junit.version>4.12</junit.version>
-        <lombok.version>1.18.2</lombok.version>
+        <lombok.version>1.18.4</lombok.version>
     </properties>
 
     <dependencies>

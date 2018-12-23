@@ -6,7 +6,7 @@
 
     <groupId>nl.korthout</groupId>
     <artifactId>cantis</artifactId>
-    <version>0.0.4-SNAPSHOT</version>
+    <version>0.0.1-SNAPSHOT</version>
     <packaging>maven-plugin</packaging>
 
     <prerequisites>
@@ -26,12 +26,12 @@
         <maven-plugin-api.version>3.6.0</maven-plugin-api.version>
         <maven-plugin-plugin.version>3.6.0</maven-plugin-plugin.version>
         <maven-surefire-plugin.version>2.22.1</maven-surefire-plugin.version>
+        <jacoco-maven-plugin.version>0.8.2</jacoco-maven-plugin.version>
         <airline.version>0.8</airline.version>
         <assertj.version>3.11.1</assertj.version>
         <cactoos.version>0.38</cactoos.version>
         <commons-io.version>2.6</commons-io.version>
-        <jacoco-maven-plugin.version>0.8.2</jacoco-maven-plugin.version>
-        <javaparser-core.version>3.6.27</javaparser-core.version>
+        <javaparser-core.version>3.8.3</javaparser-core.version>
         <junit.version>4.12</junit.version>
         <lombok.version>1.18.2</lombok.version>
     </properties>

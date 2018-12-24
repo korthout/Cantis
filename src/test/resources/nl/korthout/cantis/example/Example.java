@@ -21,43 +21,15 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package nl.korthout.cantis;
+package nl.korthout.cantis.example;
 
-import nl.korthout.cantis.SupportedCommands.SupportedCommandFactory;
+import nl.korthout.cantis.GlossaryTerm;
 
 /**
- * The glossary generator.
+ * This is just a simple example class.
  * @since 0.1
  */
-public final class Cantis {
+@GlossaryTerm
+class Example {
 
-    /**
-     * The commandline parser.
-     */
-    private final Commandline cli;
-
-    /**
-     * Main Constructor.
-     */
-    public Cantis() {
-        this.cli = new Commandline.ForCommands(
-            new SupportedCommandFactory()
-        );
-    }
-
-    /**
-     * Main entry point of the program.
-     * @param args The commandline arguments
-     */
-    public static void main(final String... args) {
-        new Cantis().run(args);
-    }
-
-    /**
-     * Run the command.
-     * @param args The commandline arguments
-     */
-    private void run(final String... args) {
-        this.cli.command(args).run();
-    }
 }

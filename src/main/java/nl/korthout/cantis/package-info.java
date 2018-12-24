@@ -21,43 +21,11 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package nl.korthout.cantis;
-
-import nl.korthout.cantis.SupportedCommands.SupportedCommandFactory;
 
 /**
- * The glossary generator.
+ * Cantis is a living documentation glossary generator for Java projects.
+ * It helps to keep your glossary up-to-date by extracting it from your Java
+ * classes and their JavaDoc descriptions.
  * @since 0.1
  */
-public final class Cantis {
-
-    /**
-     * The commandline parser.
-     */
-    private final Commandline cli;
-
-    /**
-     * Main Constructor.
-     */
-    public Cantis() {
-        this.cli = new Commandline.ForCommands(
-            new SupportedCommandFactory()
-        );
-    }
-
-    /**
-     * Main entry point of the program.
-     * @param args The commandline arguments
-     */
-    public static void main(final String... args) {
-        new Cantis().run(args);
-    }
-
-    /**
-     * Run the command.
-     * @param args The commandline arguments
-     */
-    private void run(final String... args) {
-        this.cli.command(args).run();
-    }
-}
+package nl.korthout.cantis;

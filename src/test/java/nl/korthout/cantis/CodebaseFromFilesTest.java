@@ -1,26 +1,54 @@
+/*
+ * The MIT License (MIT)
+ *
+ * Copyright (c) 2018 Nico Korthout
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included
+ * in all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ */
 package nl.korthout.cantis;
 
+import java.io.File;
+import java.io.IOException;
+import java.util.function.Predicate;
+import lombok.NonNull;
 import nl.korthout.cantis.Codebase.CodebaseFromFiles;
-
+import nl.korthout.cantis.fakes.FakeFile;
+import org.assertj.core.api.Assertions;
 import org.cactoos.list.ListOf;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.util.function.Predicate;
-
-import lombok.NonNull;
-
-import static org.assertj.core.api.Assertions.assertThat;
-
+/**
+ * Unit tests for {@code CodebaseFromFiles} objects.
+ * @since 0.1
+ */
+@SuppressWarnings({
+    "PMD.ProhibitPlainJunitAssertionsRule",
+    "PMD.AvoidDuplicateLiterals"
+})
 public class CodebaseFromFilesTest {
 
-    @Rule
-    public TemporaryFolder tempFolder = new TemporaryFolder();
+    /**
+     * Temporary folder provided by junit.
+     */
+    @Rule public TemporaryFolder tmp = new TemporaryFolder();
 
     @Test(expected = NullPointerException.class)
     @SuppressWarnings("ConstantConditions")
@@ -35,7 +63,7 @@ public class CodebaseFromFilesTest {
 
     @Test
     public void codebaseOfNoSourcesHasNoClassifiers() {
-        assertThat(
+        Assertions.assertThat(
             new CodebaseFromFiles(
                 new ListOf<>()
             ).classifiers()
@@ -44,7 +72,7 @@ public class CodebaseFromFilesTest {
 
     @Test
     public void codebaseCanBeConstructedFromDirectory() {
-        assertThat(
+        Assertions.assertThat(
             new CodebaseFromFiles(
                 ListOf<File>::new
             ).classifiers()
@@ -52,148 +80,138 @@ public class CodebaseFromFilesTest {
     }
 
     @Test
-    public void codebaseOfTextFileHasNoClassifiers() {
-        assertThat(
+    public void codebaseOfTextFileHasNoClassifiers() throws IOException {
+        Assertions.assertThat(
             new CodebaseFromFiles(
                 new ListOf<>(
-                    new FakeFile("TextFile.txt").fileWithContent("Just a simple text file, with some text.")
+                    new FakeFile(this.tmp.newFile("TextFile.txt"))
+                        .withContent("Just a simple text file.")
                 )
             ).classifiers()
         ).isEmpty();
     }
 
     @Test
-    public void codebaseOfJavaFileHasAClassifier() {
-        assertThat(
+    public void codebaseOfJavaFileHasAClassifier() throws IOException {
+        Assertions.assertThat(
             new CodebaseFromFiles(
                 new ListOf<>(
-                    new FakeFile("SimpleClass.java").fileWithContent("class SimpleClass { }")
+                    new FakeFile(this.tmp.newFile("Simple.java"))
+                        .withContent("class Simple { }")
                 )
             ).classifiers()
-        ).hasSize(1)
-            .allMatch(new NoAnnotation())
-            .allMatch(new NoJavadoc())
-            .allMatch(new HasDefinition(
-                new Definition("SimpleClass", "Description not found")
-            ));
+        )
+            .hasSize(1)
+            .allMatch(
+                new HasDefinition(
+                    new Definition(
+                        "Simple",
+                        "Description not found"
+                    )
+                )
+            );
     }
 
     @Test
-    public void codebaseOfAnnotatedJavaFileHasClassifierWithAnnotation() {
-        assertThat(
+    public void codebaseOfAnnotatedJavaFileHasClassifierWithAnnotation()
+        throws IOException {
+        Assertions.assertThat(
             new CodebaseFromFiles(
                 new ListOf<>(
-                    new FakeFile("AnnotatedClass.java")
-                        .fileWithContent("@GlossaryTerm class AnnotatedClass { }")
+                    new FakeFile(this.tmp.newFile("Annotated.java"))
+                        .withContent("@GlossaryTerm class Annotated { }")
                 )
             ).classifiers()
-        ).hasSize(1)
-            .allMatch(new HasAnnotation())
-            .allMatch(new NoJavadoc())
-            .allMatch(new HasDefinition(
-                new Definition("AnnotatedClass", "Description not found")
-            ));
+        )
+            .hasSize(1)
+            .allMatch(
+                new HasDefinition(
+                    new Definition(
+                        "Annotated",
+                        "Description not found"
+                    )
+                )
+            );
     }
 
+    // todo: change back to single line after Qulice fixes regex check
+    // see: https://github.com/teamed/qulice/issues/975
+    // and: https://github.com/teamed/qulice/issues/976
     @Test
-    public void codebaseOfJavaFileWithJavadocHasClassifierWithJavadoc() {
-        assertThat(
+    @SuppressWarnings("PMD.AvoidDuplicateLiterals")
+    public void codebaseOfJavaFileWithJavadocHasClassifierWithJavadoc()
+        throws IOException {
+        Assertions.assertThat(
             new CodebaseFromFiles(
                 new ListOf<>(
-                    new FakeFile("ClassWithJavadoc.java")
-                        .fileWithContent("/** Some documentation */ class ClassWithJavadoc { }")
+                    new FakeFile(this.tmp.newFile("Javadoc.java"))
+                        // @checkstyle StringLiteralsConcatenation (4 lines)
+                        .withContent("/**"
+                            + " * Documentation"
+                            + " */"
+                            + "class Javadoc { }"
+                        )
                 )
             ).classifiers()
-        ).hasSize(1)
-            .allMatch(new HasJavadoc())
-            .allMatch(new NoAnnotation())
-            .allMatch(new HasDefinition(
-                new Definition("ClassWithJavadoc", "Some documentation")
-            ));
+        )
+            .hasSize(1)
+            .allMatch(
+                new HasDefinition(
+                    new Definition(
+                        "Javadoc",
+                        "Documentation"
+                    )
+                )
+            );
     }
 
+    // todo: change back to single line after Qulice fixes regex check
+    // see: https://github.com/teamed/qulice/issues/975
+    // and: https://github.com/teamed/qulice/issues/976
     @Test
-    public void codebaseCanContainManyClassifiers() {
-        assertThat(
+    public void codebaseCanContainManyClassifiers() throws IOException {
+        Assertions.assertThat(
             new CodebaseFromFiles(
                 new ListOf<>(
-                    new FakeFile("SimpleClass.java")
-                        .fileWithContent("class SimpleClass { }"),
-                    new FakeFile("AnnotatedClass.java")
-                        .fileWithContent("@GlossaryTerm class AnnotatedClass { }"),
-                    new FakeFile("ClassWithJavadoc.java")
-                        .fileWithContent("/** Some documentation */ class ClassWithJavadoc { }")
+                    new FakeFile(this.tmp.newFile("Simple.java"))
+                        .withContent("class Simple { }"),
+                    new FakeFile(this.tmp.newFile("Annotated.java"))
+                        .withContent("@GlossaryTerm class Annotated { }"),
+                    new FakeFile(this.tmp.newFile("Javadoc.java"))
+                        // @checkstyle StringLiteralsConcatenation (4 lines)
+                        .withContent("/**"
+                            + " * Documentation "
+                            + " */"
+                            + "class Javadoc { }"
+                        )
                 )
             ).classifiers()
+        // @checkstyle MagicNumber (1 lines)
         ).hasSize(3);
     }
 
-    private final class FakeFile {
-
-        private final File file;
-
-        FakeFile(@NonNull String name) {
-            try {
-                file = tempFolder.newFile(name);
-            } catch (IOException e) {
-                throw new IllegalStateException(e);
-            }
-        }
-
-        File fileWithContent(@NonNull String content) {
-            try (BufferedWriter writer = new BufferedWriter(new FileWriter(file))) {
-                writer.write(content);
-                writer.flush();
-                return file;
-            } catch (IOException e) {
-                throw new IllegalStateException(e);
-            }
-        }
-    }
-
-    private class NoAnnotation implements Predicate<Classifier> {
-
-        @Override
-        public boolean test(Classifier classifier) {
-            return !classifier.hasGlossaryTermAnnotation();
-        }
-    }
-
-    private class HasAnnotation implements Predicate<Classifier> {
-
-        @Override
-        public boolean test(Classifier classifier) {
-            return classifier.hasGlossaryTermAnnotation();
-        }
-    }
-
-    private class NoJavadoc implements Predicate<Classifier> {
-
-        @Override
-        public boolean test(Classifier classifier) {
-            return !classifier.hasJavadoc();
-        }
-    }
-
-    private class HasJavadoc implements Predicate<Classifier> {
-
-        @Override
-        public boolean test(Classifier classifier) {
-            return classifier.hasJavadoc();
-        }
-    }
-
+    /**
+     * Predicate to check whether a {@code Classifier} has
+     * a specific {@code Definition}.
+     */
     private class HasDefinition implements Predicate<Classifier> {
 
+        /**
+         * The definition to match the classifier against.
+         */
         private final Definition definition;
 
-        HasDefinition(@NonNull Definition definition) {
+        /**
+         * Constructor.
+         * @param definition The definition to match against
+         */
+        HasDefinition(final @NonNull Definition definition) {
             this.definition = definition;
         }
 
         @Override
-        public boolean test(Classifier classifier) {
-            return definition.equals(classifier.definition());
+        public boolean test(final Classifier classifier) {
+            return this.definition.equals(classifier.definition());
         }
     }
 }

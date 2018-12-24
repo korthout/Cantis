@@ -1,31 +1,58 @@
+/*
+ * The MIT License (MIT)
+ *
+ * Copyright (c) 2018 Nico Korthout
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included
+ * in all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ */
 package nl.korthout.cantis;
 
+import lombok.NonNull;
 import org.cactoos.Text;
 import org.cactoos.text.JoinedText;
 import org.cactoos.text.TextOf;
 
-import lombok.NonNull;
-
 /**
  * Glossary with a simple line separated formatting.
+ * @since 0.1
  */
 public final class FormattedGlossary implements Formatted {
 
+    /**
+     * The glossary to format.
+     */
     private final Glossary glossary;
 
     /**
-     * Constructor.
+     * Main Constructor.
      * @param glossary The glossary to format
      */
-    FormattedGlossary(@NonNull Glossary glossary) {
+    FormattedGlossary(final @NonNull Glossary glossary) {
         this.glossary = glossary;
     }
 
     @Override
     public Text formatted() {
-        return glossary.definitions()
+        return this.glossary.definitions()
             .sorted()
             .map(Definition::text)
+            // @checkstyle BracketsStructure (3 lines)
             .reduce((formatted, definition) -> new JoinedText(
                 new TextOf(System.lineSeparator()),
                 formatted, definition

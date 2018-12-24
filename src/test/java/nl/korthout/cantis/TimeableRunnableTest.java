@@ -1,12 +1,37 @@
+/*
+ * The MIT License (MIT)
+ *
+ * Copyright (c) 2018 Nico Korthout
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included
+ * in all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ */
 package nl.korthout.cantis;
 
+import java.time.Duration;
 import org.assertj.core.api.Assertions;
 import org.junit.Test;
 
-import java.time.Duration;
-
-import static org.assertj.core.api.Assertions.assertThat;
-
+/**
+ * Unit tests for {@code TimeableRunnable} objects.
+ * @since 0.1
+ */
+@SuppressWarnings("PMD.ProhibitPlainJunitAssertionsRule")
 public class TimeableRunnableTest {
 
     @Test(expected = NullPointerException.class)
@@ -16,30 +41,39 @@ public class TimeableRunnableTest {
 
     @Test
     public void constructorDoesNotRunTheRunnable() {
-        var runnable = new AssertableRunnable();
+        final var runnable = new AssertableRunnable();
         new TimeableRunnable(runnable);
-        assertThat(runnable.ran()).isFalse();
+        Assertions.assertThat(runnable.ran()).isFalse();
     }
 
     @Test
     public void runtimeActuallyRunsTheRunnable() {
-        var runnable = new AssertableRunnable();
+        final var runnable = new AssertableRunnable();
         new TimeableRunnable(runnable).runtime();
-        assertThat(runnable.ran()).isTrue();
+        Assertions.assertThat(runnable.ran()).isTrue();
     }
 
     @Test
     public void runtimeIsSomewhatQuick() {
-        assertThat(new TimeableRunnable(() -> {}).runtime())
+        final int maximum = 50;
+        Assertions.assertThat(new TimeableRunnable(() -> { }).runtime())
             .isGreaterThan(Duration.ZERO)
-            .isLessThan(Duration.ofMillis(50));
+            .isLessThan(Duration.ofMillis(maximum));
     }
 
     @Test
     public void runtimeIsDependentOnExecutionTimeOfRunnable() {
-        assertThat(new TimeableRunnable(new SlowRunnable()).runtime())
-            .isGreaterThan(Duration.ofMillis(100))
-            .isLessThan(Duration.ofMillis(150));
+        final int minimum = 50;
+        final int maximum = 100;
+        Assertions.assertThat(
+            new TimeableRunnable(
+                new SlowRunnable(minimum)
+            ).runtime()
+        ).isGreaterThan(
+            Duration.ofMillis(minimum)
+        ).isLessThan(
+            Duration.ofMillis(maximum)
+        );
     }
 
     /**
@@ -47,29 +81,41 @@ public class TimeableRunnableTest {
      */
     private static class AssertableRunnable implements Runnable {
 
-        private boolean ran;
+        /**
+         * Whether or not the runnable was executed.
+         */
+        private boolean executed;
 
         @Override
         public void run() {
-            ran = true;
+            this.executed = true;
         }
 
-        boolean ran() {
-            return ran;
+        private boolean ran() {
+            return this.executed;
         }
     }
 
     /**
      * Executes its run method with a delay to make it slow.
      */
-    private static class SlowRunnable implements Runnable {
+    private static final class SlowRunnable implements Runnable {
+
+        /**
+         * The time this runnable will try to run.
+         */
+        private final int runtime;
+
+        private SlowRunnable(final int runtime) {
+            this.runtime = runtime;
+        }
 
         @Override
         public void run() {
             try {
-                Thread.sleep(100);
-            } catch (InterruptedException e) {
-                Assertions.fail("Thread was interrupted", e);
+                Thread.sleep(this.runtime);
+            } catch (final InterruptedException exception) {
+                Assertions.fail("Thread was interrupted", exception);
             }
         }
     }

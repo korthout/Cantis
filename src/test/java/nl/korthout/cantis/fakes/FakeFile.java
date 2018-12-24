@@ -21,43 +21,47 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package nl.korthout.cantis;
+package nl.korthout.cantis.fakes;
 
-import nl.korthout.cantis.SupportedCommands.SupportedCommandFactory;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import lombok.NonNull;
 
 /**
- * The glossary generator.
+ * Wraps a {@code File} to add some content.
  * @since 0.1
  */
-public final class Cantis {
+public final class FakeFile {
 
     /**
-     * The commandline parser.
+     * The actual file.
      */
-    private final Commandline cli;
+    private final File file;
 
     /**
-     * Main Constructor.
+     * Main constructor.
+     * @param file The file to add content to
      */
-    public Cantis() {
-        this.cli = new Commandline.ForCommands(
-            new SupportedCommandFactory()
-        );
+    public FakeFile(final @NonNull File file) {
+        this.file = file;
     }
 
     /**
-     * Main entry point of the program.
-     * @param args The commandline arguments
+     * Builds the file with the provided content.
+     * @param content The content that should be in the file
+     * @return A file with the provided content
      */
-    public static void main(final String... args) {
-        new Cantis().run(args);
-    }
-
-    /**
-     * Run the command.
-     * @param args The commandline arguments
-     */
-    private void run(final String... args) {
-        this.cli.command(args).run();
+    public File withContent(final @NonNull String content) {
+        final Path path = this.file.toPath();
+        try (BufferedWriter writer = Files.newBufferedWriter(path)) {
+            writer.write(content);
+            writer.flush();
+            return this.file;
+        } catch (final IOException exception) {
+            throw new IllegalStateException(exception);
+        }
     }
 }

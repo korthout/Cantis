@@ -1,3 +1,26 @@
+/*
+ * The MIT License (MIT)
+ *
+ * Copyright (c) 2018 Nico Korthout
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included
+ * in all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ */
 package nl.korthout.cantis;
 
 import com.github.javaparser.ast.Node;
@@ -11,16 +34,16 @@ import com.github.javaparser.ast.expr.SimpleName;
 import com.github.javaparser.ast.nodeTypes.NodeWithAnnotations;
 import com.github.javaparser.ast.nodeTypes.NodeWithJavadoc;
 import com.github.javaparser.ast.nodeTypes.NodeWithSimpleName;
-
+import java.util.Optional;
 import nl.korthout.cantis.Classifier.ClassifierFromJavaparser;
-
+import org.assertj.core.api.Assertions;
 import org.junit.Test;
 
-import java.util.Optional;
-
-import static org.assertj.core.api.Assertions.assertThat;
-
-
+/**
+ * Unit tests for {@code ClassifierFromJavaparser} objects.
+ * @since 0.1
+ */
+@SuppressWarnings("PMD.ProhibitPlainJunitAssertionsRule")
 public class ClassifierFromJavaparserTest {
 
     @Test(expected = NullPointerException.class)
@@ -52,7 +75,7 @@ public class ClassifierFromJavaparserTest {
 
     @Test
     public void classifierCanHaveJavadoc() {
-        assertThat(
+        Assertions.assertThat(
             new ClassifierFromJavaparser(
                 new FakeNodeWithAnnotations(),
                 new FakeNodeWithJavadoc(),
@@ -63,7 +86,7 @@ public class ClassifierFromJavaparserTest {
 
     @Test
     public void classifierDoesNotRequireJavadoc() {
-        assertThat(
+        Assertions.assertThat(
             new ClassifierFromJavaparser(
                 new FakeNodeWithAnnotations(),
                 new FakeNodeWithoutJavadoc(),
@@ -74,7 +97,7 @@ public class ClassifierFromJavaparserTest {
 
     @Test
     public void classifierCanHaveAnnotations() {
-        assertThat(
+        Assertions.assertThat(
             new ClassifierFromJavaparser(
                 new FakeNodeWithAnnotations(),
                 new FakeNodeWithJavadoc(),
@@ -85,7 +108,7 @@ public class ClassifierFromJavaparserTest {
 
     @Test
     public void classifierDoNotRequireAnnotations() {
-        assertThat(
+        Assertions.assertThat(
             new ClassifierFromJavaparser(
                 new FakeNodeWithoutAnnotations(),
                 new FakeNodeWithJavadoc(),
@@ -96,21 +119,26 @@ public class ClassifierFromJavaparserTest {
 
     @Test
     public void classifierCanBeDescribedByADefinition() {
-        assertThat(
+        final var description = "Acts as a classifier with Javadoc.";
+        final var name = "FakeClassifier";
+        Assertions.assertThat(
             new ClassifierFromJavaparser(
                 new FakeNodeWithAnnotations(),
-                new FakeNodeWithJavadoc(),
-                new FakeNodeWithSimpleName()
+                new FakeNodeWithJavadoc(description),
+                new FakeNodeWithSimpleName(name)
             ).definition()
         ).isEqualTo(
-            new Definition("FakeClassifier", "Acts as a classifier with Javadoc.")
+            new Definition(name, description)
         );
     }
 
     /**
      * Node is annotated with @GlossaryTerm.
      */
-    private class FakeNodeWithAnnotations implements NodeWithAnnotations<Node> {
+    @SuppressWarnings("PMD.LinguisticNaming")
+    private final class FakeNodeWithAnnotations
+        implements NodeWithAnnotations<Node> {
+
         @Override
         public NodeList<AnnotationExpr> getAnnotations() {
             return new NodeList<>(
@@ -119,12 +147,12 @@ public class ClassifierFromJavaparserTest {
         }
 
         @Override
-        public void tryAddImportToParentCompilationUnit(Class clazz) {
+        public void tryAddImportToParentCompilationUnit(final Class clazz) {
             // not necessary to implement
         }
 
         @Override
-        public Node setAnnotations(NodeList annotations) {
+        public Node setAnnotations(final NodeList annotations) {
             return null;
         }
     }
@@ -132,19 +160,22 @@ public class ClassifierFromJavaparserTest {
     /**
      * Node is not annotated.
      */
-    private class FakeNodeWithoutAnnotations implements NodeWithAnnotations<Node> {
+    @SuppressWarnings("PMD.LinguisticNaming")
+    private final class FakeNodeWithoutAnnotations
+        implements NodeWithAnnotations<Node> {
+
         @Override
         public NodeList<AnnotationExpr> getAnnotations() {
             return new NodeList<>();
         }
 
         @Override
-        public void tryAddImportToParentCompilationUnit(Class clazz) {
+        public void tryAddImportToParentCompilationUnit(final Class clazz) {
             // not necessary to implement
         }
 
         @Override
-        public Node setAnnotations(NodeList annotations) {
+        public Node setAnnotations(final NodeList annotations) {
             return null;
         }
     }
@@ -152,13 +183,30 @@ public class ClassifierFromJavaparserTest {
     /**
      * Node has Javadoc description: Acts as a classifier with Javadoc.
      */
-    private class FakeNodeWithJavadoc implements NodeWithJavadoc<ClassOrInterfaceDeclaration> {
+    @SuppressWarnings("PMD.LinguisticNaming")
+    private final class FakeNodeWithJavadoc
+        implements NodeWithJavadoc<ClassOrInterfaceDeclaration> {
+
+        /**
+         * The Javadoc description of this fake classifier.
+         */
+        private final String description;
+
+        private FakeNodeWithJavadoc(final String description) {
+            this.description = description;
+        }
+
+        private FakeNodeWithJavadoc() {
+            this("");
+        }
+
         @Override
         public Optional<Comment> getComment() {
-            return Optional.of(new JavadocComment("Acts as a classifier with Javadoc."));
+            return Optional.of(new JavadocComment(this.description));
         }
+
         @Override
-        public Node setComment(Comment comment) {
+        public Node setComment(final Comment comment) {
             return null;
         }
     }
@@ -166,13 +214,17 @@ public class ClassifierFromJavaparserTest {
     /**
      * Node does not have a Javadoc description.
      */
-    private class FakeNodeWithoutJavadoc implements NodeWithJavadoc<ClassOrInterfaceDeclaration> {
+    @SuppressWarnings("PMD.LinguisticNaming")
+    private final class FakeNodeWithoutJavadoc
+        implements NodeWithJavadoc<ClassOrInterfaceDeclaration> {
+
         @Override
         public Optional<Comment> getComment() {
             return Optional.empty();
         }
+
         @Override
-        public Node setComment(Comment comment) {
+        public Node setComment(final Comment comment) {
             return null;
         }
     }
@@ -180,14 +232,30 @@ public class ClassifierFromJavaparserTest {
     /**
      * Node has the name 'FakeClassifier'.
      */
-    private class FakeNodeWithSimpleName implements NodeWithSimpleName {
-        @Override
-        public SimpleName getName() {
-            return new SimpleName("FakeClassifier");
+    @SuppressWarnings("PMD.LinguisticNaming")
+    private final class FakeNodeWithSimpleName implements NodeWithSimpleName {
+
+        /**
+         * Tha name of this fake node object.
+         */
+        private final String name;
+
+        private FakeNodeWithSimpleName(final String name) {
+            this.name = name;
+        }
+
+        private FakeNodeWithSimpleName() {
+            this("Simple");
         }
 
         @Override
-        public Node setName(SimpleName name) {
+        public SimpleName getName() {
+            return new SimpleName(this.name);
+        }
+
+        @Override
+        // @checkstyle HiddenField (1 lines)
+        public Node setName(final SimpleName name) {
             return null;
         }
     }

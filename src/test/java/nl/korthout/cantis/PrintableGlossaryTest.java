@@ -47,24 +47,24 @@ public class PrintableGlossaryTest {
 
     @Test(expected = NullPointerException.class)
     public void nullIsNotAllowedAsOutput() {
-        new PrintableGlossary(ListOf<File>::new, null);
+        new PrintableGlossary(() -> new ListOf<File>(), null);
     }
 
     @Test(expected = NullPointerException.class)
     public void nullIsNotAllowedAsInfo() {
-        new PrintableGlossary(ListOf<File>::new, null, new FakeDestination());
+        new PrintableGlossary(() -> new ListOf<File>(), null, new FakeDestination());
     }
 
     @Test(expected = NullPointerException.class)
     public void nullIsNotAllowedAsTarget() {
-        new PrintableGlossary(ListOf<File>::new, new FakeDestination(), null);
+        new PrintableGlossary(() -> new ListOf<File>(), new FakeDestination(), null);
     }
 
     @Test
     public void printsNumberOfFiles() {
         final var info = new FakeDestination();
         new PrintableGlossary(
-            ListOf<File>::new,
+            () -> new ListOf<File>(),
             info,
             new FakeDestination()
         ).print();
@@ -81,7 +81,7 @@ public class PrintableGlossaryTest {
     public void printsGlossaryToDestination() {
         final var destination = new FakeDestination();
         new PrintableGlossary(
-            ListOf<File>::new,
+            () -> new ListOf<File>(),
             new FakeDestination(),
             destination
         ).print();
@@ -97,7 +97,7 @@ public class PrintableGlossaryTest {
     public void printsFinished() {
         final var info = new FakeDestination();
         new PrintableGlossary(
-            ListOf<File>::new,
+            () -> new ListOf<File>(),
             info,
             new FakeDestination()
         ).print();

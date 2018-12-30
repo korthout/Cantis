@@ -53,7 +53,7 @@ public class FromSourceTest {
     public void nonexistingDirectoryResultsInException() {
         Assertions.assertThatExceptionOfType(IllegalArgumentException.class)
             .isThrownBy(
-                () -> new FromSource(new File("nonexisting"))
+                () -> new FromSource(new File("nonexisting")).files()
             );
     }
 
@@ -61,7 +61,7 @@ public class FromSourceTest {
     public void nonDirectoryResultsInException() {
         Assertions.assertThatExceptionOfType(IllegalArgumentException.class)
             .isThrownBy(
-                () -> new FromSource(this.tmp.newFile())
+                () -> new FromSource(this.tmp.newFile()).files()
             );
     }
 

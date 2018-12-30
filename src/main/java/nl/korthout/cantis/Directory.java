@@ -26,7 +26,10 @@ package nl.korthout.cantis;
 import java.io.File;
 import java.util.Collection;
 import lombok.NonNull;
+import lombok.SneakyThrows;
 import org.apache.commons.io.FileUtils;
+import org.cactoos.Scalar;
+import org.cactoos.scalar.SolidScalar;
 
 /**
  * A directory of files.
@@ -53,7 +56,21 @@ public interface Directory {
         /**
          * The source files in the directory.
          */
-        private final Collection<File> sources;
+        private final Scalar<Collection<File>> sources;
+
+        /**
+         * Main constructor.
+         * @param directory Directory containing the source files
+         */
+        FromSource(final @NonNull File directory) {
+            this.sources = new SolidScalar<>(
+                () -> FileUtils.listFiles(
+                    directory,
+                    FromSource.EXTENSIONS,
+                    true
+                )
+            );
+        }
 
         /**
          * Constructor.
@@ -63,21 +80,10 @@ public interface Directory {
             this(new File(path));
         }
 
-        /**
-         * Constructor.
-         * @param directory Directory containing the source files
-         */
-        FromSource(final @NonNull File directory) {
-            this.sources = FileUtils.listFiles(
-                directory,
-                FromSource.EXTENSIONS,
-                true
-            );
-        }
-
         @Override
+        @SneakyThrows
         public Collection<File> files() {
-            return this.sources;
+            return this.sources.value();
         }
     }
 }

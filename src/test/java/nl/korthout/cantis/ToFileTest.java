@@ -45,6 +45,11 @@ public class ToFileTest {
         new ToFile((File) null);
     }
 
+    @Test
+    public void constructorAllowsEmptyString() {
+        new ToFile("");
+    }
+
     @Test(expected = NullPointerException.class)
     @SuppressWarnings("ConstantConditions")
     public void writeDoesNotAllowNull() throws IOException {

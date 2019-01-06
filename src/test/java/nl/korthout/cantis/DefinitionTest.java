@@ -47,19 +47,17 @@ public class DefinitionTest {
         new Definition("", null);
     }
 
-    // todo: remove toString() after Cactoos fixes equality of Text
-    // see: https://github.com/yegor256/cactoos/issues/942
     @Test
     public void textIsATextualRepresentationOfTheDefinition() {
         Assertions.assertThat(
             new Definition(
                 "Glossary",
                 "A list of definitions in a codebase."
-            ).text().toString()
+            ).text()
         ).isEqualTo(
             new TextOf(
                 "Glossary: A list of definitions in a codebase."
-            ).toString()
+            )
         );
     }
 

@@ -11,10 +11,12 @@ and their JavaDoc descriptions.
 ## Why
 Cantis was created to **overcome miscommunication** about the meaning of domain-specific terms 
 between co-workers (e.g. developers, managers, sales, customer heroes and so on).
-I also think it may give developers an extra nudge to **document classes** with care. 
-Lastly, I tried to apply the Elegant Object Principles, to **learn more** about true 
-Object-Oriented Programming and how Functional Programming can complement OOP 
-and I hope we can have meaningful discussions about its applications.
+
+It also may give developers an extra nudge to **document classes** with care. 
+
+Lastly, Elegant Object Principles were applied, to **learn more** about true 
+Object-Oriented Programming and how Functional Programming can complement OOP.
+Hopefully this can lead to meaningful discussions about its applications.
 
 ## Example
 Consider a class:
@@ -57,6 +59,8 @@ You can simply execute it as any regular jar.
 ```sh
 java -jar cantis-<verson>-jar-with-dependencies.jar <command> [--] [<arguments>]
 ```
+> Currently the first version is still to be released.
+You need to build your own version locally, or be patient until the first release.
 
 #### Binary
 You can also use the binary `./bin/cantis` provided in the bin folder of this repo.  

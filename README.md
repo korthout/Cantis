@@ -18,7 +18,7 @@ Consider a class:
 ```java
 /**
  * A person that uses our software.
- **/
+ */
 @GlossaryTerm
 class User {
 

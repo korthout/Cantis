@@ -29,6 +29,7 @@ import nl.korthout.cantis.SupportedCommands.SupportedCommandFactory;
  * The glossary generator.
  * @since 0.1
  */
+@GlossaryTerm
 public final class Cantis {
 
     /**

@@ -40,6 +40,7 @@ import nl.korthout.cantis.Classifier.ClassifierFromJavaparser;
  * A collection of code that forms a program.
  * @since 0.1
  */
+@GlossaryTerm
 public interface Codebase {
 
     /**

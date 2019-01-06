@@ -34,6 +34,8 @@ Cantis can turn it into:
 User: A person that uses our software.
 ```
 
+Cantis also generates its own [glossary](glossary.txt).
+
 ## Usage
 Adding Cantis to your own project is easy. Simply:
 * annotate a domain class with @GlossaryTerm

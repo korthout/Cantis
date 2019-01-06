@@ -1,6 +1,8 @@
 # Cantis
-[![EO principles respected here](http://www.elegantobjects.org/badge.svg)](http://www.elegantobjects.org)
-[![Build Status](https://api.travis-ci.org/korthout/Cantis.svg?branch=master)](https://travis-ci.org/korthout/Cantis)
+[![EO principles respected here](http://www.elegantobjects.org/badge.svg)](http://www.elegantobjects.org) 
+
+[![Build Status](https://api.travis-ci.org/korthout/Cantis.svg?branch=master)](https://travis-ci.org/korthout/Cantis) 
+[![codecov](https://codecov.io/gh/korthout/Cantis/branch/master/graph/badge.svg)](https://codecov.io/gh/korthout/Cantis) 
 
 Cantis is a living documentation glossary generator for Java projects.
 It helps to keep your glossary up-to-date by extracting it from your Java classes 

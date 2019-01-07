@@ -41,7 +41,7 @@ Adding Cantis to your own project is easy. Simply:
 * type `cantis generate` in your terminal or use the maven plugin
 
 > The annotation @GlossaryTerm can be placed on the classpath in many ways, 
-for example via the maven dependency `nl.korthout:cantis`, but you can also 
+for example via the maven dependency `com.github.korthout:cantis`, but you can also 
 simply define your own @GlossaryTerm annotation as long as it is called @GlossaryTerm.
 
 Cantis can be used via its commandline interface (cli) and as a maven plugin.
@@ -86,7 +86,7 @@ The plugin can be used by adding the following to the `plugins` section of your 
 
 ```xml
 <plugin>
-    <groupId>nl.korthout</groupId>
+    <groupId>com.github.korthout</groupId>
     <artifactId>cantis</artifactId>
     <version>latest</version>
     <executions>

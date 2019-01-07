@@ -13,6 +13,38 @@
         <maven>3.3.9</maven>
     </prerequisites>
 
+    <name>Cantis</name>
+    <description>A living documentation glossary generator for Java projects</description>
+    <url>https://www.github.com/korthout/cantis</url>
+
+    <licenses>
+        <license>
+            <name>MIT License</name>
+            <url>https://github.com/korthout/cantis/blob/master/LICENSE.md</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+
+    <developers>
+        <developer>
+            <name>Nico Korthout</name>
+            <email>nicokorthout@gmail.com</email>
+            <organization>Developer</organization>
+            <organizationUrl>https://www.github.com/korthout</organizationUrl>
+        </developer>
+    </developers>
+
+    <issueManagement>
+        <system>GitHub</system>
+        <url>https://github.com/korthout/cantis/issues</url>
+    </issueManagement>
+
+    <scm>
+        <connection>scm:git:https://github.com/korthout/Cantis.git</connection>
+        <developerConnection>scm:git:https://github.com/korthout/Cantis.git</developerConnection>
+        <url>https://github.com/korthout/cantis</url>
+    </scm>
+
     <properties>
         <jdk.version>11</jdk.version>
         <maven.compiler.source>11</maven.compiler.source>

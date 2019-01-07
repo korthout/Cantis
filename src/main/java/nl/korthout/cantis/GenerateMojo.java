@@ -32,8 +32,6 @@ import org.apache.maven.plugins.annotations.Parameter;
 
 /**
  * Maven Plugin Mojo to generate a glossary for a Java project.
- * @goal Generate a glossary from sourcecode
- * @phase generate-resources
  * @since 0.1
  */
 @Mojo(name = "generate")

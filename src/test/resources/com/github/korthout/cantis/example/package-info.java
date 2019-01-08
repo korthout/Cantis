@@ -26,4 +26,4 @@
  * Contains example classes for the integration tests of Cantis.
  * @since 0.1
  */
-package nl.korthout.cantis.example;
+package com.github.korthout.cantis.example;

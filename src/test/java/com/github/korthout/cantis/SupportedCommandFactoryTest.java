@@ -23,8 +23,8 @@
  */
 package com.github.korthout.cantis;
 
-import io.airlift.airline.Help;
 import com.github.korthout.cantis.SupportedCommands.SupportedCommandFactory;
+import io.airlift.airline.Help;
 import org.assertj.core.api.Assertions;
 import org.junit.Test;
 

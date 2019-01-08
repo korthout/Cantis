@@ -23,12 +23,12 @@
  */
 package com.github.korthout.cantis;
 
+import com.github.korthout.cantis.Codebase.CodebaseFromFiles;
+import com.github.korthout.cantis.fakes.FakeFile;
 import java.io.File;
 import java.io.IOException;
 import java.util.function.Predicate;
 import lombok.NonNull;
-import com.github.korthout.cantis.Codebase.CodebaseFromFiles;
-import com.github.korthout.cantis.fakes.FakeFile;
 import org.assertj.core.api.Assertions;
 import org.cactoos.list.ListOf;
 import org.junit.Rule;

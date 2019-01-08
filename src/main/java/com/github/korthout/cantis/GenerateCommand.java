@@ -23,10 +23,10 @@
  */
 package com.github.korthout.cantis;
 
+import com.github.korthout.cantis.Directory.FromSource;
 import io.airlift.airline.Arguments;
 import io.airlift.airline.Command;
 import io.airlift.airline.Option;
-import com.github.korthout.cantis.Directory.FromSource;
 
 /**
  * Commandline command to generate a glossary from sourcecode.

@@ -36,47 +36,20 @@ User: A person that uses our software.
 
 ## Usage
 Adding Cantis to your own project is easy. Simply:
-* annotate a domain class with @GlossaryTerm
-* add a JavaDoc description to the domain class
+* annotate a class with @GlossaryTerm
+* add a JavaDoc description to the class
 * type `cantis generate` in your terminal or use the maven plugin
 
-> The annotation @GlossaryTerm can be placed on the classpath in many ways, 
-for example via the maven dependency `com.github.korthout:cantis`, but you can also 
-simply define your own @GlossaryTerm annotation as long as it is called @GlossaryTerm.
+> The annotation @GlossaryTerm can be placed on the classpath in many ways,
+for example via the maven dependency `com.github.korthout:cantis`, but you can 
+also define your own @GlossaryTerm annotation as long as it is called
+@GlossaryTerm.
 
-Cantis can be used via its commandline interface (cli) and as a maven plugin.
-
-### Commandline interface
-Main usage via our cli is:
-```sh
-cantis generate [--] [<source>]
-    <source>: The root directory of your source code. Defaults to .
-```
-
-Download the latest executable jar. 
-See `releases` for the latest version.
-You can simply execute it as any regular jar.
-```sh
-java -jar cantis-<verson>-jar-with-dependencies.jar <command> [--] [<arguments>]
-```
-> Currently the first version is still to be released.
-You need to build your own version locally, or be patient until the first release.
-
-#### Binary
-You can also use the binary `./bin/cantis` provided in the bin folder of this repo.  
-Remember to give execution permissions to this binary, after downloading it.
-```sh
-chmod +x ./bin/cantis
-```
-
-For easy access, place the binary on your PATH environment variable.
-```sh
-export PATH=$PATH:~/downloads/cantis/bin
-```
+Cantis can be used as a maven plugin and via its commandline interface (cli).
 
 ### Maven plugin
-For maven projects a maven plugin is provided. 
-To use it, add the following to the `plugins` section of your `pom.xml`.
+To use the maven plugin, simply add the following to the `plugins` section of 
+your `pom.xml`.
 
 ```xml
 <plugin>
@@ -98,10 +71,45 @@ To use it, add the following to the `plugins` section of your `pom.xml`.
 </plugin>
 ```
 
+> Note: Using the maven plugin requires jdk11.
+
 > Note: Due to limitations in maven, this plugin creates a separate glossary
 file for each maven module. For multi-module maven projects that wish to 
 aggregate the definitions from all of the submodules into one glossary file, 
 we recommend that you use the cli instead.
+
+### Commandline interface
+The cli is more flexible than the maven plugin. It does not require jdk 11 and
+can be used on multi-module maven projects.
+
+Its main usage is the generate command:
+```sh
+cantis generate [<options>] [--] [<source>]
+    <source>: The root directory of your source code. Defaults to .
+    
+    Options:
+    -t, --target <target>   Path to output file
+```
+
+You'll need the executable jar. Check
+[releases](https://github.com/korthout/Cantis/releases) for the latest version.
+Download and execute it as any regular jar.
+```sh
+java -jar cantis-0.1.jar <command> [--] [<arguments>]
+```
+
+**Shorthand usage**
+To use `cantis generate` instead of `java -jar cantis-0.1.jar generate`,
+download the binary from [releases](https://github.com/korthout/Cantis/releases)
+to the same folder and give it execution permissions.
+```sh
+chmod +x ~/downloads/cantis/cantis
+```
+
+For easy access, place the binary on your PATH environment variable.
+```sh
+export PATH=$PATH:~/downloads/cantis
+```
 
 ## How to contribute?
 

@@ -76,19 +76,13 @@ export PATH=$PATH:~/downloads/cantis/bin
 
 ### Maven plugin
 For maven projects a maven plugin is provided. 
-
-> Currently, Cantis is not yet available from maven-central, 
-so for now you need to install Cantis to your local repository 
-before adding the plugin to your project. 
-This can be done by cloning the project and running `mvn install`.
-
-The plugin can be used by adding the following to the `plugins` section of your `pom.xml`.
+To use it, add the following to the `plugins` section of your `pom.xml`.
 
 ```xml
 <plugin>
     <groupId>com.github.korthout</groupId>
     <artifactId>cantis</artifactId>
-    <version>latest</version>
+    <version>0.1</version>
     <executions>
         <execution>
             <id>cantis</id>
@@ -97,17 +91,17 @@ The plugin can be used by adding the following to the `plugins` section of your 
                 <goal>generate</goal>
             </goals>
             <configuration>
-                <target>target/docs/glossary.txt</target>
+                <target>glossary.txt</target>
             </configuration>
         </execution>
     </executions>
 </plugin>
 ```
 
-> Note: Due to limitations in maven, 
-this plugin creates a separate glossary file for each maven module. 
-For multi-module maven projects that wish to aggregate the definitions from all of the submodules 
-into one glossary file, we recommend that you use the cli instead.
+> Note: Due to limitations in maven, this plugin creates a separate glossary
+file for each maven module. For multi-module maven projects that wish to 
+aggregate the definitions from all of the submodules into one glossary file, 
+we recommend that you use the cli instead.
 
 ## How to contribute?
 

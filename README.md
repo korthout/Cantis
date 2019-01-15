@@ -54,7 +54,7 @@ Gradle:
 
 ```
 dependencies {
-    implementation 'org.hibernate:hibernate-core:3.6.7.Final'
+    implementation 'com.github.korthout:cantis:0.1'
 }
 ```
 

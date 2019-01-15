@@ -59,7 +59,7 @@ dependencies {
 ```
 
 ## Usage
-Using Cantis to your own project is easy. Simply:
+Using Cantis on your own project is easy. Simply:
 * annotate a class with @GlossaryTerm
 * add a JavaDoc description to the class
 * type `cantis generate` in your terminal or use the maven plugin

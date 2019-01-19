@@ -37,16 +37,38 @@ User: A person that uses our software.
 
 Cantis also generates its own [glossary](glossary.txt).
 
+## Install
+In order to use the `@GlossaryTerm` annotation,
+you can add a dependency to `cantis` to your project:
+
+Maven:
+
+```xml
+<dependency>
+    <groupId>com.github.korthout</groupId>
+    <artifactId>cantis</artifactId>
+    <version>0.1</version>
+</dependency>
+```
+
+Gradle:
+
+```
+dependencies {
+    implementation 'com.github.korthout:cantis:0.1'
+}
+```
+
+> If you don't want to have this compile-time dependency,
+You can also declare your own `@GlossaryTerm` annotation.
+Just make sure to call it `@GlossaryTerm`
+and you can place it in any package you like.
+
 ## Usage
-Adding Cantis to your own project is easy. Simply:
-* annotate a class with @GlossaryTerm
+Using Cantis on your own project is easy. Simply:
+* annotate a class with `@GlossaryTerm`
 * add a JavaDoc description to the class
 * type `cantis generate` in your terminal or use the maven plugin
-
-> The annotation @GlossaryTerm can be placed on the classpath in many ways,
-for example via the maven dependency `com.github.korthout:cantis`, but you can 
-also define your own @GlossaryTerm annotation as long as it is called
-@GlossaryTerm.
 
 Cantis can be used as a maven plugin and via its commandline interface (cli).
 

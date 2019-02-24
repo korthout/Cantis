@@ -23,8 +23,7 @@
  */
 package com.github.korthout.cantis;
 
-import com.github.javaparser.ast.Node;
-import com.github.javaparser.ast.body.ClassOrInterfaceDeclaration;
+import com.github.javaparser.ast.body.TypeDeclaration;
 import com.github.javaparser.ast.comments.JavadocComment;
 import com.github.javaparser.ast.nodeTypes.NodeWithAnnotations;
 import com.github.javaparser.ast.nodeTypes.NodeWithJavadoc;
@@ -33,58 +32,58 @@ import lombok.NonNull;
 
 /**
  * A type in a Java program as declared in a .java file.
- * @since 0.1
+ * @since 0.1.1
  */
-@GlossaryTerm
-public interface Classifier {
+@Term
+public interface Type {
 
     /**
-     * Tells whether this Classifier is annotated as glossary term.
-     * @return True when this is annotated with {@code GlossaryTerm}
+     * Tells whether this Type is annotated as glossary term.
+     * @return True when this is annotated with {@code Term}
      */
     boolean hasGlossaryTermAnnotation();
 
     /**
-     * Tells whether this Classifier has a Javadoc description.
+     * Tells whether this Type has a Javadoc description.
      * @return True when this has a Javadoc comment at the type level
      */
     boolean hasJavadoc();
 
     /**
-     * Builds a {@code Definition} from this classifier.
+     * Builds a {@code Definition} from this type.
      * @return The definition
      */
     Definition definition();
 
     /**
-     * Classifier that is created using the com.github.Javaparser library.
+     * Type that is created using the com.github.Javaparser library.
      */
-    final class ClassifierFromJavaparser implements Classifier {
+    final class TypeFromJavaparser implements Type {
 
         /**
-         * The annotated part of the classifier.
+         * The annotated part of the type.
          */
-        private final NodeWithAnnotations<? extends Node> annotated;
+        private final NodeWithAnnotations annotated;
 
         /**
-         * The documented part of the classifier.
+         * The documented part of the type.
          */
-        private final NodeWithJavadoc<ClassOrInterfaceDeclaration> documented;
+        private final NodeWithJavadoc<TypeDeclaration> documented;
 
         /**
-         * The named part of the classifier.
+         * The named part of the type.
          */
         private final NodeWithSimpleName named;
 
         /**
          * Main Constructor.
-         * @param note The annotated part of the classifier
-         * @param doc The documented part of the classifier
-         * @param name The named part of the classifier
+         * @param note The annotated part of the type
+         * @param doc The documented part of the type
+         * @param name The named part of the type
          */
-        public ClassifierFromJavaparser(
-            final @NonNull NodeWithAnnotations<? extends Node> note,
-            final @NonNull NodeWithJavadoc<ClassOrInterfaceDeclaration> doc,
+        public TypeFromJavaparser(
+            final @NonNull NodeWithAnnotations note,
+            final @NonNull NodeWithJavadoc<TypeDeclaration> doc,
             final @NonNull NodeWithSimpleName name
         ) {
             this.annotated = note;
@@ -94,18 +93,16 @@ public interface Classifier {
 
         /**
          * Constructor.
-         * @param declaration This classifier's declaration
+         * @param declaration This type's declaration
          */
-        public ClassifierFromJavaparser(
-            final ClassOrInterfaceDeclaration declaration
-        ) {
+        public TypeFromJavaparser(final TypeDeclaration declaration) {
             this(declaration, declaration, declaration);
         }
 
         @Override
         public boolean hasGlossaryTermAnnotation() {
             return this.annotated.isAnnotationPresent(
-                GlossaryTerm.class.getSimpleName()
+                Term.class.getSimpleName()
             );
         }
 

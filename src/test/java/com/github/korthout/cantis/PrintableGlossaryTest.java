@@ -72,7 +72,7 @@ public class PrintableGlossaryTest {
             info.lines()
         ).contains(
             // @checkstyle StringLiteralsConcatenation (2 lines)
-            "Scanning 0 java files for @GlossaryTerm annotation"
+            "Scanning 0 java files for @Term annotation"
                 + System.lineSeparator()
         );
     }

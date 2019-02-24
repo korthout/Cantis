@@ -25,7 +25,7 @@ Consider a class:
 /**
  * A person that uses our software.
  */
-@GlossaryTerm
+@Term
 class User {
 
 }
@@ -38,7 +38,7 @@ User: A person that uses our software.
 Cantis also generates its own [glossary](glossary.txt).
 
 ## Install
-In order to use the `@GlossaryTerm` annotation,
+In order to use the `@Term` annotation,
 you can add a dependency to `cantis` to your project:
 
 Maven:
@@ -60,13 +60,12 @@ dependencies {
 ```
 
 > If you don't want to have this compile-time dependency,
-You can also declare your own `@GlossaryTerm` annotation.
-Just make sure to call it `@GlossaryTerm`
-and you can place it in any package you like.
+You can also declare your own `@Term` annotation.
+Just make sure to call it `@Term` and you can place it in any package you like.
 
 ## Usage
 Using Cantis on your own project is easy. Simply:
-* annotate a class with `@GlossaryTerm`
+* annotate a class with `@Term`
 * add a JavaDoc description to the class
 * type `cantis generate` in your terminal or use the maven plugin
 

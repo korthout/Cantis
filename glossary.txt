@@ -1,5 +1,6 @@
 Cantis: The glossary generator.
-Classifier: A type in a Java program as declared in a .java file.
 Codebase: A collection of code that forms a program.
 Definition: A term and its description.
 Glossary: A list of definitions.
+GlossaryTerm: A term of interest for the glossary.
+Type: A type in a Java program as declared in a .java file.

@@ -25,7 +25,7 @@ package com.github.korthout.cantis;
 
 import com.github.javaparser.ast.Node;
 import com.github.javaparser.ast.NodeList;
-import com.github.javaparser.ast.body.ClassOrInterfaceDeclaration;
+import com.github.javaparser.ast.body.TypeDeclaration;
 import com.github.javaparser.ast.comments.Comment;
 import com.github.javaparser.ast.comments.JavadocComment;
 import com.github.javaparser.ast.expr.AnnotationExpr;
@@ -185,7 +185,7 @@ public class TypeFromJavaparserTest {
      */
     @SuppressWarnings("PMD.LinguisticNaming")
     private final class FakeNodeWithJavadoc
-        implements NodeWithJavadoc<ClassOrInterfaceDeclaration> {
+        implements NodeWithJavadoc<TypeDeclaration> {
 
         /**
          * The Javadoc description of this fake type.
@@ -216,7 +216,7 @@ public class TypeFromJavaparserTest {
      */
     @SuppressWarnings("PMD.LinguisticNaming")
     private final class FakeNodeWithoutJavadoc
-        implements NodeWithJavadoc<ClassOrInterfaceDeclaration> {
+        implements NodeWithJavadoc<TypeDeclaration> {
 
         @Override
         public Optional<Comment> getComment() {

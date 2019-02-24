@@ -23,8 +23,7 @@
  */
 package com.github.korthout.cantis;
 
-import com.github.javaparser.ast.Node;
-import com.github.javaparser.ast.body.ClassOrInterfaceDeclaration;
+import com.github.javaparser.ast.body.TypeDeclaration;
 import com.github.javaparser.ast.comments.JavadocComment;
 import com.github.javaparser.ast.nodeTypes.NodeWithAnnotations;
 import com.github.javaparser.ast.nodeTypes.NodeWithJavadoc;
@@ -64,12 +63,12 @@ public interface Type {
         /**
          * The annotated part of the type.
          */
-        private final NodeWithAnnotations<? extends Node> annotated;
+        private final NodeWithAnnotations annotated;
 
         /**
          * The documented part of the type.
          */
-        private final NodeWithJavadoc<ClassOrInterfaceDeclaration> documented;
+        private final NodeWithJavadoc<TypeDeclaration> documented;
 
         /**
          * The named part of the type.
@@ -83,8 +82,8 @@ public interface Type {
          * @param name The named part of the type
          */
         public TypeFromJavaparser(
-            final @NonNull NodeWithAnnotations<? extends Node> note,
-            final @NonNull NodeWithJavadoc<ClassOrInterfaceDeclaration> doc,
+            final @NonNull NodeWithAnnotations note,
+            final @NonNull NodeWithJavadoc<TypeDeclaration> doc,
             final @NonNull NodeWithSimpleName name
         ) {
             this.annotated = note;
@@ -96,9 +95,7 @@ public interface Type {
          * Constructor.
          * @param declaration This type's declaration
          */
-        public TypeFromJavaparser(
-            final ClassOrInterfaceDeclaration declaration
-        ) {
+        public TypeFromJavaparser(final TypeDeclaration declaration) {
             this(declaration, declaration, declaration);
         }
 

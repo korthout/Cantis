@@ -27,7 +27,7 @@ import com.github.javaparser.JavaParser;
 import com.github.javaparser.ParseStart;
 import com.github.javaparser.Providers;
 import com.github.javaparser.ast.CompilationUnit;
-import com.github.javaparser.ast.body.ClassOrInterfaceDeclaration;
+import com.github.javaparser.ast.body.TypeDeclaration;
 import com.github.korthout.cantis.Type.TypeFromJavaparser;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -87,7 +87,7 @@ public interface Codebase {
             return this.sources.stream()
                 .map(this::parse)
                 .flatMap(Optional::stream)
-                .map(file -> file.findAll(ClassOrInterfaceDeclaration.class))
+                .map(file -> file.findAll(TypeDeclaration.class))
                 .flatMap(types -> types.stream().map(TypeFromJavaparser::new));
         }
 

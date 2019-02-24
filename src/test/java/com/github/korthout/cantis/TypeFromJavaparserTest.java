@@ -133,7 +133,7 @@ public class TypeFromJavaparserTest {
     }
 
     /**
-     * Node is annotated with @GlossaryTerm.
+     * Node is annotated with @Term.
      */
     @SuppressWarnings("PMD.LinguisticNaming")
     private final class FakeNodeWithAnnotations
@@ -142,7 +142,7 @@ public class TypeFromJavaparserTest {
         @Override
         public NodeList<AnnotationExpr> getAnnotations() {
             return new NodeList<>(
-                new MarkerAnnotationExpr("GlossaryTerm")
+                new MarkerAnnotationExpr("Term")
             );
         }
 

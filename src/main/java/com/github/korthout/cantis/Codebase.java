@@ -40,7 +40,7 @@ import lombok.NonNull;
  * A collection of code that forms a program.
  * @since 0.1
  */
-@GlossaryTerm
+@Term
 public interface Codebase {
 
     /**

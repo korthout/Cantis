@@ -84,7 +84,7 @@ public final class PrintableGlossary implements Printable {
             () -> {
                 this.info.write(
                     new FormattedText(
-                        "Scanning %d java files for @GlossaryTerm annotation",
+                        "Scanning %d java files for @Term annotation",
                         this.directory.files().size()
                     ));
                 this.target.write(

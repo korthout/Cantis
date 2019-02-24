@@ -29,7 +29,7 @@ import java.util.stream.Stream;
  * A list of definitions.
  * @since 0.1
  */
-@GlossaryTerm
+@Term
 public interface Glossary {
 
     /**

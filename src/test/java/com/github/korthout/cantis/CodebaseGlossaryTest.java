@@ -178,7 +178,7 @@ public class CodebaseGlossaryTest {
 
     /**
      * Fake objects that acts like a Type
-     * that is not annotated with {@code @GlossaryTerm}.
+     * that is not annotated with {@code @Term}.
      */
     private static final class FakeTypeWithoutAnnotation
         implements Type {

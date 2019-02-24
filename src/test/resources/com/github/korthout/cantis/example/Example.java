@@ -23,13 +23,13 @@
  */
 package com.github.korthout.cantis.example;
 
-import com.github.korthout.cantis.GlossaryTerm;
+import com.github.korthout.cantis.Term;
 
 /**
  * This is just a simple example class.
  * @since 0.1
  */
-@GlossaryTerm
+@Term
 class Example {
 
 }

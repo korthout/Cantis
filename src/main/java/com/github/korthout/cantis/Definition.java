@@ -32,7 +32,7 @@ import org.cactoos.text.TextOf;
  * A term and its description.
  * @since 0.1
  */
-@GlossaryTerm
+@Term
 @EqualsAndHashCode
 public final class Definition implements Comparable<Definition> {
 

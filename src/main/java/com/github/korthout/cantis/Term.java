@@ -24,8 +24,9 @@
 package com.github.korthout.cantis;
 
 /**
- * A term of interest for the glossary.
+ * A word of interest.
+ * @since 0.1.1
  */
-@GlossaryTerm
-public @interface GlossaryTerm {
+@Term
+public @interface Term {
 }

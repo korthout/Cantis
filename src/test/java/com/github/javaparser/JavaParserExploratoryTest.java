@@ -104,7 +104,7 @@ public class JavaParserExploratoryTest {
         final var code = "/**"
             + " * H is annotated"
             + " */ "
-            + " @GlossaryTerm "
+            + " @Term "
             + "class H { }";
         final List<ClassOrInterfaceDeclaration> types =
             new CompilationHelper(code).types();

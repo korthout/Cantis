@@ -119,7 +119,7 @@ public class CodebaseFromFilesTest {
             new CodebaseFromFiles(
                 new ListOf<>(
                     new FakeFile(this.tmp.newFile("Annotated.java"))
-                        .withContent("@GlossaryTerm class Annotated { }")
+                        .withContent("@Term class Annotated { }")
                 )
             ).types()
         )
@@ -176,7 +176,7 @@ public class CodebaseFromFilesTest {
                     new FakeFile(this.tmp.newFile("Simple.java"))
                         .withContent("class Simple { }"),
                     new FakeFile(this.tmp.newFile("Annotated.java"))
-                        .withContent("@GlossaryTerm class Annotated { }"),
+                        .withContent("@Term class Annotated { }"),
                     new FakeFile(this.tmp.newFile("Javadoc.java"))
                         // @checkstyle StringLiteralsConcatenation (4 lines)
                         .withContent("/**"

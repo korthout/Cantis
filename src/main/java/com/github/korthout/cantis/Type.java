@@ -34,12 +34,12 @@ import lombok.NonNull;
  * A type in a Java program as declared in a .java file.
  * @since 0.1.1
  */
-@GlossaryTerm
+@Term
 public interface Type {
 
     /**
      * Tells whether this Type is annotated as glossary term.
-     * @return True when this is annotated with {@code GlossaryTerm}
+     * @return True when this is annotated with {@code Term}
      */
     boolean hasGlossaryTermAnnotation();
 
@@ -102,7 +102,7 @@ public interface Type {
         @Override
         public boolean hasGlossaryTermAnnotation() {
             return this.annotated.isAnnotationPresent(
-                GlossaryTerm.class.getSimpleName()
+                Term.class.getSimpleName()
             );
         }
 

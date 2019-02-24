@@ -190,6 +190,25 @@ public class CodebaseFromFilesTest {
         ).hasSize(3);
     }
 
+    @Test
+    public void codebaseAlsoSeesOtherTypeDeclarationsAsClassfiers()
+        throws IOException {
+        Assertions.assertThat(
+            new CodebaseFromFiles(
+                new ListOf<>(
+                    new FakeFile(this.tmp.newFile("SomeClass.java"))
+                        .withContent("class SomeClass { }"),
+                    new FakeFile(this.tmp.newFile("SomeInterface.java"))
+                        .withContent("interface SomeInterface { }"),
+                    new FakeFile(this.tmp.newFile("SomeEnum"))
+                        .withContent("enum SomeEnum { }"),
+                    new FakeFile(this.tmp.newFile("SomeAnnotation.java"))
+                        .withContent("@interface SomeAnnotation { }")
+                )
+            ).types()
+        ).hasSize(4);
+    }
+
     /**
      * Predicate to check whether a {@code Type} has
      * a specific {@code Definition}.

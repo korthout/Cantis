@@ -38,14 +38,14 @@ public class CodebaseGlossaryTest {
 
     @Test(expected = NullPointerException.class)
     public void constructorDoesNotAllowNull() {
-        new CodebaseGlossary((Stream<Classifier>) null);
+        new CodebaseGlossary((Stream<Type>) null);
     }
 
     @Test
-    public void anEmptyListOfClassifiersHasNoDefinitions() {
+    public void anEmptyListOfTypesHasNoDefinitions() {
         Assertions.assertThat(
             new CodebaseGlossary(
-                new ListOf<Classifier>().stream()
+                new ListOf<Type>().stream()
             ).definitions()
         ).isEmpty();
     }
@@ -61,38 +61,38 @@ public class CodebaseGlossaryTest {
 
     @Test
     @SuppressWarnings("PMD.AvoidDuplicateLiterals")
-    public void codebaseOfClassifierWithAnnotationAndJavadocHasDefinitions() {
+    public void codebaseOfTypeWithAnnotationAndJavadocHasDefinitions() {
         Assertions.assertThat(
             new CodebaseGlossary(
-                new ListOf<Classifier>(
-                    new FakeClassifier(
-                        "FakeClassifier",
-                        "Acts like a Classifier."
+                new ListOf<Type>(
+                    new FakeType(
+                        "FakeType",
+                        "Acts like a Type."
                     )
                 ).stream()
             ).definitions()
         ).containsExactlyInAnyOrder(
-            new Definition("FakeClassifier", "Acts like a Classifier.")
+            new Definition("FakeType", "Acts like a Type.")
         );
     }
 
     @Test
-    public void codebaseWithClassifierWithoutAnnotationHasNoDefinitions() {
+    public void codebaseWithTypeWithoutAnnotationHasNoDefinitions() {
         Assertions.assertThat(
             new CodebaseGlossary(
-                new ListOf<Classifier>(
-                    new FakeClassifierWithoutAnnotation()
+                new ListOf<Type>(
+                    new FakeTypeWithoutAnnotation()
                 ).stream()
             ).definitions()
         ).isEmpty();
     }
 
     @Test
-    public void codebaseWithClassifierWithoutJavadocHasNoDefinitions() {
+    public void codebaseWithTypeWithoutJavadocHasNoDefinitions() {
         Assertions.assertThat(
             new CodebaseGlossary(
-                new ListOf<Classifier>(
-                    new FakeClassifierWithoutJavadoc()
+                new ListOf<Type>(
+                    new FakeTypeWithoutJavadoc()
                 ).stream()
             ).definitions()
         ).isEmpty();
@@ -103,56 +103,56 @@ public class CodebaseGlossaryTest {
         "PMD.AvoidDuplicateLiterals",
         "PMD.JUnitAssertionsShouldIncludeMessage"
     })
-    public void codebaseWithClassifiersHasDefinitionsForTheRightClassifiers() {
+    public void codebaseWithTypesHasDefinitionsForTheRightTypes() {
         Assertions.assertThat(
             new CodebaseGlossary(
                 new ListOf<>(
-                    new FakeClassifierWithoutJavadoc(),
-                    new FakeClassifier(
-                        "FakeClassifier1",
-                        "Acts like a Classifier."
+                    new FakeTypeWithoutJavadoc(),
+                    new FakeType(
+                        "FakeType1",
+                        "Acts like a Type."
                     ),
-                    new FakeClassifierWithoutAnnotation(),
-                    new FakeClassifier(
-                        "FakeClassifier2",
-                        "Also acts like a Classifier."
+                    new FakeTypeWithoutAnnotation(),
+                    new FakeType(
+                        "FakeType2",
+                        "Also acts like a Type."
                     ),
-                    new FakeClassifierWithoutAnnotation()
+                    new FakeTypeWithoutAnnotation()
                 ).stream()
             ).definitions()
         ).containsExactlyInAnyOrder(
-            new Definition("FakeClassifier1", "Acts like a Classifier."),
-            new Definition("FakeClassifier2", "Also acts like a Classifier.")
+            new Definition("FakeType1", "Acts like a Type."),
+            new Definition("FakeType2", "Also acts like a Type.")
         );
     }
 
     /**
-     * Fake object that acts like a Codebase without any classifiers.
+     * Fake object that acts like a Codebase without any types.
      */
     private static final class EmptyCodebase implements Codebase {
 
         @Override
-        public Stream<Classifier> classifiers() {
+        public Stream<Type> types() {
             return Stream.empty();
         }
     }
 
     /**
-     * Fake object that acts like a Classifier.
+     * Fake object that acts like a Type.
      */
-    private static final class FakeClassifier implements Classifier {
+    private static final class FakeType implements Type {
 
         /**
-         * The name of the classifier.
+         * The name of the type.
          */
         private final String name;
 
         /**
-         * The javadoc description of the classifier.
+         * The javadoc description of the type.
          */
         private final String javadoc;
 
-        FakeClassifier(
+        FakeType(
             final @NonNull String name,
             final @NonNull String javadoc
         ) {
@@ -177,11 +177,11 @@ public class CodebaseGlossaryTest {
     }
 
     /**
-     * Fake objects that acts like a Classifier
+     * Fake objects that acts like a Type
      * that is not annotated with {@code @GlossaryTerm}.
      */
-    private static final class FakeClassifierWithoutAnnotation
-        implements Classifier {
+    private static final class FakeTypeWithoutAnnotation
+        implements Type {
 
         @Override
         public boolean hasGlossaryTermAnnotation() {
@@ -200,11 +200,11 @@ public class CodebaseGlossaryTest {
     }
 
     /**
-     * Fake object that acts like a Classifier
+     * Fake object that acts like a Type
      * that does not have a JavaDoc description.
      */
-    private static final class FakeClassifierWithoutJavadoc
-        implements Classifier {
+    private static final class FakeTypeWithoutJavadoc
+        implements Type {
 
         @Override
         public boolean hasGlossaryTermAnnotation() {

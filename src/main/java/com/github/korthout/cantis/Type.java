@@ -33,56 +33,56 @@ import lombok.NonNull;
 
 /**
  * A type in a Java program as declared in a .java file.
- * @since 0.1
+ * @since 0.1.1
  */
 @GlossaryTerm
-public interface Classifier {
+public interface Type {
 
     /**
-     * Tells whether this Classifier is annotated as glossary term.
+     * Tells whether this Type is annotated as glossary term.
      * @return True when this is annotated with {@code GlossaryTerm}
      */
     boolean hasGlossaryTermAnnotation();
 
     /**
-     * Tells whether this Classifier has a Javadoc description.
+     * Tells whether this Type has a Javadoc description.
      * @return True when this has a Javadoc comment at the type level
      */
     boolean hasJavadoc();
 
     /**
-     * Builds a {@code Definition} from this classifier.
+     * Builds a {@code Definition} from this type.
      * @return The definition
      */
     Definition definition();
 
     /**
-     * Classifier that is created using the com.github.Javaparser library.
+     * Type that is created using the com.github.Javaparser library.
      */
-    final class ClassifierFromJavaparser implements Classifier {
+    final class TypeFromJavaparser implements Type {
 
         /**
-         * The annotated part of the classifier.
+         * The annotated part of the type.
          */
         private final NodeWithAnnotations<? extends Node> annotated;
 
         /**
-         * The documented part of the classifier.
+         * The documented part of the type.
          */
         private final NodeWithJavadoc<ClassOrInterfaceDeclaration> documented;
 
         /**
-         * The named part of the classifier.
+         * The named part of the type.
          */
         private final NodeWithSimpleName named;
 
         /**
          * Main Constructor.
-         * @param note The annotated part of the classifier
-         * @param doc The documented part of the classifier
-         * @param name The named part of the classifier
+         * @param note The annotated part of the type
+         * @param doc The documented part of the type
+         * @param name The named part of the type
          */
-        public ClassifierFromJavaparser(
+        public TypeFromJavaparser(
             final @NonNull NodeWithAnnotations<? extends Node> note,
             final @NonNull NodeWithJavadoc<ClassOrInterfaceDeclaration> doc,
             final @NonNull NodeWithSimpleName name
@@ -94,9 +94,9 @@ public interface Classifier {
 
         /**
          * Constructor.
-         * @param declaration This classifier's declaration
+         * @param declaration This type's declaration
          */
-        public ClassifierFromJavaparser(
+        public TypeFromJavaparser(
             final ClassOrInterfaceDeclaration declaration
         ) {
             this(declaration, declaration, declaration);

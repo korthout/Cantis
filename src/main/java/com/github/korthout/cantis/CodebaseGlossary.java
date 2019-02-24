@@ -33,32 +33,32 @@ import lombok.NonNull;
 public final class CodebaseGlossary implements Glossary {
 
     /**
-     * The classifiers from which to build the glossary.
+     * The types from which to build the glossary.
      */
-    private final Stream<Classifier> classifiers;
+    private final Stream<Type> types;
 
     /**
      * Main Constructor.
-     * @param classifiers The classifiers from which to build the glossary
+     * @param types The types from which to build the glossary
      */
-    CodebaseGlossary(final @NonNull Stream<Classifier> classifiers) {
-        this.classifiers = classifiers;
+    CodebaseGlossary(final @NonNull Stream<Type> types) {
+        this.types = types;
     }
 
     /**
      * Constructor.
-     * @param codebase The codebase containing classifiers
+     * @param codebase The codebase containing types
      */
     CodebaseGlossary(final Codebase codebase) {
-        this(codebase.classifiers());
+        this(codebase.types());
     }
 
     @Override
     public Stream<Definition> definitions() {
-        return this.classifiers
-            .filter(Classifier::hasGlossaryTermAnnotation)
-            .filter(Classifier::hasJavadoc)
-            .map(Classifier::definition);
+        return this.types
+            .filter(Type::hasGlossaryTermAnnotation)
+            .filter(Type::hasJavadoc)
+            .map(Type::definition);
     }
 
 }

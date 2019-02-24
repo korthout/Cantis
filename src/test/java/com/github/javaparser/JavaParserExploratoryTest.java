@@ -78,9 +78,9 @@ public class JavaParserExploratoryTest {
     @Test
     public void parseMultipleClassesAtOnce() {
         final var code = "class C { } class D { }";
-        final List<ClassOrInterfaceDeclaration> classifiers =
-            new CompilationHelper(code).classifiers();
-        Assertions.assertThat(classifiers).hasSize(2);
+        final List<ClassOrInterfaceDeclaration> types =
+            new CompilationHelper(code).types();
+        Assertions.assertThat(types).hasSize(2);
     }
 
     @Test
@@ -88,10 +88,10 @@ public class JavaParserExploratoryTest {
         final var code = "class E { } @Note class F { } class G { }";
         Assertions.assertThat(
             new CompilationHelper(code)
-                .classifiers()
+                .types()
                 .stream()
-                .filter(classifier -> classifier.isAnnotationPresent("Note"))
-        ).allMatch(classifier -> classifier.getNameAsString().equals("F"));
+                .filter(type -> type.isAnnotationPresent("Note"))
+        ).allMatch(type -> type.getNameAsString().equals("F"));
     }
 
     // todo: change back to single line after Qulice fixes regex check
@@ -106,11 +106,11 @@ public class JavaParserExploratoryTest {
             + " */ "
             + " @GlossaryTerm "
             + "class H { }";
-        final List<ClassOrInterfaceDeclaration> classifiers =
-            new CompilationHelper(code).classifiers();
-        Assertions.assertThat(classifiers)
+        final List<ClassOrInterfaceDeclaration> types =
+            new CompilationHelper(code).types();
+        Assertions.assertThat(types)
             // @checkstyle BracketsStructure (6 lines)
-            .allMatch(classifier -> classifier.getJavadocComment()
+            .allMatch(type -> type.getJavadocComment()
                 .map(JavadocComment::parse)
                 .map(Javadoc::getDescription)
                 .map(JavadocDescription::toText)
@@ -119,7 +119,7 @@ public class JavaParserExploratoryTest {
     }
 
     /**
-     * Helps compiling the code into classifiers.
+     * Helps compiling the code into types.
      */
     private static class CompilationHelper {
 
@@ -137,10 +137,10 @@ public class JavaParserExploratoryTest {
         }
 
         /**
-         * Parses the code and provides classifiers from that code.
-         * @return Classifiers from the code
+         * Parses the code and provides types from that code.
+         * @return Types from the code
          */
-        private List<ClassOrInterfaceDeclaration> classifiers() {
+        private List<ClassOrInterfaceDeclaration> types() {
             final CompilationUnit parsed = JavaParser.parse(this.code);
             return parsed.findAll(ClassOrInterfaceDeclaration.class);
         }

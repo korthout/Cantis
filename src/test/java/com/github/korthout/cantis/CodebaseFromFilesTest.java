@@ -62,11 +62,11 @@ public class CodebaseFromFilesTest {
     }
 
     @Test
-    public void codebaseOfNoSourcesHasNoClassifiers() {
+    public void codebaseOfNoSourcesHasNoTypes() {
         Assertions.assertThat(
             new CodebaseFromFiles(
                 new ListOf<>()
-            ).classifiers()
+            ).types()
         ).isEmpty();
     }
 
@@ -75,31 +75,31 @@ public class CodebaseFromFilesTest {
         Assertions.assertThat(
             new CodebaseFromFiles(
                 ListOf<File>::new
-            ).classifiers()
+            ).types()
         ).isEmpty();
     }
 
     @Test
-    public void codebaseOfTextFileHasNoClassifiers() throws IOException {
+    public void codebaseOfTextFileHasNoTypes() throws IOException {
         Assertions.assertThat(
             new CodebaseFromFiles(
                 new ListOf<>(
                     new FakeFile(this.tmp.newFile("TextFile.txt"))
                         .withContent("Just a simple text file.")
                 )
-            ).classifiers()
+            ).types()
         ).isEmpty();
     }
 
     @Test
-    public void codebaseOfJavaFileHasAClassifier() throws IOException {
+    public void codebaseOfJavaFileHasAType() throws IOException {
         Assertions.assertThat(
             new CodebaseFromFiles(
                 new ListOf<>(
                     new FakeFile(this.tmp.newFile("Simple.java"))
                         .withContent("class Simple { }")
                 )
-            ).classifiers()
+            ).types()
         )
             .hasSize(1)
             .allMatch(
@@ -113,7 +113,7 @@ public class CodebaseFromFilesTest {
     }
 
     @Test
-    public void codebaseOfAnnotatedJavaFileHasClassifierWithAnnotation()
+    public void codebaseOfAnnotatedJavaFileHasTypeWithAnnotation()
         throws IOException {
         Assertions.assertThat(
             new CodebaseFromFiles(
@@ -121,7 +121,7 @@ public class CodebaseFromFilesTest {
                     new FakeFile(this.tmp.newFile("Annotated.java"))
                         .withContent("@GlossaryTerm class Annotated { }")
                 )
-            ).classifiers()
+            ).types()
         )
             .hasSize(1)
             .allMatch(
@@ -139,7 +139,7 @@ public class CodebaseFromFilesTest {
     // and: https://github.com/teamed/qulice/issues/976
     @Test
     @SuppressWarnings("PMD.AvoidDuplicateLiterals")
-    public void codebaseOfJavaFileWithJavadocHasClassifierWithJavadoc()
+    public void codebaseOfJavaFileWithJavadocHasTypeWithJavadoc()
         throws IOException {
         Assertions.assertThat(
             new CodebaseFromFiles(
@@ -152,7 +152,7 @@ public class CodebaseFromFilesTest {
                             + "class Javadoc { }"
                         )
                 )
-            ).classifiers()
+            ).types()
         )
             .hasSize(1)
             .allMatch(
@@ -169,7 +169,7 @@ public class CodebaseFromFilesTest {
     // see: https://github.com/teamed/qulice/issues/975
     // and: https://github.com/teamed/qulice/issues/976
     @Test
-    public void codebaseCanContainManyClassifiers() throws IOException {
+    public void codebaseCanContainManyTypes() throws IOException {
         Assertions.assertThat(
             new CodebaseFromFiles(
                 new ListOf<>(
@@ -185,19 +185,19 @@ public class CodebaseFromFilesTest {
                             + "class Javadoc { }"
                         )
                 )
-            ).classifiers()
+            ).types()
         // @checkstyle MagicNumber (1 lines)
         ).hasSize(3);
     }
 
     /**
-     * Predicate to check whether a {@code Classifier} has
+     * Predicate to check whether a {@code Type} has
      * a specific {@code Definition}.
      */
-    private class HasDefinition implements Predicate<Classifier> {
+    private class HasDefinition implements Predicate<Type> {
 
         /**
-         * The definition to match the classifier against.
+         * The definition to match the type against.
          */
         private final Definition definition;
 
@@ -210,8 +210,8 @@ public class CodebaseFromFilesTest {
         }
 
         @Override
-        public boolean test(final Classifier classifier) {
-            return this.definition.equals(classifier.definition());
+        public boolean test(final Type type) {
+            return this.definition.equals(type.definition());
         }
     }
 }

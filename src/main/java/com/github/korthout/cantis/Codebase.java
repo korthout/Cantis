@@ -28,7 +28,7 @@ import com.github.javaparser.ParseStart;
 import com.github.javaparser.Providers;
 import com.github.javaparser.ast.CompilationUnit;
 import com.github.javaparser.ast.body.ClassOrInterfaceDeclaration;
-import com.github.korthout.cantis.Classifier.ClassifierFromJavaparser;
+import com.github.korthout.cantis.Type.TypeFromJavaparser;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Collection;
@@ -46,9 +46,9 @@ public interface Codebase {
     /**
      * Provides representations of the interfaces
      * and classes in this in codebase.
-     * @return The classifiers in this codebase
+     * @return The types in this codebase
      */
-    Stream<Classifier> classifiers();
+    Stream<Type> types();
 
     /**
      * A collection of code constructed from source files.
@@ -83,14 +83,12 @@ public interface Codebase {
         }
 
         @Override
-        public Stream<Classifier> classifiers() {
+        public Stream<Type> types() {
             return this.sources.stream()
                 .map(this::parse)
                 .flatMap(Optional::stream)
                 .map(file -> file.findAll(ClassOrInterfaceDeclaration.class))
-                // @checkstyle BracketsStructure (2 lines)
-                .flatMap(classifiers -> classifiers.stream()
-                    .map(ClassifierFromJavaparser::new));
+                .flatMap(types -> types.stream().map(TypeFromJavaparser::new));
         }
 
         /**

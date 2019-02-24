@@ -34,21 +34,21 @@ import com.github.javaparser.ast.expr.SimpleName;
 import com.github.javaparser.ast.nodeTypes.NodeWithAnnotations;
 import com.github.javaparser.ast.nodeTypes.NodeWithJavadoc;
 import com.github.javaparser.ast.nodeTypes.NodeWithSimpleName;
-import com.github.korthout.cantis.Classifier.ClassifierFromJavaparser;
+import com.github.korthout.cantis.Type.TypeFromJavaparser;
 import java.util.Optional;
 import org.assertj.core.api.Assertions;
 import org.junit.Test;
 
 /**
- * Unit tests for {@code ClassifierFromJavaparser} objects.
- * @since 0.1
+ * Unit tests for {@code TypeFromJavaparser} objects.
+ * @since 0.1.1
  */
 @SuppressWarnings("PMD.ProhibitPlainJunitAssertionsRule")
-public class ClassifierFromJavaparserTest {
+public class TypeFromJavaparserTest {
 
     @Test(expected = NullPointerException.class)
     public void constructorDoesNotAllowNullAnnotated() {
-        new ClassifierFromJavaparser(
+        new Type.TypeFromJavaparser(
             null,
             new FakeNodeWithJavadoc(),
             new FakeNodeWithSimpleName()
@@ -57,7 +57,7 @@ public class ClassifierFromJavaparserTest {
 
     @Test(expected = NullPointerException.class)
     public void constructorDoesNotAllowNullDocumented() {
-        new ClassifierFromJavaparser(
+        new Type.TypeFromJavaparser(
             new FakeNodeWithAnnotations(),
             null,
             new FakeNodeWithSimpleName()
@@ -66,7 +66,7 @@ public class ClassifierFromJavaparserTest {
 
     @Test(expected = NullPointerException.class)
     public void constructorDoesNotAllowNullNamed() {
-        new ClassifierFromJavaparser(
+        new Type.TypeFromJavaparser(
             new FakeNodeWithAnnotations(),
             new FakeNodeWithJavadoc(),
             null
@@ -74,9 +74,9 @@ public class ClassifierFromJavaparserTest {
     }
 
     @Test
-    public void classifierCanHaveJavadoc() {
+    public void typeCanHaveJavadoc() {
         Assertions.assertThat(
-            new ClassifierFromJavaparser(
+            new TypeFromJavaparser(
                 new FakeNodeWithAnnotations(),
                 new FakeNodeWithJavadoc(),
                 new FakeNodeWithSimpleName()
@@ -85,9 +85,9 @@ public class ClassifierFromJavaparserTest {
     }
 
     @Test
-    public void classifierDoesNotRequireJavadoc() {
+    public void typeDoesNotRequireJavadoc() {
         Assertions.assertThat(
-            new ClassifierFromJavaparser(
+            new Type.TypeFromJavaparser(
                 new FakeNodeWithAnnotations(),
                 new FakeNodeWithoutJavadoc(),
                 new FakeNodeWithSimpleName()
@@ -96,9 +96,9 @@ public class ClassifierFromJavaparserTest {
     }
 
     @Test
-    public void classifierCanHaveAnnotations() {
+    public void typeCanHaveAnnotations() {
         Assertions.assertThat(
-            new ClassifierFromJavaparser(
+            new Type.TypeFromJavaparser(
                 new FakeNodeWithAnnotations(),
                 new FakeNodeWithJavadoc(),
                 new FakeNodeWithSimpleName()
@@ -107,9 +107,9 @@ public class ClassifierFromJavaparserTest {
     }
 
     @Test
-    public void classifierDoNotRequireAnnotations() {
+    public void typeDoNotRequireAnnotations() {
         Assertions.assertThat(
-            new ClassifierFromJavaparser(
+            new Type.TypeFromJavaparser(
                 new FakeNodeWithoutAnnotations(),
                 new FakeNodeWithJavadoc(),
                 new FakeNodeWithSimpleName()
@@ -118,11 +118,11 @@ public class ClassifierFromJavaparserTest {
     }
 
     @Test
-    public void classifierCanBeDescribedByADefinition() {
-        final var description = "Acts as a classifier with Javadoc.";
-        final var name = "FakeClassifier";
+    public void typeCanBeDescribedByADefinition() {
+        final var description = "Acts as a type with Javadoc.";
+        final var name = "FakeType";
         Assertions.assertThat(
-            new ClassifierFromJavaparser(
+            new TypeFromJavaparser(
                 new FakeNodeWithAnnotations(),
                 new FakeNodeWithJavadoc(description),
                 new FakeNodeWithSimpleName(name)
@@ -181,14 +181,14 @@ public class ClassifierFromJavaparserTest {
     }
 
     /**
-     * Node has Javadoc description: Acts as a classifier with Javadoc.
+     * Node has Javadoc description: Acts as a type with Javadoc.
      */
     @SuppressWarnings("PMD.LinguisticNaming")
     private final class FakeNodeWithJavadoc
         implements NodeWithJavadoc<ClassOrInterfaceDeclaration> {
 
         /**
-         * The Javadoc description of this fake classifier.
+         * The Javadoc description of this fake type.
          */
         private final String description;
 
@@ -230,7 +230,7 @@ public class ClassifierFromJavaparserTest {
     }
 
     /**
-     * Node has the name 'FakeClassifier'.
+     * Node has the name 'FakeType'.
      */
     @SuppressWarnings("PMD.LinguisticNaming")
     private final class FakeNodeWithSimpleName implements NodeWithSimpleName {

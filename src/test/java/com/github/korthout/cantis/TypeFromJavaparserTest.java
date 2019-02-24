@@ -48,7 +48,7 @@ public class TypeFromJavaparserTest {
 
     @Test(expected = NullPointerException.class)
     public void constructorDoesNotAllowNullAnnotated() {
-        new Type.TypeFromJavaparser(
+        new TypeFromJavaparser(
             null,
             new FakeNodeWithJavadoc(),
             new FakeNodeWithSimpleName()
@@ -57,7 +57,7 @@ public class TypeFromJavaparserTest {
 
     @Test(expected = NullPointerException.class)
     public void constructorDoesNotAllowNullDocumented() {
-        new Type.TypeFromJavaparser(
+        new TypeFromJavaparser(
             new FakeNodeWithAnnotations(),
             null,
             new FakeNodeWithSimpleName()
@@ -66,7 +66,7 @@ public class TypeFromJavaparserTest {
 
     @Test(expected = NullPointerException.class)
     public void constructorDoesNotAllowNullNamed() {
-        new Type.TypeFromJavaparser(
+        new TypeFromJavaparser(
             new FakeNodeWithAnnotations(),
             new FakeNodeWithJavadoc(),
             null
@@ -87,7 +87,7 @@ public class TypeFromJavaparserTest {
     @Test
     public void typeDoesNotRequireJavadoc() {
         Assertions.assertThat(
-            new Type.TypeFromJavaparser(
+            new TypeFromJavaparser(
                 new FakeNodeWithAnnotations(),
                 new FakeNodeWithoutJavadoc(),
                 new FakeNodeWithSimpleName()
@@ -98,7 +98,7 @@ public class TypeFromJavaparserTest {
     @Test
     public void typeCanHaveAnnotations() {
         Assertions.assertThat(
-            new Type.TypeFromJavaparser(
+            new TypeFromJavaparser(
                 new FakeNodeWithAnnotations(),
                 new FakeNodeWithJavadoc(),
                 new FakeNodeWithSimpleName()
@@ -109,7 +109,7 @@ public class TypeFromJavaparserTest {
     @Test
     public void typeDoNotRequireAnnotations() {
         Assertions.assertThat(
-            new Type.TypeFromJavaparser(
+            new TypeFromJavaparser(
                 new FakeNodeWithoutAnnotations(),
                 new FakeNodeWithJavadoc(),
                 new FakeNodeWithSimpleName()

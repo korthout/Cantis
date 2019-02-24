@@ -206,6 +206,7 @@ public class CodebaseFromFilesTest {
                         .withContent("@interface SomeAnnotation { }")
                 )
             ).types()
+        // @checkstyle MagicNumber (1 lines)
         ).hasSize(4);
     }
 

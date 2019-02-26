@@ -23,7 +23,6 @@
  */
 package com.github.javaparser;
 
-import com.github.javaparser.ast.CompilationUnit;
 import com.github.javaparser.ast.body.ClassOrInterfaceDeclaration;
 import com.github.javaparser.ast.comments.JavadocComment;
 import com.github.javaparser.ast.nodeTypes.NodeWithJavadoc;
@@ -46,9 +45,11 @@ public class JavaParserExploratoryTest {
     @Test
     public void parseSimpleClass() {
         final var code = "class A { }";
-        final CompilationUnit unit = JavaParser.parse(code);
-        final Optional<ClassOrInterfaceDeclaration> aclass =
-            unit.getClassByName("A");
+        final Optional<ClassOrInterfaceDeclaration> aclass = new JavaParser()
+            .parse(code)
+            .getResult()
+            .orElseThrow()
+            .getClassByName("A");
         Assertions.assertThat(aclass)
             .map(NodeWithSimpleName::getNameAsString)
             .contains("A");
@@ -65,7 +66,10 @@ public class JavaParserExploratoryTest {
             + " * B is a simple class"
             + " */ "
             + "class B { }";
-        final Optional<JavadocComment> comment = JavaParser.parse(code)
+        final Optional<JavadocComment> comment = new JavaParser()
+            .parse(code)
+            .getResult()
+            .orElseThrow()
             .getClassByName("B")
             .flatMap(NodeWithJavadoc::getJavadocComment);
         Assertions.assertThat(comment)
@@ -141,8 +145,11 @@ public class JavaParserExploratoryTest {
          * @return Types from the code
          */
         private List<ClassOrInterfaceDeclaration> types() {
-            final CompilationUnit parsed = JavaParser.parse(this.code);
-            return parsed.findAll(ClassOrInterfaceDeclaration.class);
+            return new JavaParser()
+                .parse(this.code)
+                .getResult()
+                .orElseThrow()
+                .findAll(ClassOrInterfaceDeclaration.class);
         }
     }
 }

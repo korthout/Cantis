@@ -76,7 +76,7 @@
         <nexus-staging-maven-plugin.version>1.6.8</nexus-staging-maven-plugin.version>
         <jacoco-maven-plugin.version>0.8.2</jacoco-maven-plugin.version>
         <airline.version>0.8</airline.version>
-        <assertj.version>3.11.1</assertj.version>
+        <assertj.version>3.12.1</assertj.version>
         <cactoos.version>0.40</cactoos.version>
         <commons-io.version>2.6</commons-io.version>
         <javaparser-core.version>3.9.1</javaparser-core.version>

@@ -55,6 +55,7 @@ public final class FakePrintStream extends PrintStream {
     /**
      * Does not write to an actual target,
      * but keeps track of the written lines.
+     * @since 0.1
      */
     private static final class FakeOutputStream extends OutputStream {
 

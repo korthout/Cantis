@@ -213,6 +213,7 @@ public class CodebaseFromFilesTest {
     /**
      * Predicate to check whether a {@code Type} has
      * a specific {@code Definition}.
+     * @since 0.1
      */
     private class HasDefinition implements Predicate<Type> {
 

@@ -69,6 +69,7 @@ public class FormattedGlossaryTest {
     /**
      * Fake object that acts like a {@code Glossary}
      * without any {@code Definitions}.
+     * @since 0.1
      */
     private static final class EmptyGlossary implements Glossary {
 
@@ -81,6 +82,7 @@ public class FormattedGlossaryTest {
     /**
      * Fake object that acts like a {@code Glossary}
      * with 2 {@code Definitions}.
+     * @since 0.1
      */
     private static final class SimpleCodingGlossary implements Glossary {
 

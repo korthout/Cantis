@@ -52,6 +52,7 @@ public interface Codebase {
 
     /**
      * A collection of code constructed from source files.
+     * @since 0.1
      */
     final class CodebaseFromFiles implements Codebase {
 

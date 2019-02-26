@@ -124,6 +124,7 @@ public class JavaParserExploratoryTest {
 
     /**
      * Helps compiling the code into types.
+     * @since 0.1
      */
     private static class CompilationHelper {
 

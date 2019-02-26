@@ -86,6 +86,7 @@ public class CommandlineTest {
 
     /**
      * Supports fake command objects.
+     * @since 0.1
      */
     private static final class CustomCommmands implements SupportedCommands {
 
@@ -113,6 +114,7 @@ public class CommandlineTest {
     /**
      * Fake object that acts like a {@code Command},
      * but does nothing.
+     * @since 0.1
      */
     @Command(name = "custom")
     private static final class CustomCommand implements Runnable {

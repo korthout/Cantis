@@ -41,6 +41,7 @@ public interface Commandline {
 
     /**
      * Configures the argument parser for the commandline interface.
+     * @since 0.1
      */
     final class ForCommands implements Commandline {
 

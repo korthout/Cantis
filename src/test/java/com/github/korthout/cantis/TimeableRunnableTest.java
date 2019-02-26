@@ -78,6 +78,7 @@ public class TimeableRunnableTest {
 
     /**
      * Knows whether its run method has been executed.
+     * @since 0.1
      */
     private static class AssertableRunnable implements Runnable {
 
@@ -98,6 +99,7 @@ public class TimeableRunnableTest {
 
     /**
      * Executes its run method with a delay to make it slow.
+     * @since 0.1
      */
     private static final class SlowRunnable implements Runnable {
 

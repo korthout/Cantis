@@ -77,7 +77,7 @@
         <jacoco-maven-plugin.version>0.8.2</jacoco-maven-plugin.version>
         <airline.version>0.8</airline.version>
         <assertj.version>3.11.1</assertj.version>
-        <cactoos.version>0.38</cactoos.version>
+        <cactoos.version>0.40</cactoos.version>
         <commons-io.version>2.6</commons-io.version>
         <javaparser-core.version>3.9.1</javaparser-core.version>
         <junit.version>4.12</junit.version>

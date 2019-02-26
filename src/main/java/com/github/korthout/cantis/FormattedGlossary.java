@@ -25,7 +25,7 @@ package com.github.korthout.cantis;
 
 import lombok.NonNull;
 import org.cactoos.Text;
-import org.cactoos.text.JoinedText;
+import org.cactoos.text.Joined;
 import org.cactoos.text.TextOf;
 
 /**
@@ -53,7 +53,7 @@ public final class FormattedGlossary implements Formatted {
             .sorted()
             .map(Definition::text)
             // @checkstyle BracketsStructure (3 lines)
-            .reduce((formatted, definition) -> new JoinedText(
+            .reduce((formatted, definition) -> new Joined(
                 new TextOf(System.lineSeparator()),
                 formatted, definition
             )).orElse(new TextOf("No definitions found."));

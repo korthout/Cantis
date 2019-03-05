@@ -160,6 +160,9 @@
                 <version>${maven-compiler-plugin.version}</version>
                 <configuration>
                     <release>${jdk.version}</release>
+                    <compilerArgs>
+                        <arg>-Werror</arg>
+                    </compilerArgs>
                 </configuration>
             </plugin>
 

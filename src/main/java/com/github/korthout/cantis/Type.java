@@ -68,7 +68,7 @@ public interface Type {
         /**
          * The documented part of the type.
          */
-        private final NodeWithJavadoc<TypeDeclaration> documented;
+        private final NodeWithJavadoc<? extends TypeDeclaration<?>> documented;
 
         /**
          * The named part of the type.
@@ -83,7 +83,7 @@ public interface Type {
          */
         public TypeFromJavaparser(
             final @NonNull NodeWithAnnotations note,
-            final @NonNull NodeWithJavadoc<TypeDeclaration> doc,
+            final @NonNull NodeWithJavadoc<? extends TypeDeclaration<?>> doc,
             final @NonNull NodeWithSimpleName name
         ) {
             this.annotated = note;
@@ -95,7 +95,7 @@ public interface Type {
          * Constructor.
          * @param declaration This type's declaration
          */
-        public TypeFromJavaparser(final TypeDeclaration declaration) {
+        public TypeFromJavaparser(final TypeDeclaration<?> declaration) {
             this(declaration, declaration, declaration);
         }
 

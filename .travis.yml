@@ -4,11 +4,12 @@ jdk:
   - openjdk11
 
 script:
-  - mvn clean install -Psonar
+  - mvn clean package sonar:sonar
 
 cache:
   directories:
     - '$HOME/.m2/repository'
+    - '$HOME/.sonar/cache'
 
 addons:
   sonarcloud:

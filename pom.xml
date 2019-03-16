@@ -162,6 +162,7 @@
                 <configuration>
                     <release>${jdk.version}</release>
                     <compilerArgs>
+                        <arg>-Werror</arg>
                         <arg>-XDcompilePolicy=simple</arg>
                         <arg>-Xplugin:ErrorProne</arg>
                     </compilerArgs>

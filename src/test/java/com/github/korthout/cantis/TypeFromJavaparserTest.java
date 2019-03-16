@@ -138,7 +138,7 @@ public class TypeFromJavaparserTest {
      */
     @SuppressWarnings("PMD.LinguisticNaming")
     private final class FakeNodeWithAnnotations
-        implements NodeWithAnnotations<Node> {
+        implements NodeWithAnnotations {
 
         @Override
         public NodeList<AnnotationExpr> getAnnotations() {
@@ -164,7 +164,7 @@ public class TypeFromJavaparserTest {
      */
     @SuppressWarnings("PMD.LinguisticNaming")
     private final class FakeNodeWithoutAnnotations
-        implements NodeWithAnnotations<Node> {
+        implements NodeWithAnnotations {
 
         @Override
         public NodeList<AnnotationExpr> getAnnotations() {
@@ -188,7 +188,7 @@ public class TypeFromJavaparserTest {
      */
     @SuppressWarnings("PMD.LinguisticNaming")
     private final class FakeNodeWithJavadoc
-        implements NodeWithJavadoc<TypeDeclaration> {
+        implements NodeWithJavadoc<TypeDeclaration<?>> {
 
         /**
          * The Javadoc description of this fake type.
@@ -220,7 +220,7 @@ public class TypeFromJavaparserTest {
      */
     @SuppressWarnings("PMD.LinguisticNaming")
     private final class FakeNodeWithoutJavadoc
-        implements NodeWithJavadoc<TypeDeclaration> {
+        implements NodeWithJavadoc<TypeDeclaration<?>> {
 
         @Override
         public Optional<Comment> getComment() {

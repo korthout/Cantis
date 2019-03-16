@@ -21,21 +21,47 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package com.github.korthout.cantis;
+package com.github.korthout.cantis.glossary;
 
-import com.github.korthout.cantis.glossary.Definition;
+import com.github.korthout.cantis.Codebase;
+import com.github.korthout.cantis.Glossary;
+import com.github.korthout.cantis.codebase.Type;
 import java.util.stream.Stream;
+import lombok.NonNull;
 
 /**
- * A list of definitions.
- * @since 0.1
+ * A list of definitions in a codebase.
+ * @since 0.1.1
  */
-@Term
-public interface Glossary {
+public final class FromCodebase implements Glossary {
 
     /**
-     * Builds definitions for this glossary.
-     * @return The definitions.
+     * The types from which to build the glossary.
      */
-    Stream<Definition> definitions();
+    private final Stream<Type> types;
+
+    /**
+     * Main Constructor.
+     * @param types The types from which to build the glossary
+     */
+    public FromCodebase(final @NonNull Stream<Type> types) {
+        this.types = types;
+    }
+
+    /**
+     * Constructor.
+     * @param codebase The codebase containing types
+     */
+    public FromCodebase(final Codebase codebase) {
+        this(codebase.types());
+    }
+
+    @Override
+    public Stream<Definition> definitions() {
+        return this.types
+            .filter(Type::hasGlossaryTermAnnotation)
+            .filter(Type::hasJavadoc)
+            .map(Type::definition);
+    }
+
 }

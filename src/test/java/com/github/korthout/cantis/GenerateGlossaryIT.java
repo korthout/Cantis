@@ -24,6 +24,9 @@
 package com.github.korthout.cantis;
 
 import com.github.korthout.cantis.fakes.FakePrintStream;
+import com.github.korthout.cantis.glossary.Definition;
+import com.github.korthout.cantis.glossary.GlossaryPrinter;
+import com.github.korthout.cantis.output.ToPrintStream;
 import java.io.File;
 import java.net.URL;
 import java.util.LinkedList;
@@ -63,7 +66,7 @@ public class GenerateGlossaryIT {
     @Test
     public void testOneClassFile() {
         this.addSourceFile("com/github/korthout/cantis/example/Example.java");
-        new PrintableGlossary(
+        new GlossaryPrinter(
             () -> this.sources,
             new ToPrintStream(this.out)
         ).print();
@@ -83,7 +86,7 @@ public class GenerateGlossaryIT {
     public void testTwoClassFiles() {
         this.addSourceFile("com/github/korthout/cantis/example/Example.java");
         this.addSourceFile("com/github/korthout/cantis/example/Example2.java");
-        new PrintableGlossary(
+        new GlossaryPrinter(
             () -> this.sources,
             new ToPrintStream(this.out)
         ).print();

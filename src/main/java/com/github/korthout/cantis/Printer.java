@@ -23,19 +23,14 @@
  */
 package com.github.korthout.cantis;
 
-import com.github.korthout.cantis.glossary.Definition;
-import java.util.stream.Stream;
-
 /**
- * A list of definitions.
+ * Can be printed to a Destination.
  * @since 0.1
  */
-@Term
-public interface Glossary {
+public interface Printer {
 
     /**
-     * Builds definitions for this glossary.
-     * @return The definitions.
+     * Print it.
      */
-    Stream<Definition> definitions();
+    void print();
 }

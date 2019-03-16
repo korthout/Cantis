@@ -21,21 +21,9 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package com.github.korthout.cantis;
-
-import com.github.korthout.cantis.glossary.Definition;
-import java.util.stream.Stream;
 
 /**
- * A list of definitions.
- * @since 0.1
+ * Contains unit and integration tests for the formatting package.
+ * @since 0.1.1
  */
-@Term
-public interface Glossary {
-
-    /**
-     * Builds definitions for this glossary.
-     * @return The definitions.
-     */
-    Stream<Definition> definitions();
-}
+package com.github.korthout.cantis.formatting;

@@ -21,44 +21,60 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package com.github.korthout.cantis;
+package com.github.korthout.cantis.glossary;
 
-import com.github.korthout.cantis.commandline.SupportedCommands.SupportedCommandFactory;
+import com.github.korthout.cantis.Term;
+import lombok.EqualsAndHashCode;
+import lombok.NonNull;
+import org.cactoos.Text;
+import org.cactoos.text.TextOf;
 
 /**
- * The glossary generator.
- * @since 0.1
+ * A term and its description.
+ * @since 0.1.1
  */
 @Term
-public final class Cantis {
+@EqualsAndHashCode
+public final class Definition implements Comparable<Definition> {
 
     /**
-     * The commandline parser.
+     * The term that is defined.
      */
-    private final Commandline cli;
+    private final String term;
 
     /**
-     * Main Constructor.
+     * The description of the term.
      */
-    public Cantis() {
-        this.cli = new Commandline.ForCommands(
-            new SupportedCommandFactory()
-        );
+    private final String description;
+
+    /**
+     * Constructor.
+     * @param term The term that is defined
+     * @param description The term's description
+     */
+    public Definition(
+        final @NonNull String term,
+        final @NonNull String description
+    ) {
+        this.term = term;
+        this.description = description;
+    }
+
+    @Override
+    public int compareTo(final @NonNull Definition other) {
+        return this.term.compareTo(other.term);
     }
 
     /**
-     * Main entry point of the program.
-     * @param args The commandline arguments
+     * Builds a textual representation of this definition.
+     * @return The definition as {@code Text}
      */
-    public static void main(final String... args) {
-        new Cantis().run(args);
+    public Text text() {
+        return new TextOf(String.format("%s: %s", this.term, this.description));
     }
 
-    /**
-     * Run the command.
-     * @param args The commandline arguments
-     */
-    private void run(final String... args) {
-        this.cli.command(args).run();
+    @Override
+    public String toString() {
+        return this.text().toString();
     }
 }

@@ -21,21 +21,35 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package com.github.korthout.cantis;
+package com.github.korthout.cantis.output;
 
-import com.github.korthout.cantis.glossary.Definition;
-import java.util.stream.Stream;
+import java.io.PrintStream;
+import lombok.NonNull;
+import lombok.SneakyThrows;
+import org.cactoos.Text;
 
 /**
- * A list of definitions.
- * @since 0.1
+ * Writes text lines to a PrintStream.
+ * @since 0.1.1
  */
-@Term
-public interface Glossary {
+public final class ToPrintStream implements Destination {
 
     /**
-     * Builds definitions for this glossary.
-     * @return The definitions.
+     * Output gets written to here.
      */
-    Stream<Definition> definitions();
+    private final PrintStream out;
+
+    /**
+     * Constructor.
+     * @param out The PrintStream to write to
+     */
+    public ToPrintStream(final @NonNull PrintStream out) {
+        this.out = out;
+    }
+
+    @Override
+    @SneakyThrows
+    public void write(final @NonNull Text line) {
+        this.out.println(line.asString());
+    }
 }

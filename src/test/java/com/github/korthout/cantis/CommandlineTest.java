@@ -23,6 +23,7 @@
  */
 package com.github.korthout.cantis;
 
+import com.github.korthout.cantis.commandline.SupportedCommands;
 import io.airlift.airline.Command;
 import io.airlift.airline.Help;
 import io.airlift.airline.ParseArgumentsUnexpectedException;

@@ -21,21 +21,13 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package com.github.korthout.cantis;
-
-import com.github.korthout.cantis.glossary.Definition;
-import java.util.stream.Stream;
 
 /**
- * A list of definitions.
- * @since 0.1
+ * This package contains classes that are responsible for extracting glossary
+ * information from a codebase. Starting with a file representing the root
+ * directory of the codebase, parsing its source files and finally ending with
+ * information about the types in the codebase that will later form the
+ * glossary.
+ * @since 0.1.1
  */
-@Term
-public interface Glossary {
-
-    /**
-     * Builds definitions for this glossary.
-     * @return The definitions.
-     */
-    Stream<Definition> definitions();
-}
+package com.github.korthout.cantis.codebase;

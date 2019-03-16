@@ -23,6 +23,7 @@
  */
 package com.github.korthout.cantis;
 
+import com.github.korthout.cantis.commandline.SupportedCommands;
 import io.airlift.airline.Cli;
 import lombok.NonNull;
 

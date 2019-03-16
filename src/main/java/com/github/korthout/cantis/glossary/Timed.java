@@ -21,21 +21,48 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package com.github.korthout.cantis;
+package com.github.korthout.cantis.glossary;
 
-import com.github.korthout.cantis.glossary.Definition;
-import java.util.stream.Stream;
+import java.time.Duration;
+import java.time.Instant;
+import lombok.NonNull;
 
 /**
- * A list of definitions.
- * @since 0.1
+ * Measures its runtime.
+ * @since 0.1.1
  */
-@Term
-public interface Glossary {
+public interface Timed {
 
     /**
-     * Builds definitions for this glossary.
-     * @return The definitions.
+     * Tells how long it took to run.
+     * @return Duration of runtime
      */
-    Stream<Definition> definitions();
+    Duration runtime();
+
+    /**
+     * Times the execution runtime of a Runnable.
+     * @since 0.1.1
+     */
+    final class TimedRunnable implements Timed {
+
+        /**
+         * The runnable to time.
+         */
+        private final Runnable runnable;
+
+        /**
+         * Constructor.
+         * @param runnable The runnable to time
+         */
+        public TimedRunnable(final @NonNull Runnable runnable) {
+            this.runnable = runnable;
+        }
+
+        @Override
+        public Duration runtime() {
+            final var start = Instant.now();
+            this.runnable.run();
+            return Duration.between(start, Instant.now());
+        }
+    }
 }

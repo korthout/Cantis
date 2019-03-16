@@ -21,21 +21,19 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package com.github.korthout.cantis;
+package com.github.korthout.cantis.output;
 
-import com.github.korthout.cantis.glossary.Definition;
-import java.util.stream.Stream;
+import org.cactoos.Text;
 
 /**
- * A list of definitions.
- * @since 0.1
+ * Somewhere to write output text lines to.
+ * @since 0.1.1
  */
-@Term
-public interface Glossary {
+public interface Destination {
 
     /**
-     * Builds definitions for this glossary.
-     * @return The definitions.
+     * Write a line to the destination.
+     * @param line The line to write
      */
-    Stream<Definition> definitions();
+    void write(Text line);
 }

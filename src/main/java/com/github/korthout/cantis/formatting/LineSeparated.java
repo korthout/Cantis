@@ -21,21 +21,45 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package com.github.korthout.cantis;
+package com.github.korthout.cantis.formatting;
 
+import com.github.korthout.cantis.Formatted;
+import com.github.korthout.cantis.Glossary;
 import com.github.korthout.cantis.glossary.Definition;
-import java.util.stream.Stream;
+import lombok.NonNull;
+import org.cactoos.Text;
+import org.cactoos.text.Joined;
+import org.cactoos.text.TextOf;
 
 /**
- * A list of definitions.
- * @since 0.1
+ * Glossary with a simple line separated formatting.
+ * @since 0.1.1
  */
-@Term
-public interface Glossary {
+public final class LineSeparated implements Formatted {
 
     /**
-     * Builds definitions for this glossary.
-     * @return The definitions.
+     * The glossary to format.
      */
-    Stream<Definition> definitions();
+    private final Glossary glossary;
+
+    /**
+     * Main Constructor.
+     * @param glossary The glossary to format
+     */
+    public LineSeparated(final @NonNull Glossary glossary) {
+        this.glossary = glossary;
+    }
+
+    @Override
+    public Text formatted() {
+        return this.glossary.definitions()
+            .sorted()
+            .map(Definition::text)
+            // @checkstyle BracketsStructure (3 lines)
+            .reduce((formatted, definition) -> new Joined(
+                new TextOf(System.lineSeparator()),
+                formatted, definition
+            )).orElse(new TextOf("No definitions found."));
+    }
+
 }

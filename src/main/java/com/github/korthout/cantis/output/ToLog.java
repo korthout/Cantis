@@ -21,21 +21,35 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package com.github.korthout.cantis;
+package com.github.korthout.cantis.output;
 
-import com.github.korthout.cantis.glossary.Definition;
-import java.util.stream.Stream;
+import lombok.NonNull;
+import lombok.SneakyThrows;
+import org.apache.maven.plugin.logging.Log;
+import org.cactoos.Text;
 
 /**
- * A list of definitions.
- * @since 0.1
+ * Writes text lines to a Maven Log.
+ * @since 0.1.1
  */
-@Term
-public interface Glossary {
+public final class ToLog implements Destination {
 
     /**
-     * Builds definitions for this glossary.
-     * @return The definitions.
+     * Output gets written to here.
      */
-    Stream<Definition> definitions();
+    private final Log log;
+
+    /**
+     * Constructor.
+     * @param log The log to write to
+     */
+    public ToLog(final @NonNull Log log) {
+        this.log = log;
+    }
+
+    @Override
+    @SneakyThrows
+    public void write(final Text line) {
+        this.log.info(line.asString());
+    }
 }

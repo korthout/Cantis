@@ -25,6 +25,7 @@ package com.github.korthout.cantis.output;
 
 import java.io.File;
 import java.io.IOException;
+import org.assertj.core.api.Assertions;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
@@ -48,7 +49,7 @@ public class ToFileTest {
 
     @Test
     public void constructorAllowsEmptyString() {
-        new ToFile("");
+        Assertions.assertThat(new ToFile("")).isNotNull();
     }
 
     @Test(expected = NullPointerException.class)

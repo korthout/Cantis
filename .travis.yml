@@ -4,11 +4,19 @@ jdk:
   - openjdk11
 
 script:
-  - mvn clean install
+  - mvn clean package sonar:sonar
 
 cache:
   directories:
     - '$HOME/.m2/repository'
+    - '$HOME/.sonar/cache'
+
+addons:
+  sonarcloud:
+    organization: "korthout-github"
+
+git:
+  depth: false
 
 after_success:
   - bash <(curl -s https://codecov.io/bash)

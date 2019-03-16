@@ -28,6 +28,7 @@ import java.io.IOException;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Unit tests for {@code ToFile} objects.
@@ -47,7 +48,7 @@ public class ToFileTest {
 
     @Test
     public void constructorAllowsEmptyString() {
-        new ToFile("");
+        assertThat(new ToFile("")).isNotNull();
     }
 
     @Test(expected = NullPointerException.class)

@@ -25,6 +25,7 @@ package com.github.korthout.cantis;
 
 import java.io.File;
 import java.io.IOException;
+import org.assertj.core.api.Assertions;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
@@ -33,6 +34,7 @@ import org.junit.rules.TemporaryFolder;
  * Unit tests for {@code ToFile} objects.
  * @since 0.1
  */
+@SuppressWarnings("PMD.ProhibitPlainJunitAssertionsRule")
 public class ToFileTest {
 
     /**
@@ -47,7 +49,7 @@ public class ToFileTest {
 
     @Test
     public void constructorAllowsEmptyString() {
-        new ToFile("");
+        Assertions.assertThat(new ToFile("")).isNotNull();
     }
 
     @Test(expected = NullPointerException.class)

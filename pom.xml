@@ -79,6 +79,7 @@
         <nexus-staging-maven-plugin.version>1.6.8</nexus-staging-maven-plugin.version>
         <flatten-maven-plugin.version>1.1.0</flatten-maven-plugin.version>
         <jacoco-maven-plugin.version>0.8.2</jacoco-maven-plugin.version>
+        <sonar-maven-plugin.version>3.6.0.1398</sonar-maven-plugin.version>
 
         <!-- Dependency versions -->
         <airline.version>0.8</airline.version>
@@ -300,6 +301,19 @@
                                 </goals>
                             </execution>
                         </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+
+        <profile>
+            <id>sonar</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.sonarsource.scanner.maven</groupId>
+                        <artifactId>sonar-maven-plugin</artifactId>
+                        <version>${sonar-maven-plugin.version}</version>
                     </plugin>
                 </plugins>
             </build>

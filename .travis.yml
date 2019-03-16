@@ -4,11 +4,15 @@ jdk:
   - openjdk11
 
 script:
-  - mvn clean install
+  - mvn clean install -Psonar
 
 cache:
   directories:
     - '$HOME/.m2/repository'
+
+addons:
+  sonarcloud:
+    organization: "korthout-github"
 
 after_success:
   - bash <(curl -s https://codecov.io/bash)

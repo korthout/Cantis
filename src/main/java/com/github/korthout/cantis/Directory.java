@@ -45,6 +45,7 @@ public interface Directory {
 
     /**
      * A directory of source files.
+     * @since 0.1
      */
     final class FromSource implements Directory {
 

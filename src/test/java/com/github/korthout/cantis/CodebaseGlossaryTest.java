@@ -128,6 +128,7 @@ public class CodebaseGlossaryTest {
 
     /**
      * Fake object that acts like a Codebase without any types.
+     * @since 0.1
      */
     private static final class EmptyCodebase implements Codebase {
 
@@ -139,6 +140,7 @@ public class CodebaseGlossaryTest {
 
     /**
      * Fake object that acts like a Type.
+     * @since 0.1.1
      */
     private static final class FakeType implements Type {
 
@@ -179,6 +181,7 @@ public class CodebaseGlossaryTest {
     /**
      * Fake objects that acts like a Type
      * that is not annotated with {@code @Term}.
+     * @since 0.1.1
      */
     private static final class FakeTypeWithoutAnnotation
         implements Type {
@@ -202,6 +205,7 @@ public class CodebaseGlossaryTest {
     /**
      * Fake object that acts like a Type
      * that does not have a JavaDoc description.
+     * @since 0.1.1
      */
     private static final class FakeTypeWithoutJavadoc
         implements Type {

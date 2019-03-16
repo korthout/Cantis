@@ -82,13 +82,13 @@
 
         <!-- Dependency versions -->
         <airline.version>0.8</airline.version>
-        <assertj.version>3.11.1</assertj.version>
-        <cactoos.version>0.38</cactoos.version>
+        <assertj.version>3.12.1</assertj.version>
+        <cactoos.version>0.40</cactoos.version>
         <commons-io.version>2.6</commons-io.version>
         <google-errorprone.version>2.3.3</google-errorprone.version>
-        <javaparser-core.version>3.9.1</javaparser-core.version>
+        <javaparser-core.version>3.13.3</javaparser-core.version>
         <junit.version>4.12</junit.version>
-        <lombok.version>1.18.4</lombok.version>
+        <lombok.version>1.18.6</lombok.version>
 
         <!-- Versioning -->
         <!-- Default when revision is not passed in from the command line -->
@@ -286,7 +286,7 @@
                     <plugin>
                         <groupId>com.qulice</groupId>
                         <artifactId>qulice-maven-plugin</artifactId>
-                        <version>0.18.9</version>
+                        <version>0.18.16</version>
                         <configuration>
                             <license>file:${basedir}/LICENSE.md</license>
                             <excludes>

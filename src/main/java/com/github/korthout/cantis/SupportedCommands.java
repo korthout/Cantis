@@ -50,6 +50,7 @@ public interface SupportedCommands extends CommandFactory<Runnable> {
 
     /**
      * Configuration of supported commands and their construction.
+     * @since 0.1
      */
     final class SupportedCommandFactory implements SupportedCommands {
 

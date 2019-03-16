@@ -57,6 +57,7 @@ public interface Type {
 
     /**
      * Type that is created using the com.github.Javaparser library.
+     * @since 0.1.1
      */
     final class TypeFromJavaparser implements Type {
 

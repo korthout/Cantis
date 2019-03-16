@@ -134,6 +134,7 @@ public class TypeFromJavaparserTest {
 
     /**
      * Node is annotated with @Term.
+     * @since 0.1.1
      */
     @SuppressWarnings("PMD.LinguisticNaming")
     private final class FakeNodeWithAnnotations
@@ -159,6 +160,7 @@ public class TypeFromJavaparserTest {
 
     /**
      * Node is not annotated.
+     * @since 0.1.1
      */
     @SuppressWarnings("PMD.LinguisticNaming")
     private final class FakeNodeWithoutAnnotations
@@ -182,6 +184,7 @@ public class TypeFromJavaparserTest {
 
     /**
      * Node has Javadoc description: Acts as a type with Javadoc.
+     * @since 0.1.1
      */
     @SuppressWarnings("PMD.LinguisticNaming")
     private final class FakeNodeWithJavadoc
@@ -213,6 +216,7 @@ public class TypeFromJavaparserTest {
 
     /**
      * Node does not have a Javadoc description.
+     * @since 0.1.1
      */
     @SuppressWarnings("PMD.LinguisticNaming")
     private final class FakeNodeWithoutJavadoc
@@ -231,6 +235,7 @@ public class TypeFromJavaparserTest {
 
     /**
      * Node has the name 'FakeType'.
+     * @since 0.1.1
      */
     @SuppressWarnings("PMD.LinguisticNaming")
     private final class FakeNodeWithSimpleName implements NodeWithSimpleName {

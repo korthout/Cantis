@@ -297,9 +297,6 @@
                         <version>0.18.16</version>
                         <configuration>
                             <license>file:${basedir}/LICENSE.md</license>
-                            <excludes>
-                                <!--<exclude>findbugs:.*</exclude>-->
-                            </excludes>
                         </configuration>
                         <executions>
                             <execution>

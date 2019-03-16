@@ -15,5 +15,8 @@ addons:
   sonarcloud:
     organization: "korthout-github"
 
+git:
+  depth: false
+
 after_success:
   - bash <(curl -s https://codecov.io/bash)

@@ -25,7 +25,7 @@ package com.github.korthout.cantis.fakes;
 
 import java.io.OutputStream;
 import java.io.PrintStream;
-import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -74,7 +74,7 @@ public final class FakePrintStream extends PrintStream {
          */
         private FakeOutputStream() {
             super();
-            this.written = new LinkedList<>();
+            this.written = new ArrayList<>(10);
             this.line = "";
         }
 

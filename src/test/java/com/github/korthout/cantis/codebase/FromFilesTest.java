@@ -215,7 +215,7 @@ public class FromFilesTest {
      * a specific {@code Definition}.
      * @since 0.1.1
      */
-    private class HasDefinition implements Predicate<Type> {
+    private static final class HasDefinition implements Predicate<Type> {
 
         /**
          * The definition to match the type against.

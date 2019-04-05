@@ -23,43 +23,56 @@
  */
 package com.github.korthout.cantis.formatting;
 
-import com.github.korthout.cantis.Formatted;
 import com.github.korthout.cantis.Glossary;
 import com.github.korthout.cantis.glossary.Definition;
-import lombok.NonNull;
-import org.cactoos.Text;
-import org.cactoos.text.Joined;
-import org.cactoos.text.TextOf;
+import java.util.stream.Stream;
+import org.assertj.core.api.Assertions;
+import org.junit.Test;
 
 /**
- * Glossary with a simple line separated formatting.
+ * Unit tests for {@code Format} objects.
  * @since 0.1.1
  */
-public final class LineSeparated implements Formatted {
+public class FormatTest {
 
-    /**
-     * The glossary to format.
-     */
-    private final Glossary glossary;
-
-    /**
-     * Main Constructor.
-     * @param glossary The glossary to format
-     */
-    public LineSeparated(final @NonNull Glossary glossary) {
-        this.glossary = glossary;
+    @Test
+    public void fromStringDoesNotAllowEmptyString() {
+        Assertions.assertThatThrownBy(() -> Format.fromString(""))
+            .isInstanceOf(IllegalArgumentException.class);
     }
 
-    @Override
-    public Text formatted() {
-        return this.glossary.definitions()
-            .sorted()
-            .map(Definition::text)
-            // @checkstyle BracketsStructure (3 lines)
-            .reduce((formatted, definition) -> new Joined(
-                new TextOf(System.lineSeparator()),
-                formatted, definition
-            )).orElse(new TextOf("No definitions found."));
+    @Test
+    public void fromStringDoesNotAllowUnknownValue() {
+        Assertions.assertThatThrownBy(() -> Format.fromString("unknown"))
+            .isInstanceOf(IllegalArgumentException.class);
     }
 
+    @Test
+    public void fromStringCreatesFormatFromAString() {
+        Assertions.assertThat(Format.fromString("PLAIN"))
+            .isEqualTo(Format.PLAIN);
+    }
+
+    @Test
+    public void fromStringIgnoresCase() {
+        Assertions.assertThat(Format.fromString("pLAIn"))
+            .isEqualTo(Format.PLAIN);
+    }
+
+    @Test
+    public void formatPlainOfGlossaryIsFormattedPlain() {
+        Assertions.assertThat(Format.PLAIN.of(new FakeGlossary()))
+            .isInstanceOf(Plain.class);
+    }
+
+    /**
+     * Fake object that acts like an empty {@code Glossary}.
+     * @since 0.1.1
+     */
+    private static final class FakeGlossary implements Glossary {
+        @Override
+        public Stream<Definition> definitions() {
+            return Stream.empty();
+        }
+    }
 }

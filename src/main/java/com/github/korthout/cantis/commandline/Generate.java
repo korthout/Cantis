@@ -24,6 +24,7 @@
 package com.github.korthout.cantis.commandline;
 
 import com.github.korthout.cantis.codebase.Directory.FromSource;
+import com.github.korthout.cantis.formatting.Format;
 import com.github.korthout.cantis.glossary.GlossaryPrinter;
 import com.github.korthout.cantis.output.ToFile;
 import com.github.korthout.cantis.output.ToPrintStream;
@@ -64,11 +65,23 @@ public final class Generate implements Runnable {
     private String target;
 
     /**
+     * Optional argument: Output format.
+     * Defaults to {@code Format.PLAIN}.
+     */
+    @Option(
+        title = "format",
+        name = {"--format", "-f"},
+        description = "Output format (choose one from: plain)"
+    )
+    private Format format;
+
+    /**
      * Main Constructor.
      */
     Generate() {
         this.source = ".";
         this.target = "";
+        this.format = Format.PLAIN;
     }
 
     @Override
@@ -79,7 +92,8 @@ public final class Generate implements Runnable {
             // @checkstyle AvoidInlineConditionals (3 lines)
             this.target.isBlank()
                 ? new ToPrintStream(System.out)
-                : new ToFile(this.target)
+                : new ToFile(this.target),
+            this.format
         ).print();
     }
 }

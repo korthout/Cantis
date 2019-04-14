@@ -1,0 +1,21 @@
+{
+    "definitions": [{
+        "term": "Cantis",
+        "description": "The glossary generator."
+    }, {
+        "term": "Codebase",
+        "description": "A collection of code that forms a program."
+    }, {
+        "term": "Glossary",
+        "description": "A list of definitions."
+    }, {
+        "term": "Definition",
+        "description": "A term and its description."
+    }, {
+        "term": "Type",
+        "description": "A type in a Java program as declared in a .java file."
+    }, {
+        "term": "Term",
+        "description": "A word of interest."
+    }]
+}

@@ -23,9 +23,7 @@
  */
 package com.github.korthout.cantis.formatting;
 
-import com.github.korthout.cantis.Glossary;
-import com.github.korthout.cantis.glossary.Definition;
-import java.util.stream.Stream;
+import com.github.korthout.cantis.fakes.NoDefinitions;
 import org.assertj.core.api.Assertions;
 import org.junit.Test;
 
@@ -34,6 +32,13 @@ import org.junit.Test;
  * @since 0.1.1
  */
 public class FormatTest {
+
+    @Test
+    @SuppressWarnings("ConstantConditions")
+    public void fromStringDoesNotAllowNull() {
+        Assertions.assertThatThrownBy(() -> Format.fromString(null))
+            .isInstanceOf(NullPointerException.class);
+    }
 
     @Test
     public void fromStringDoesNotAllowEmptyString() {
@@ -60,19 +65,21 @@ public class FormatTest {
     }
 
     @Test
+    public void formatUnknownOfGlossaryIsNotAllowed() {
+        Assertions.assertThatThrownBy(() -> Format.UNKOWN.of(new NoDefinitions()))
+            .isInstanceOf(IllegalArgumentException.class);
+    }
+
+    @Test
     public void formatPlainOfGlossaryIsFormattedPlain() {
-        Assertions.assertThat(Format.PLAIN.of(new FakeGlossary()))
+        Assertions.assertThat(Format.PLAIN.of(new NoDefinitions()))
             .isInstanceOf(Plain.class);
     }
 
-    /**
-     * Fake object that acts like an empty {@code Glossary}.
-     * @since 0.1.1
-     */
-    private static final class FakeGlossary implements Glossary {
-        @Override
-        public Stream<Definition> definitions() {
-            return Stream.empty();
-        }
+    @Test
+    public void formatJsonOfGlossaryIsFormattedJson() {
+        Assertions.assertThat(Format.JSON.of(new NoDefinitions()))
+            .isInstanceOf(Json.class);
     }
+
 }

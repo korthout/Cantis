@@ -21,45 +21,37 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package com.github.korthout.cantis.formatting;
+package com.github.korthout.cantis.fakes;
 
-import com.github.korthout.cantis.Formatted;
 import com.github.korthout.cantis.Glossary;
 import com.github.korthout.cantis.glossary.Definition;
-import lombok.NonNull;
-import org.cactoos.Text;
-import org.cactoos.text.Joined;
-import org.cactoos.text.TextOf;
+import java.util.Arrays;
+import java.util.stream.Stream;
 
 /**
- * Plain text (line separated) formatted glossary.
+ * Fake object that acts like a {@code Glossary} with some predefined
+ * {@code Definitions}.
  * @since 0.1.1
  */
-public final class Plain implements Formatted {
+public final class WithDefinitions implements Glossary {
 
     /**
-     * The glossary to format.
+     * The definitions of this glossary.
      */
-    private final Glossary glossary;
+    @SuppressWarnings("PMD.AvoidFieldNameMatchingMethodName")
+    private final Stream<Definition> definitions;
 
     /**
-     * Main Constructor.
-     * @param glossary The glossary to format
+     * Main constructor.
+     * @param definitions The definitions of this glossary
      */
-    public Plain(final @NonNull Glossary glossary) {
-        this.glossary = glossary;
+    public WithDefinitions(final Definition... definitions) {
+        this.definitions = Arrays.stream(definitions);
     }
 
     @Override
-    public Text formatted() {
-        return this.glossary.definitions()
-            .sorted()
-            .map(Definition::text)
-            // @checkstyle BracketsStructure (3 lines)
-            .reduce((formatted, definition) -> new Joined(
-                new TextOf(System.lineSeparator()),
-                formatted, definition
-            )).orElse(new TextOf("No definitions found."));
+    public Stream<Definition> definitions() {
+        return this.definitions;
     }
-
 }
+

@@ -55,7 +55,7 @@ public final class Generate extends AbstractMojo {
     private String target = "";
 
     /**
-     * Output format: plain
+     * Output format. Defaults to {@code Format.PLAIN}.
      */
     @Parameter(name = "format", defaultValue = "plain")
     private Format format;

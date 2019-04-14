@@ -21,45 +21,19 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package com.github.korthout.cantis.formatting;
+package com.github.korthout.cantis.fakes;
 
-import com.github.korthout.cantis.Formatted;
 import com.github.korthout.cantis.Glossary;
 import com.github.korthout.cantis.glossary.Definition;
-import lombok.NonNull;
-import org.cactoos.Text;
-import org.cactoos.text.Joined;
-import org.cactoos.text.TextOf;
+import java.util.stream.Stream;
 
 /**
- * Plain text (line separated) formatted glossary.
+ * Fake object that acts like an empty {@code Glossary}.
  * @since 0.1.1
  */
-public final class Plain implements Formatted {
-
-    /**
-     * The glossary to format.
-     */
-    private final Glossary glossary;
-
-    /**
-     * Main Constructor.
-     * @param glossary The glossary to format
-     */
-    public Plain(final @NonNull Glossary glossary) {
-        this.glossary = glossary;
-    }
-
+public final class NoDefinitions implements Glossary {
     @Override
-    public Text formatted() {
-        return this.glossary.definitions()
-            .sorted()
-            .map(Definition::text)
-            // @checkstyle BracketsStructure (3 lines)
-            .reduce((formatted, definition) -> new Joined(
-                new TextOf(System.lineSeparator()),
-                formatted, definition
-            )).orElse(new TextOf("No definitions found."));
+    public Stream<Definition> definitions() {
+        return Stream.empty();
     }
-
 }

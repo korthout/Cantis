@@ -71,7 +71,7 @@ public final class Generate implements Runnable {
     @Option(
         title = "format",
         name = {"--format", "-f"},
-        description = "Output format (choose one from: plain)"
+        description = "Output format (options: json, plain; default: plain)"
     )
     private Format format;
 

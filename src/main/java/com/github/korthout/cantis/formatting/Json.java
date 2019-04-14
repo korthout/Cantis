@@ -25,17 +25,17 @@ package com.github.korthout.cantis.formatting;
 
 import com.github.korthout.cantis.Formatted;
 import com.github.korthout.cantis.Glossary;
-import com.github.korthout.cantis.glossary.Definition;
 import lombok.NonNull;
 import org.cactoos.Text;
+import org.cactoos.text.FormattedText;
 import org.cactoos.text.Joined;
 import org.cactoos.text.TextOf;
 
 /**
- * Plain text (line separated) formatted glossary.
+ * JSON formatted glossary.
  * @since 0.1.1
  */
-public final class Plain implements Formatted {
+public final class Json implements Formatted {
 
     /**
      * The glossary to format.
@@ -43,23 +43,42 @@ public final class Plain implements Formatted {
     private final Glossary glossary;
 
     /**
-     * Main Constructor.
+     * Main constructor.
      * @param glossary The glossary to format
      */
-    public Plain(final @NonNull Glossary glossary) {
+    public Json(final @NonNull Glossary glossary) {
         this.glossary = glossary;
     }
 
     @Override
     public Text formatted() {
-        return this.glossary.definitions()
-            .sorted()
-            .map(Definition::text)
-            // @checkstyle BracketsStructure (3 lines)
-            .reduce((formatted, definition) -> new Joined(
-                new TextOf(System.lineSeparator()),
-                formatted, definition
-            )).orElse(new TextOf("No definitions found."));
+        return new FormattedText(
+            new TextOf("{%n    \"definitions\": [%s]%n}"),
+            this.definitions()
+        );
     }
 
+    /**
+     * Formats the definitions value of the glossary.
+     * @return Text object of JSON formatted definitions
+     */
+    private Text definitions() {
+        return this.glossary.definitions()
+            .map(definition -> definition.json("    "))
+            .reduce(Json::join)
+            .orElse(new TextOf(""));
+    }
+
+    /**
+     * Joins a formatted {@code Definition} object to others.
+     * @param formatted The already formatted definition objects
+     * @param definition The definition object to join
+     * @return A new text object with both texts joined
+     */
+    private static Text join(final Text formatted, final Text definition) {
+        return new Joined(
+            new TextOf(", "),
+            formatted, definition
+        );
+    }
 }

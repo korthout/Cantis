@@ -32,12 +32,13 @@ class User {
 
 }
 ```
-Cantis can turn it into: 
+Cantis can turn it into a glossary: 
 ```
 User: A person that uses our software.
 ```
 
-Cantis also generates its own [glossary](glossary.txt).
+Cantis also generates its own [glossary](glossary.txt) and 
+[cantisfile](cantisfile.json) (a json formatted glossary).
 
 ## Install
 In order to use the `@Term` annotation,
@@ -90,7 +91,8 @@ your `pom.xml`.
                 <goal>generate</goal>
             </goals>
             <configuration>
-                <target>glossary.txt</target>
+                <format>json</format>
+                <target>cantisfile.json</target>
             </configuration>
         </execution>
     </executions>
@@ -114,6 +116,7 @@ cantis generate [<options>] [--] [<source>]
     <source>: The root directory of your source code. Defaults to .
     
     Options:
+    -f, --format <format>   Output format (options: json, plain; default: plain)
     -t, --target <target>   Path to output file
 ```
 

@@ -31,10 +31,12 @@ import lombok.NonNull;
 /**
  * All supported output formats.
  * @since 0.1.1
- * @checkstyle JavadocVariable (4 lines)
+ * @checkstyle JavadocVariable (5 lines)
  */
 public enum Format {
-    PLAIN;
+    PLAIN,
+    JSON,
+    UNKOWN;
 
     /**
      * Static factory method for Format objects.
@@ -52,12 +54,15 @@ public enum Format {
      * Builds a formatted glossary.
      * @param glossary The glossary to format
      * @return The formatted glossary
-     * @checkstyle MethodName (3 lines)
+     * @checkstyle MethodName (4 lines)
+     * @checkstyle ReturnCount (3 lines)
      */
-    @SuppressWarnings("PMD.ShortMethodName")
+    @SuppressWarnings({"PMD.ShortMethodName", "PMD.OnlyOneReturn"})
     public Formatted of(final Glossary glossary) {
         if (this == Format.PLAIN) {
             return new Plain(glossary);
+        } else if (this == Format.JSON) {
+            return new Json(glossary);
         }
         throw new IllegalArgumentException("Unsupported format");
     }

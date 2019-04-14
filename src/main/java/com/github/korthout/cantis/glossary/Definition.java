@@ -73,6 +73,24 @@ public final class Definition implements Comparable<Definition> {
         return new TextOf(String.format("%s: %s", this.term, this.description));
     }
 
+    /**
+     * Builds a json representation of this definition.
+     * @param indent String to use as indentation on each line
+     * @return The definition as {@code Text}
+     */
+    public Text json(final String indent) {
+        return new TextOf(
+            String.format(
+                "{%n%s    \"term\": \"%s\",%n%s    \"description\": \"%s\"%n%s}",
+                indent,
+                this.term,
+                indent,
+                this.description,
+                indent
+            )
+        );
+    }
+
     @Override
     public String toString() {
         return this.text().toString();

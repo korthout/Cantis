@@ -26,7 +26,7 @@ package com.github.korthout.cantis.glossary;
 import com.github.korthout.cantis.Printer;
 import com.github.korthout.cantis.codebase.Directory;
 import com.github.korthout.cantis.codebase.FromFiles;
-import com.github.korthout.cantis.formatting.LineSeparated;
+import com.github.korthout.cantis.formatting.Format;
 import com.github.korthout.cantis.output.Destination;
 import java.time.Duration;
 import lombok.NonNull;
@@ -58,19 +58,28 @@ public final class GlossaryPrinter implements Printer {
     private final Destination target;
 
     /**
+     * The format to output the glossary in.
+     */
+    private final Format format;
+
+    /**
      * Main Constructor.
      * @param directory Root directory of the source code
      * @param info Information will be outputted to this destination
      * @param target Formatted glossary will be outputted to this destination
+     * @param format The glossary will be outputted in this format
+     * @checkstyle ParameterNumber (3 lines)
      */
     public GlossaryPrinter(
         final @NonNull Directory directory,
         final @NonNull Destination info,
-        final @NonNull Destination target
+        final @NonNull Destination target,
+        final @NonNull Format format
     ) {
         this.directory = directory;
         this.info = info;
         this.target = target;
+        this.format = format;
     }
 
     /**
@@ -78,9 +87,14 @@ public final class GlossaryPrinter implements Printer {
      * @param directory Root directory of the source code
      * @param output The formatted glossary and information will be outputted
      *  to this destination
+     * @param format The glossary will be outputted in this format
      */
-    public GlossaryPrinter(final Directory directory, final Destination output) {
-        this(directory, output, output);
+    public GlossaryPrinter(
+        final Directory directory,
+        final Destination output,
+        final Format format
+    ) {
+        this(directory, output, output, format);
     }
 
     @Override
@@ -93,7 +107,7 @@ public final class GlossaryPrinter implements Printer {
                         this.directory.files().size()
                     ));
                 this.target.write(
-                    new LineSeparated(
+                    this.format.of(
                         new FromCodebase(
                             new FromFiles(this.directory)
                         )

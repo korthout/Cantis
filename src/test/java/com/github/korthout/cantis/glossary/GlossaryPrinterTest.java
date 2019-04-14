@@ -23,6 +23,7 @@
  */
 package com.github.korthout.cantis.glossary;
 
+import com.github.korthout.cantis.formatting.Format;
 import com.github.korthout.cantis.output.Destination;
 import java.io.File;
 import java.util.LinkedList;
@@ -43,22 +44,33 @@ public class GlossaryPrinterTest {
 
     @Test(expected = NullPointerException.class)
     public void nullIsNotAllowedAsDirectory() {
-        new GlossaryPrinter(null, new FakeDestination());
+        new GlossaryPrinter(null, new FakeDestination(), Format.PLAIN);
     }
 
     @Test(expected = NullPointerException.class)
     public void nullIsNotAllowedAsOutput() {
-        new GlossaryPrinter(() -> new ListOf<File>(), null);
+        new GlossaryPrinter(() -> new ListOf<File>(), null, Format.PLAIN);
     }
 
     @Test(expected = NullPointerException.class)
     public void nullIsNotAllowedAsInfo() {
-        new GlossaryPrinter(() -> new ListOf<File>(), null, new FakeDestination());
+        new GlossaryPrinter(
+            () -> new ListOf<File>(), null, new FakeDestination(), Format.PLAIN
+        );
     }
 
     @Test(expected = NullPointerException.class)
     public void nullIsNotAllowedAsTarget() {
-        new GlossaryPrinter(() -> new ListOf<File>(), new FakeDestination(), null);
+        new GlossaryPrinter(
+            () -> new ListOf<File>(), new FakeDestination(), null, Format.PLAIN
+        );
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void nullIsNotAllowedAsFormat() {
+        new GlossaryPrinter(
+            () -> new ListOf<File>(), new FakeDestination(), null
+        );
     }
 
     @Test
@@ -67,7 +79,8 @@ public class GlossaryPrinterTest {
         new GlossaryPrinter(
             () -> new ListOf<File>(),
             info,
-            new FakeDestination()
+            new FakeDestination(),
+            Format.PLAIN
         ).print();
         Assertions.assertThat(
             info.lines()
@@ -84,7 +97,8 @@ public class GlossaryPrinterTest {
         new GlossaryPrinter(
             () -> new ListOf<File>(),
             new FakeDestination(),
-            destination
+            destination,
+            Format.PLAIN
         ).print();
         Assertions.assertThat(
             destination.lines()
@@ -100,7 +114,8 @@ public class GlossaryPrinterTest {
         new GlossaryPrinter(
             () -> new ListOf<File>(),
             info,
-            new FakeDestination()
+            new FakeDestination(),
+            Format.PLAIN
         ).print();
         Assertions.assertThat(
             info.lines()

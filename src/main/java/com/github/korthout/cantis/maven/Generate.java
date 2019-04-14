@@ -24,6 +24,7 @@
 package com.github.korthout.cantis.maven;
 
 import com.github.korthout.cantis.codebase.Directory.FromSource;
+import com.github.korthout.cantis.formatting.Format;
 import com.github.korthout.cantis.glossary.GlossaryPrinter;
 import com.github.korthout.cantis.output.ToFile;
 import com.github.korthout.cantis.output.ToLog;
@@ -53,6 +54,12 @@ public final class Generate extends AbstractMojo {
     @Parameter(name = "target")
     private String target = "";
 
+    /**
+     * Output format. Defaults to {@code Format.PLAIN}.
+     */
+    @Parameter(name = "format", defaultValue = "plain")
+    private Format format;
+
     @Override
     public void execute() throws MojoExecutionException, MojoFailureException {
         final var log = getLog();
@@ -63,7 +70,8 @@ public final class Generate extends AbstractMojo {
                 // @checkstyle AvoidInlineConditionals (3 lines)
                 this.target.isBlank()
                     ? new ToLog(log)
-                    : new ToFile(this.target)
+                    : new ToFile(this.target),
+                this.format
             ).print();
         } catch (final IllegalArgumentException exception) {
             log.warn(String.format("Directory %s not found.", this.source));

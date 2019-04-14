@@ -31,21 +31,21 @@ import org.cactoos.text.TextOf;
 import org.junit.Test;
 
 /**
- * Unit tests for {@code LineSeparated} objects.
+ * Unit tests for {@code Plain} objects.
  * @since 0.1.1
  */
 @SuppressWarnings("PMD.ProhibitPlainJunitAssertionsRule")
-public class LineSeparatedTest {
+public class PlainTest {
 
     @Test(expected = NullPointerException.class)
     public void constructorDoesNotAllowNull() {
-        new LineSeparated(null);
+        new Plain(null);
     }
 
     @Test
     public void emptyGlossaryCanBeFormatted() {
         Assertions.assertThat(
-            new LineSeparated(
+            new Plain(
                 new EmptyGlossary()
             ).formatted()
         ).isEqualTo(
@@ -56,7 +56,7 @@ public class LineSeparatedTest {
     @Test
     public void glossaryCanBeFormatted() {
         Assertions.assertThat(
-            new LineSeparated(
+            new Plain(
                 new SimpleCodingGlossary()
             ).formatted()
         ).isEqualTo(

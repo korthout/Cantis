@@ -24,6 +24,7 @@
 package com.github.korthout.cantis;
 
 import com.github.korthout.cantis.fakes.FakePrintStream;
+import com.github.korthout.cantis.formatting.Format;
 import com.github.korthout.cantis.glossary.Definition;
 import com.github.korthout.cantis.glossary.GlossaryPrinter;
 import com.github.korthout.cantis.output.ToPrintStream;
@@ -68,7 +69,8 @@ public class GenerateGlossaryIT {
         this.addSourceFile("com/github/korthout/cantis/example/Example.java");
         new GlossaryPrinter(
             () -> this.sources,
-            new ToPrintStream(this.out)
+            new ToPrintStream(this.out),
+            Format.PLAIN
         ).print();
         Assertions.assertThat(
             this.out.lines()
@@ -88,7 +90,8 @@ public class GenerateGlossaryIT {
         this.addSourceFile("com/github/korthout/cantis/example/Example2.java");
         new GlossaryPrinter(
             () -> this.sources,
-            new ToPrintStream(this.out)
+            new ToPrintStream(this.out),
+            Format.PLAIN
         ).print();
         Assertions.assertThat(
             this.out.lines()

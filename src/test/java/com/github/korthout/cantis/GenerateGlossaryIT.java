@@ -30,7 +30,7 @@ import com.github.korthout.cantis.glossary.GlossaryPrinter;
 import com.github.korthout.cantis.output.ToPrintStream;
 import java.io.File;
 import java.net.URL;
-import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.List;
 import lombok.NonNull;
 import org.assertj.core.api.Assertions;
@@ -60,7 +60,7 @@ public class GenerateGlossaryIT {
 
     @Before
     public void initExampleSourceFiles() {
-        this.sources = new LinkedList<>();
+        this.sources = new ArrayList<>(5);
         this.out = new FakePrintStream();
     }
 

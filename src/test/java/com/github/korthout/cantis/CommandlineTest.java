@@ -48,7 +48,7 @@ public class CommandlineTest {
     public void nullIsNotAllowedAsProvidedArgs() {
         new Commandline.ForCommands(
             new CustomCommmands()
-        ).command(null);
+        ).command((String) null);
     }
 
     @Test

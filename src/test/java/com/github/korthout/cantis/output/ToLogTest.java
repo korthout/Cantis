@@ -23,7 +23,7 @@
  */
 package com.github.korthout.cantis.output;
 
-import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.List;
 import org.apache.maven.plugin.logging.SystemStreamLog;
 import org.assertj.core.api.Assertions;
@@ -95,7 +95,7 @@ public class ToLogTest {
      * but keeps track of the logged lines.
      * @since 0.1
      */
-    private final class FakeLog extends SystemStreamLog {
+    private static final class FakeLog extends SystemStreamLog {
 
         /**
          * The lines that were logged.
@@ -104,7 +104,7 @@ public class ToLogTest {
 
         private FakeLog() {
             super();
-            this.logged = new LinkedList<>();
+            this.logged = new ArrayList<>(10);
         }
 
         @Override

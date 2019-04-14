@@ -137,7 +137,7 @@ public class TypeFromJavaparserTest {
      * @since 0.1.1
      */
     @SuppressWarnings("PMD.LinguisticNaming")
-    private final class FakeNodeWithAnnotations
+    private static final class FakeNodeWithAnnotations
         implements NodeWithAnnotations {
 
         @Override
@@ -163,7 +163,7 @@ public class TypeFromJavaparserTest {
      * @since 0.1.1
      */
     @SuppressWarnings("PMD.LinguisticNaming")
-    private final class FakeNodeWithoutAnnotations
+    private static final class FakeNodeWithoutAnnotations
         implements NodeWithAnnotations {
 
         @Override
@@ -187,7 +187,7 @@ public class TypeFromJavaparserTest {
      * @since 0.1.1
      */
     @SuppressWarnings("PMD.LinguisticNaming")
-    private final class FakeNodeWithJavadoc
+    private static final class FakeNodeWithJavadoc
         implements NodeWithJavadoc<TypeDeclaration<?>> {
 
         /**
@@ -219,7 +219,7 @@ public class TypeFromJavaparserTest {
      * @since 0.1.1
      */
     @SuppressWarnings("PMD.LinguisticNaming")
-    private final class FakeNodeWithoutJavadoc
+    private static final class FakeNodeWithoutJavadoc
         implements NodeWithJavadoc<TypeDeclaration<?>> {
 
         @Override
@@ -238,7 +238,8 @@ public class TypeFromJavaparserTest {
      * @since 0.1.1
      */
     @SuppressWarnings("PMD.LinguisticNaming")
-    private final class FakeNodeWithSimpleName implements NodeWithSimpleName {
+    private static final class FakeNodeWithSimpleName
+        implements NodeWithSimpleName {
 
         /**
          * Tha name of this fake node object.

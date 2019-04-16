@@ -58,7 +58,7 @@ public final class Generate extends AbstractMojo {
      * Output format. Defaults to {@code Format.PLAIN}.
      */
     @Parameter(name = "format", defaultValue = "plain")
-    private Format format;
+    private String format;
 
     @Override
     public void execute() throws MojoExecutionException, MojoFailureException {
@@ -71,7 +71,7 @@ public final class Generate extends AbstractMojo {
                 this.target.isBlank()
                     ? new ToLog(log)
                     : new ToFile(this.target),
-                this.format
+                Format.fromString(this.format)
             ).print();
         } catch (final IllegalArgumentException exception) {
             log.warn(String.format("Directory %s not found.", this.source));

@@ -26,7 +26,7 @@ package com.github.korthout.cantis.glossary;
 import com.github.korthout.cantis.formatting.Format;
 import com.github.korthout.cantis.output.Destination;
 import java.io.File;
-import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.List;
 import lombok.NonNull;
 import lombok.SneakyThrows;
@@ -130,12 +130,12 @@ public class GlossaryPrinterTest {
      * that allows to check what lines were written.
      * @since 0.1.1
      */
-    public final class FakeDestination implements Destination {
+    public static final class FakeDestination implements Destination {
 
         /**
          * The lines written to this destination.
          */
-        private final List<String> written = new LinkedList<>();
+        private final List<String> written = new ArrayList<>(10);
 
         @Override
         @SneakyThrows

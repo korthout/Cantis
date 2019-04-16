@@ -29,7 +29,7 @@ import lombok.NonNull;
 
 /**
  * Measures its runtime.
- * @since 0.1.1
+ * @since 0.2
  */
 public interface Timed {
 
@@ -41,7 +41,7 @@ public interface Timed {
 
     /**
      * Times the execution runtime of a Runnable.
-     * @since 0.1.1
+     * @since 0.2
      */
     final class TimedRunnable implements Timed {
 

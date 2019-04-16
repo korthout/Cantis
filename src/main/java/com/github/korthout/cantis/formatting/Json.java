@@ -33,7 +33,7 @@ import org.cactoos.text.TextOf;
 
 /**
  * JSON formatted glossary.
- * @since 0.1.1
+ * @since 0.2
  */
 public final class Json implements Formatted {
 

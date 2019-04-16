@@ -32,7 +32,7 @@ import org.junit.rules.TemporaryFolder;
 
 /**
  * Unit tests for {@code ToFile} objects.
- * @since 0.1.1
+ * @since 0.2
  */
 @SuppressWarnings("PMD.ProhibitPlainJunitAssertionsRule")
 public class ToFileTest {

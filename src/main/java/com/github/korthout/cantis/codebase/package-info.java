@@ -28,6 +28,6 @@
  * directory of the codebase, parsing its source files and finally ending with
  * information about the types in the codebase that will later form the
  * glossary.
- * @since 0.1.1
+ * @since 0.2
  */
 package com.github.korthout.cantis.codebase;

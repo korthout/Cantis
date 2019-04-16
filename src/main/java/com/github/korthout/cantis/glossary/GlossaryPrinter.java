@@ -38,7 +38,7 @@ import org.cactoos.text.FormattedText;
  * <p><b>Note</b>: This class is more procedural than other classes,
  * because it sits at the boundary between the user and the application's
  * internals.</p>
- * @since 0.1.1
+ * @since 0.2
  */
 public final class GlossaryPrinter implements Printer {
 

@@ -25,7 +25,7 @@ package com.github.korthout.cantis;
 
 /**
  * A word of interest.
- * @since 0.1.1
+ * @since 0.2
  */
 @Term
 public @interface Term {

@@ -346,6 +346,15 @@
                                 <goals>
                                     <goal>jar</goal>
                                 </goals>
+                                <configuration>
+                                    <tags>
+                                        <tag>
+                                            <name>checkstyle</name>
+                                            <placement>a</placement>
+                                            <head>checkstyle:</head>
+                                        </tag>
+                                    </tags>
+                                </configuration>
                             </execution>
                         </executions>
                     </plugin>

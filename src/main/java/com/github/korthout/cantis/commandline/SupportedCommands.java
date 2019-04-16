@@ -32,7 +32,7 @@ import org.cactoos.list.ListOf;
 /**
  * Factory for {@link Runnable} commands
  * that can also tell which commands it supports.
- * @since 0.1.1
+ * @since 0.2
  */
 public interface SupportedCommands extends CommandFactory<Runnable> {
 
@@ -50,7 +50,7 @@ public interface SupportedCommands extends CommandFactory<Runnable> {
 
     /**
      * Configuration of supported commands and their construction.
-     * @since 0.1.1
+     * @since 0.2
      */
     final class SupportedCommandFactory implements SupportedCommands {
 

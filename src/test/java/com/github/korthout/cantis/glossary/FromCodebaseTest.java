@@ -33,7 +33,7 @@ import org.junit.Test;
 
 /**
  * Unit tests for {@code FromCodebase} objects.
- * @since 0.1.1
+ * @since 0.2
  */
 @SuppressWarnings("PMD.ProhibitPlainJunitAssertionsRule")
 public class FromCodebaseTest {
@@ -130,7 +130,7 @@ public class FromCodebaseTest {
 
     /**
      * Fake object that acts like a Codebase without any types.
-     * @since 0.1.1
+     * @since 0.2
      */
     private static final class EmptyCodebase implements Codebase {
 
@@ -142,7 +142,7 @@ public class FromCodebaseTest {
 
     /**
      * Fake object that acts like a Type.
-     * @since 0.1.1
+     * @since 0.2
      */
     private static final class FakeType implements Type {
 
@@ -183,7 +183,7 @@ public class FromCodebaseTest {
     /**
      * Fake objects that acts like a Type
      * that is not annotated with {@code @Term}.
-     * @since 0.1.1
+     * @since 0.2
      */
     private static final class FakeTypeWithoutAnnotation
         implements Type {
@@ -207,7 +207,7 @@ public class FromCodebaseTest {
     /**
      * Fake object that acts like a Type
      * that does not have a JavaDoc description.
-     * @since 0.1.1
+     * @since 0.2
      */
     private static final class FakeTypeWithoutJavadoc
         implements Type {

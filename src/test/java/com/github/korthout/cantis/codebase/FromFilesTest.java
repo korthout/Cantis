@@ -37,7 +37,7 @@ import org.junit.rules.TemporaryFolder;
 
 /**
  * Unit tests for {@code FromFiles} objects.
- * @since 0.1.1
+ * @since 0.2
  */
 @SuppressWarnings({
     "PMD.ProhibitPlainJunitAssertionsRule",
@@ -213,7 +213,7 @@ public class FromFilesTest {
     /**
      * Predicate to check whether a {@code Type} has
      * a specific {@code Definition}.
-     * @since 0.1.1
+     * @since 0.2
      */
     private static final class HasDefinition implements Predicate<Type> {
 

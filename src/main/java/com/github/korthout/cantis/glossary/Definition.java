@@ -31,7 +31,7 @@ import org.cactoos.text.TextOf;
 
 /**
  * A term and its description.
- * @since 0.1.1
+ * @since 0.2
  */
 @Term
 @EqualsAndHashCode

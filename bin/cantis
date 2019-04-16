@@ -1,4 +1,3 @@
 #!/bin/sh
-JARFILE=$(dirname $0)/../target/cantis-*-jar-with-dependencies.jar
-#echo 'Executing java -jar' $JARFILE "$@"
+JARFILE=$(dirname $0)/cantis-0.2.jar
 java -jar $JARFILE "$@"

@@ -34,7 +34,7 @@ import io.airlift.airline.Option;
 
 /**
  * Commandline command to generate a glossary from sourcecode.
- * @since 0.1.1
+ * @since 0.2
  */
 @Command(
     name = "generate",

@@ -30,7 +30,7 @@ import org.junit.Test;
 
 /**
  * Unit tests for {@code SupportedCommandFactory} objects.
- * @since 0.1.1
+ * @since 0.2
  */
 @SuppressWarnings("PMD.ProhibitPlainJunitAssertionsRule")
 public class SupportedCommandFactoryTest {

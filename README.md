@@ -50,7 +50,7 @@ Maven:
 <dependency>
     <groupId>com.github.korthout</groupId>
     <artifactId>cantis</artifactId>
-    <version>0.1</version>
+    <version>0.2</version>
 </dependency>
 ```
 
@@ -58,7 +58,7 @@ Gradle:
 
 ```
 dependencies {
-    implementation 'com.github.korthout:cantis:0.1'
+    implementation 'com.github.korthout:cantis:0.2'
 }
 ```
 
@@ -82,7 +82,7 @@ your `pom.xml`.
 <plugin>
     <groupId>com.github.korthout</groupId>
     <artifactId>cantis</artifactId>
-    <version>0.1</version>
+    <version>0.2</version>
     <executions>
         <execution>
             <id>cantis</id>
@@ -124,11 +124,11 @@ You'll need the executable jar. Check
 [releases](https://github.com/korthout/Cantis/releases) for the latest version.
 Download and execute it as any regular jar.
 ```sh
-java -jar cantis-0.1.jar <command> [--] [<arguments>]
+java -jar cantis-0.2.jar <command> [--] [<arguments>]
 ```
 
 **Shorthand usage**
-To use `cantis generate` instead of `java -jar cantis-0.1.jar generate`,
+To use `cantis generate` instead of `java -jar cantis-0.2.jar generate`,
 download the binary from [releases](https://github.com/korthout/Cantis/releases)
 to the same folder and give it execution permissions.
 ```sh

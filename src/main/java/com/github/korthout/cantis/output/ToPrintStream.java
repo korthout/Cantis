@@ -30,7 +30,7 @@ import org.cactoos.Text;
 
 /**
  * Writes text lines to a PrintStream.
- * @since 0.1.1
+ * @since 0.2
  */
 public final class ToPrintStream implements Destination {
 

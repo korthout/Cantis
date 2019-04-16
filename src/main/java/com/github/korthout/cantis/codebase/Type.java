@@ -34,7 +34,7 @@ import lombok.NonNull;
 
 /**
  * A type in a Java program as declared in a .java file.
- * @since 0.1.1
+ * @since 0.2
  */
 @Term
 public interface Type {
@@ -59,7 +59,7 @@ public interface Type {
 
     /**
      * Type that is created using the com.github.Javaparser library.
-     * @since 0.1.1
+     * @since 0.2
      */
     final class TypeFromJavaparser implements Type {
 

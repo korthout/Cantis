@@ -30,7 +30,7 @@ import lombok.NonNull;
 
 /**
  * All supported output formats.
- * @since 0.1.1
+ * @since 0.2
  * @checkstyle JavadocVariable (5 lines)
  */
 public enum Format {

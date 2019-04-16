@@ -33,7 +33,7 @@ import org.cactoos.scalar.SolidScalar;
 
 /**
  * A directory of files.
- * @since 0.1.1
+ * @since 0.2
  */
 public interface Directory {
 
@@ -45,7 +45,7 @@ public interface Directory {
 
     /**
      * A directory of source files.
-     * @since 0.1.1
+     * @since 0.2
      */
     final class FromSource implements Directory {
 

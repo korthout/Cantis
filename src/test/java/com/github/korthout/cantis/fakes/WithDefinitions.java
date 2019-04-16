@@ -31,7 +31,7 @@ import java.util.stream.Stream;
 /**
  * Fake object that acts like a {@code Glossary} with some predefined
  * {@code Definitions}.
- * @since 0.1.1
+ * @since 0.2
  */
 public final class WithDefinitions implements Glossary {
 

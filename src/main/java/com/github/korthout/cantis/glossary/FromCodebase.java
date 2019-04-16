@@ -31,7 +31,7 @@ import lombok.NonNull;
 
 /**
  * A list of definitions in a codebase.
- * @since 0.1.1
+ * @since 0.2
  */
 public final class FromCodebase implements Glossary {
 

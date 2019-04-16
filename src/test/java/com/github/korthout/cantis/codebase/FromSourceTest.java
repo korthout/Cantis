@@ -33,7 +33,7 @@ import org.junit.rules.TemporaryFolder;
 
 /**
  * Unit tests for {@code FromSource} objects.
- * @since 0.1.1
+ * @since 0.2
  */
 public class FromSourceTest {
 

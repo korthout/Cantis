@@ -32,7 +32,7 @@ import org.junit.Test;
 
 /**
  * Unit tests for {@code Json} objects.
- * @since 0.1.1
+ * @since 0.2
  * @checkstyle StringLiteralsConcatenation (51 lines)
  */
 @SuppressWarnings("PMD.AvoidDuplicateLiterals")

@@ -25,6 +25,6 @@
 /**
  * This package contains classes that are responsible for the Cantis Maven
  * plugin.
- * @since 0.1.1
+ * @since 0.2
  */
 package com.github.korthout.cantis.maven;

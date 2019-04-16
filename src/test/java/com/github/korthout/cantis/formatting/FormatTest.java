@@ -29,7 +29,7 @@ import org.junit.Test;
 
 /**
  * Unit tests for {@code Format} objects.
- * @since 0.1.1
+ * @since 0.2
  */
 public class FormatTest {
 

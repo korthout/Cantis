@@ -36,7 +36,7 @@ import org.apache.maven.plugins.annotations.Parameter;
 
 /**
  * Maven Plugin Mojo to generate a glossary for a Java project.
- * @since 0.1.1
+ * @since 0.2
  */
 @Mojo(name = "generate")
 @SuppressWarnings({"PMD.ImmutableField", "PMD.GuardLogStatement"})

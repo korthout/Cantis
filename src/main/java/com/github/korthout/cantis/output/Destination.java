@@ -27,7 +27,7 @@ import org.cactoos.Text;
 
 /**
  * Somewhere to write output text lines to.
- * @since 0.1.1
+ * @since 0.2
  */
 public interface Destination {
 

@@ -32,7 +32,7 @@ import org.junit.Test;
 
 /**
  * Unit tests for {@code Plain} objects.
- * @since 0.1.1
+ * @since 0.2
  */
 @SuppressWarnings("PMD.ProhibitPlainJunitAssertionsRule")
 public class PlainTest {
@@ -71,7 +71,7 @@ public class PlainTest {
     /**
      * Fake object that acts like a {@code Glossary}
      * without any {@code Definitions}.
-     * @since 0.1.1
+     * @since 0.2
      */
     private static final class EmptyGlossary implements Glossary {
 
@@ -84,7 +84,7 @@ public class PlainTest {
     /**
      * Fake object that acts like a {@code Glossary}
      * with 2 {@code Definitions}.
-     * @since 0.1.1
+     * @since 0.2
      */
     private static final class SimpleCodingGlossary implements Glossary {
 

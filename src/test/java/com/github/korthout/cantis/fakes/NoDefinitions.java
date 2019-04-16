@@ -29,7 +29,7 @@ import java.util.stream.Stream;
 
 /**
  * Fake object that acts like an empty {@code Glossary}.
- * @since 0.1.1
+ * @since 0.2
  */
 public final class NoDefinitions implements Glossary {
     @Override

@@ -18,7 +18,9 @@ cache:
   directories:
     - '$HOME/.m2/repository'
     - '$HOME/.sonar/cache'
-    - 'from-java/target'
+    - 'from-java/target/classes'
+    - 'from-java/target/test-classes'
+    - 'from-java/target/jacoco-ut/jacoco.xml'
 
 addons:
   sonarcloud:

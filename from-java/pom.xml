@@ -253,13 +253,6 @@
                 </executions>
             </plugin>
 
-            <!-- Scan codebase with sonar -->
-            <plugin>
-                <groupId>org.sonarsource.scanner.maven</groupId>
-                <artifactId>sonar-maven-plugin</artifactId>
-                <version>${sonar-maven-plugin.version}</version>
-            </plugin>
-
             <!-- Perform code coverage analysis -->
             <plugin>
                 <groupId>org.jacoco</groupId>

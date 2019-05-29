@@ -2,25 +2,16 @@ dist: xenial
 
 jobs:
   include:
-    - stage: 'Build packages'
-      name: 'from-java'
+    - name: 'from-java'
       language: java
       jdk: openjdk11
       before_script: cd from-java
-      script: mvn clean package
-
-    - stage: 'Quality checks'
-      name: 'Sonarcloud'
-      language: java
-      script: sonar-scanner
+      script: mvn clean package sonar:sonar
 
 cache:
   directories:
     - '$HOME/.m2/repository'
     - '$HOME/.sonar/cache'
-    - 'from-java/target/classes'
-    - 'from-java/target/test-classes'
-    - 'from-java/target/jacoco-ut/jacoco.xml'
 
 addons:
   sonarcloud:

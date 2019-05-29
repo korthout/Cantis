@@ -6,7 +6,7 @@ jobs:
       language: java
       jdk: openjdk11
       before_script: cd from-java
-      script: mvn clean package sonar:sonar
+      script: mvn clean package
 
 cache:
   directories:

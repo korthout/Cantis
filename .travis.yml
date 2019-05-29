@@ -1,10 +1,16 @@
-language: java
+dist: xenial
 
-jdk:
-  - openjdk11
+jobs:
+  include:
+    - name: 'Cantis from-java'
+      language: java
+      jdk: openjdk11
+      before_script: cd from-java
+      script: mvn clean package sonar:sonar
 
-script:
-  - mvn clean package sonar:sonar
+    - name: 'Test job'
+      language: generic
+      script: echo 'hello world'
 
 cache:
   directories:

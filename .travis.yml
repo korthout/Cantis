@@ -3,14 +3,14 @@ dist: xenial
 jobs:
   include:
     - stage: 'Build packages'
-    - name: 'from-java'
+      name: 'from-java'
       language: java
       jdk: openjdk11
       before_script: cd from-java
       script: mvn clean package
 
     - stage: 'Quality checks'
-    - name: 'Sonarcloud'
+      name: 'Sonarcloud'
       language: java
       script: sonar-scanner
 

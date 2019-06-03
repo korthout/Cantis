@@ -294,7 +294,7 @@
                     <plugin>
                         <groupId>com.qulice</groupId>
                         <artifactId>qulice-maven-plugin</artifactId>
-                        <version>0.18.16</version>
+                        <version>0.18.19</version>
                         <configuration>
                             <license>file:${basedir}/LICENSE.md</license>
                         </configuration>

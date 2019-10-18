@@ -1,10 +1,12 @@
-language: java
+dist: xenial
 
-jdk:
-  - openjdk11
-
-script:
-  - mvn clean package sonar:sonar
+jobs:
+  include:
+    - name: 'from-java'
+      language: java
+      jdk: openjdk11
+      before_script: cd from-java
+      script: mvn clean verify package
 
 cache:
   directories:

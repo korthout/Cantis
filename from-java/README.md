@@ -1,4 +1,4 @@
-# Cantis
+# From Java: a cantisfile extractor
 [![EO principles respected here](http://www.elegantobjects.org/badge.svg)](http://www.elegantobjects.org) 
 
 [![Build Status](https://api.travis-ci.org/korthout/Cantis.svg?branch=master)](https://travis-ci.org/korthout/Cantis)
@@ -17,7 +17,7 @@ between co-workers (e.g. developers, managers, sales, customer heroes and so on)
 
 It also may give developers an extra nudge to **document classes** with care. 
 
-Lastly, Elegant Object Principles were applied, to **learn more** about true 
+Lastly, Elegant Object Principles are applied, to **learn more** about "true" 
 Object-Oriented Programming and how Functional Programming can complement OOP.
 Hopefully this can lead to meaningful discussions about its applications.
 

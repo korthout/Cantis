@@ -66,7 +66,7 @@ public class GenerateGlossaryIT {
 
     @Test
     public void testOneClassFile() {
-        this.addSourceFile("com/github/korthout/cantis/cantisfile_from_java/example/Example.java");
+        this.addSourceFile("com/github/korthout/cantis/from_java/example/Example.java");
         new GlossaryPrinter(
             () -> this.sources,
             new ToPrintStream(this.out),
@@ -86,8 +86,8 @@ public class GenerateGlossaryIT {
     @Test
     @SuppressWarnings("PMD.JUnitAssertionsShouldIncludeMessage")
     public void testTwoClassFiles() {
-        this.addSourceFile("com/github/korthout/cantis/cantisfile_from_java/example/Example.java");
-        this.addSourceFile("com/github/korthout/cantis/cantisfile_from_java/example/Example2.java");
+        this.addSourceFile("com/github/korthout/cantis/from_java/example/Example.java");
+        this.addSourceFile("com/github/korthout/cantis/from_java/example/Example2.java");
         new GlossaryPrinter(
             () -> this.sources,
             new ToPrintStream(this.out),

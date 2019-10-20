@@ -41,11 +41,12 @@ From-java can turn it into a glossary:
 User: A person that uses our software.
 ```
 
-Cantis from-java also generates its own [glossary](glossary.txt) and 
-[cantisfile.json](cantisfile.json).
+Cantis from-java also generates its own [glossary](from-java/glossary.txt) and 
+[cantisfile.json](from-java/cantisfile.json) (a json formatted glossary).
 
 ## Install and usage
-Take a look at the [README](from-java/README.md) of the from-java extractor.
+Take a look at the [README](from-java/README.md#install) of the from-java
+extractor.
 
 ## Cantisfile
 Cantis is being rebuild to become a set of tools build around the `cantisfile`.

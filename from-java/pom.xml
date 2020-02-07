@@ -89,7 +89,7 @@
         <google-errorprone.version>2.3.3</google-errorprone.version>
         <javaparser-core.version>3.15.1</javaparser-core.version>
         <junit.version>4.12</junit.version>
-        <lombok.version>1.18.10</lombok.version>
+        <lombok.version>1.18.12</lombok.version>
 
         <!-- Versioning -->
         <!-- Default when revision is not passed in from the command line -->

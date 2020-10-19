@@ -87,7 +87,7 @@
         <cactoos.version>0.40</cactoos.version>
         <commons-io.version>2.6</commons-io.version>
         <google-errorprone.version>2.3.3</google-errorprone.version>
-        <javaparser-core.version>3.15.1</javaparser-core.version>
+        <javaparser-core.version>3.16.2</javaparser-core.version>
         <junit.version>4.12</junit.version>
         <lombok.version>1.18.10</lombok.version>
 

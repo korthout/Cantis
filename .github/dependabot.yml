@@ -1,0 +1,23 @@
+version: 2
+updates:
+- package-ecosystem: maven
+  directory: "/from-java"
+  schedule:
+    interval: daily
+    time: "04:00"
+  open-pull-requests-limit: 10
+  ignore:
+  - dependency-name: com.github.javaparser:javaparser-core
+    versions:
+    - 3.18.0
+    - 3.19.0
+    - 3.20.0
+  - dependency-name: org.projectlombok:lombok
+    versions:
+    - 1.18.18
+  - dependency-name: org.codehaus.mojo:flatten-maven-plugin
+    versions:
+    - 1.2.5
+  - dependency-name: org.apache.maven:maven-plugin-api
+    versions:
+    - 3.6.3
